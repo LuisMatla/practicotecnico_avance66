@@ -1,0 +1,8 @@
+rasa>=3.0.0
+rasa-sdk>=3.0.0
+requests>=2.31.0
+rapidfuzz>=3.6.2
+openai>=1.30.0
+
+# Sanic y PyYAML vienen como dependencias de Rasa (p. ej. sanic>=21.12,<21.13).
+# No fijarlos aquí: sanic>=22 y PyYAML>=6 chocan con el resolver de pip al instalar rasa.

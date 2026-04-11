@@ -1,0 +1,283 @@
+/* modal de alta y edicion de usuarios en admin. */
+/* colores: src/estilos/colores.css */
+
+/* capa semitransparente a pantalla completa sobre el contenido. */
+.formulario-usuario-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+/* tarjeta modal con el formulario de usuario. */
+.formulario-usuario-container {
+  background: var(--blanco);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+/* animacion de entrada del modal. */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* cabecera del modal con titulo y cerrar. */
+.formulario-usuario-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  border-bottom: 1px solid var(--gris-borde);
+  background: var(--gris-fondo);
+  border-radius: 16px 16px 0 0;
+}
+
+/* titulo del modal de usuario. */
+.formulario-usuario-header h2 {
+  margin: 0;
+  color: var(--azul-principal);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* boton circular para cerrar el modal. */
+.cerrar-formulario-boton {
+  background: var(--rojo-peligro);
+  color: var(--blanco);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cerrar-formulario-boton:hover {
+  background: var(--rojo-intenso);
+  transform: scale(1.1);
+}
+
+/* cuerpo del formulario y rejilla de campos. */
+.formulario-usuario-form {
+  padding: 2rem;
+}
+
+.formulario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* grupo de campo con etiqueta e input. */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: var(--gris-oscuro);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.75rem;
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: var(--blanco);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--azul-principal);
+  box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+  background: var(--gris-fondo);
+  cursor: not-allowed;
+}
+
+.form-group input.error {
+  border-color: var(--rojo-peligro);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* mensaje de validacion bajo el campo. */
+.error-text {
+  color: var(--rojo-peligro);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* fila de checkbox a ancho completo en la rejilla. */
+.checkbox-group {
+  grid-column: 1 / -1;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+
+.checkbox-text {
+  color: var(--gris-oscuro);
+  font-weight: 500;
+}
+
+/* barra de botones cancelar y guardar. */
+.formulario-usuario-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gris-borde);
+}
+
+.cancelar-boton {
+  background: transparent;
+  color: var(--gris-claro);
+  border: 2px solid var(--gris-borde);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancelar-boton:hover:not(:disabled) {
+  background: var(--gris-fondo);
+  border-color: var(--gris-claro);
+  color: var(--gris-oscuro);
+}
+
+.guardar-boton {
+  background: linear-gradient(135deg, var(--azul-principal), var(--verde-principal));
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.guardar-boton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.guardar-boton:disabled,
+.cancelar-boton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* indicador de carga en el boton guardar. */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--blanco);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* rotacion del indicador de carga. */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ajustes en pantallas estrechas. */
+@media (max-width: 768px) {
+  .formulario-usuario-overlay {
+    padding: 1rem;
+  }
+  
+  .formulario-usuario-container {
+    max-height: 95vh;
+  }
+  
+  .formulario-usuario-header {
+    padding: 1.5rem;
+  }
+  
+  .formulario-usuario-form {
+    padding: 1.5rem;
+  }
+  
+  .formulario-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .formulario-usuario-actions {
+    flex-direction: column;
+  }
+  
+  .cancelar-boton,
+  .guardar-boton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .formulario-usuario-overlay {
+    padding: 0.5rem;
+  }
+  
+  .formulario-usuario-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .formulario-usuario-form {
+    padding: 1rem;
+  }
+}
+

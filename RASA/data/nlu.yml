@@ -1,0 +1,2000 @@
+version: "3.1"
+
+nlu:
+- intent: saludo
+  examples: |
+    - hola
+    - hola, ¿qué tal?
+    - buenos días
+    - buenas tardes
+    - buenas noches
+    - buen día
+    - saludos
+    - hola, buen día
+    - hola, buenas
+    - qué tal
+    - hola a todos
+    - hey, ¿qué tal?
+    - ¡hola!
+    - un saludo
+    - muy buenos días
+    - muy buenas tardes
+    - muy buenas noches
+    - ¡hey!
+    - mucho gusto
+    - ¡buenas!
+    - hola por aquí
+    - estoy saludando
+    - quiero saludar
+    - mi saludo
+    - hola, Bit
+    - Bit, hola
+    - quiero iniciar la conversación
+    - hola, mi bot amigo
+    - soy yo, hola
+    - te saludo
+
+    - aquí estoy
+    - estoy aquí, hola
+    - buen día, Bit
+    - saludos cordiales
+    - ¡hola, asistente!
+    - buenos días a la secretaría
+    - buenas tardes a la FIEE
+    - quiero empezar
+    - hola de mi parte
+    - estoy en línea
+    - hola bot
+    - buenas
+    - saludos, asistente
+    - ¡hola, hola!
+
+- intent: goodbye
+  examples: |
+    - adiós
+    - hasta luego, Bit
+    - nos vemos, Bit
+    - hasta pronto
+    - chao, Bit
+    - hasta la vista
+    - que tengas un buen día, Bit
+    - bye
+    - bye bye
+    - un saludo, Bit
+    - un saludo grande
+    - me despido
+    - me retiro
+    - tengo que irme, Bit
+    - es hora de irme
+    - por ahora es todo
+    - listo, me desconecto
+    - ya terminé
+    - fin de la conversación
+    - cierro la sesión, Bit
+    - ha sido un placer, Bit
+    - un gusto que me hayas ayudado
+    - me voy desconectando
+    - hablamos luego
+    - hablamos pronto
+    - hablamos la próxima semana
+    - estamos en contacto
+    - seguimos en contacto, Bit
+    - gracias, adiós
+    - gracias y hasta pronto
+    - gracias, nos vemos
+    - todo bien, hasta luego
+    - de acuerdo, adiós
+    - es todo por hoy
+    - fue agradable hablar contigo
+    - nos vemos en línea
+    - nos hablamos después
+    - hasta la siguiente
+    - me despido por ahora
+    - listo, ¡a seguir adelante!
+    - descansa 
+    - nos leemos
+    - nos escribimos
+    - ya me tengo que ir
+    - es todo lo que necesitaba
+    - me voy
+    - todo listo, adiós
+    - ¡vuelvo pronto!
+    - aquí te pregunto cualquier cosa
+    - cualquier otra duda, te aviso
+    - te veo después
+    - me desconecto
+    - estoy listo, adiós
+    - te dejo
+    - perfecto, me despido
+    - concluimos la charla
+    - me retiro, hasta luego
+    - hablamos
+    - ¡ánimo!
+    - ¡hasta!
+    - ¡bye Bit!
+    - ¡chau Bit!
+    - ya me voy, Bit
+    - nos vemos luego, Bit
+    - ¡gracias, Bit!
+    - luego te pregunto
+    - ¡te hablo mañana!
+    - nos vemos cuando te necesite
+    - ¡adiosito!
+
+- intent: pregunta_personal
+  examples: |
+    - quien trabaja en la secretaría
+    - ¿quiénes son los empleados de la secretaría?
+    - ¿cuál es el personal de la secretaría?
+    - ¿quién está a cargo de esta oficina?
+    - ¿quién me puede atender aquí?
+    - ¿quién atiende en esta secretaría?
+    - ¿quiénes forman el equipo de la secretaría?
+    - ¿cuál es el equipo de trabajo?
+    - ¿quién es el encargado?
+    - ¿cuáles son los funcionarios de aquí?
+    - ¿podría saber el nombre del personal?
+    - ¿quién gestiona la secretaría?
+    - ¿quiénes son los miembros del personal?
+    - ¿quiénes trabajan en el departamento?
+    - ¿quién está en el equipo?
+    - ¿quiénes brindan servicio en la secretaría?
+    - ¿quién me puede dar información?
+    - ¿qué persona me asiste?
+    - ¿quién se encarga de recibir?
+    - ¿quién es el responsable?
+    - ¿quiénes son los que atienden?
+    - ¿quiénes están disponibles para ayudar?
+    - ¿quién dirige la secretaría?
+    - ¿cuántas personas trabajan en esta área?
+    - ¿me podría decir quién me atiende?
+    - ¿quién es el personal de servicio?
+    - ¿quién está al frente de la secretaría?
+    - ¿quiénes son los empleados?
+
+- intent: ask_for_justificante
+  examples: |
+    - ¿Cómo hago para justificar una ausencia?
+    - ¿Cuál es el proceso para justificar mi inasistencia?
+    - Necesito saber cómo excusar una falta.
+    - ¿Qué pasos debo seguir para justificar una ausencia?
+    - ¿Me pueden indicar cómo presentar un justificante?
+    - Quiero saber el protocolo para justificar mis faltas.
+    - ¿Qué documentos necesito para justificar una inasistencia?
+    - ¿Dónde se tramita la justificación de una falta?
+    - ¿Cuál es la vía para disculpar una falta?
+    - ¿Cómo se legitima una ausencia?
+    - ¿Cuál es el procedimiento de descargo por una falta?
+    - ¿Qué hacer para que mi falta no cuente?
+    - ¿Cómo avalar mi ausencia?
+    - ¿Tienen un formulario para justificar inasistencias?
+    - ¿Con quién debo hablar para justificar una falta?
+    - ¿Cómo puedo obtener la aprobación de mi ausencia?
+    - Quiero dejar constancia de mi motivo de ausencia, ¿cómo lo hago?
+    - ¿Me orientan sobre cómo respaldar mi inasistencia?
+    - ¿Qué se considera un justificativo válido?
+    - ¿Hay un plazo límite para justificar una ausencia?
+    - ¿Cómo subsano mi falta de asistencia?
+    - ¿De qué manera puedo probar mi ausencia justificada?
+    - ¿Cómo valido la razón de mi falta?
+    - ¿Qué trámites se requieren para justificar?
+    - ¿Cómo puedo presentar mi descargo por no asistir?
+    - ¿Me explican cómo formalizar mi justificación?
+    - ¿Qué requisitos tiene un justificativo?
+    - ¿Qué pasa si no justifico mi falta?
+    - ¿Qué información debe llevar la justificación?
+    - ¿Aceptan excusas por correo electrónico?
+    - ¿Qué tipo de pruebas puedo aportar?
+    - ¿Dónde entrego mi documentación para justificar?
+    - ¿Cuál es el tiempo máximo para presentar una justificación?
+    - ¿Cómo justifico si me enfermé y no pude ir?
+    - Necesito justificar mi falta por enfermedad, ¿cómo se hace?
+    - ¿Sirve un certificado médico para justificar?
+    - Si estuve en el hospital, ¿cómo justifico mis faltas?
+    - Me dio gripe, ¿qué hago para justificar mi ausencia?
+    - ¿Cómo se justifica una inasistencia por cita médica?
+    - ¿Un reposo médico justifica la falta?
+    - ¿Qué papeles del médico debo presentar?
+    - Me siento mal, ¿cómo puedo justificar la falta de hoy?
+    - ¿Necesito el justificante del centro de salud?
+    - ¿Qué hago si falto por cuidar a un familiar enfermo?
+    - ¿La baja médica es un justificante válido?
+    - ¿Cómo excuso mi ausencia por problemas de salud?
+    - ¿Debo presentar un justificante médico original?
+    - Falté por una urgencia médica, ¿cómo lo demuestro?
+    - Justificación de ausencia por indisposición, ¿cómo proceder?
+    - ¿La consulta al dentista justifica una falta?
+    - ¿El comprobante de la farmacia me sirve para justificar?
+    - ¿Qué justificante se pide por una operación?
+    - ¿Cómo presentar el alta médica para justificar la inasistencia?
+    - Falté por un evento, ¿cómo justifico mi ausencia?
+    - Si fui a un trámite legal, ¿cómo justifico mi falta?
+    - ¿Cómo justificar la inasistencia por fallecimiento de un familiar?
+    - Tuve que viajar, ¿hay forma de justificar mi falta?
+    - ¿El acta de defunción justifica la falta por luto?
+    - ¿Cómo justifico mi falta por causa de fuerza mayor?
+    - Necesito un día libre por asunto personal, ¿cómo se justifica después?
+    - Si tengo que ir a una citación judicial, ¿cómo justifico?
+    - ¿Un evento deportivo cuenta como falta justificada?
+    - ¿Qué documento presento si falto por motivos personales importantes?
+    - ¿Cómo solicito un permiso que luego se pueda justificar?
+    - Si tengo una mudanza, ¿puedo justificar el día?
+    - ¿El comprobante de un examen de conducir justifica?
+    - ¿Cómo puedo excusar mi ausencia por razones familiares?
+    - ¿Un bautizo/boda familiar justifica la inasistencia?
+    - Justificar falta por motivos de transporte/tráfico, ¿es posible?
+    - ¿Cómo se demuestra una ausencia por desastre natural?
+    - ¿Puedo justificar mi falta por asistencia a un evento oficial?
+    - Si no pude asistir por avería del coche, ¿cómo lo justifico?
+    - ¿Un documento de la embajada justifica mi falta?
+    - ¿Cómo justifico una falta al trabajo?
+    - ¿Qué necesito para justificar la inasistencia a clase?
+    - ¿Cuál es la política para justificar faltas laborales?
+    - ¿Cómo excuso mi ausencia escolar?
+    - Justificación de inasistencia universitaria/escolar, ¿cómo se hace?
+    - ¿El jefe acepta cualquier justificativo?
+    - ¿Cómo le pido a mi profesor que me justifique la falta?
+    - ¿Qué pasa si falto a una materia de la universidad?
+    - ¿Puedo justificar una falta a mi turno de trabajo?
+    - ¿Se puede pedir el justificante de falta en recursos humanos?
+    - Necesito justificar mi inasistencia en el colegio, ¿quién firma?
+    - ¿Las faltas justificadas afectan mis calificaciones/registro laboral?
+    - ¿Cómo hago el descargo de mi ausencia ante la dirección?
+    - ¿Qué modelo de carta uso para justificar una falta al centro educativo?
+    - ¿Hay alguna sanción por faltas no justificadas en la empresa?
+    - ¿Cómo justifico mi ausencia en el centro de estudios?
+    - Pregunta sobre justificación de inasistencia en la planilla de asistencia.
+    - ¿Qué validez tienen los justificantes para la escuela?
+    - Si falto a una reunión de trabajo, ¿cómo presento mi justificación?
+    - ¿Qué documentos debo entregar en la secretaría académica para justificar?
+    - ¿A quién envío el mail para justificar mi ausencia laboral?
+    - Quiero justificar una falta por la mañana, ¿es diferente el proceso?
+    - ¿Los padres/tutores pueden justificar la falta?
+    - ¿Debo avisar antes de mi ausencia para que se considere justificada?
+    - ¿Cómo queda registrada una falta que presento justificación?
+
+- intent: ask_for_localizacion
+  examples: |
+    - ¿Dónde se encuentra la secretaría?
+    - ¿Dónde está la secretaría?
+    - ¿Dónde se encuentra la secretaría de la FIEE?
+    - ¿Dónde está la secretaría de la FIEE?
+    - ¿Cómo llego a la secretaría?
+    - ¿Cómo llego a la secretaría de la FIEE?
+    - ¿Podrías decirme la ubicación de la secretaría?
+    - ¿Cuál es la dirección de la secretaría?
+    - ¿Dónde queda la oficina de secretaría?
+    - ¿Me indican la localización de la secretaría?
+    - ¿Cuál es el punto exacto de la secretaría?
+    - ¿Cuál es el sitio de la secretaría?
+    - ¿Hacia dónde me dirijo para encontrar la secretaría?
+    - ¿Qué camino tomo para ir a la secretaría?
+    - ¿Podrían orientarme para llegar a la secretaría?
+    - ¿En qué parte del edificio está la secretaría?
+    - ¿Me dan las indicaciones para la secretaría?
+    - ¿Cómo accedo a la secretaría?
+    - ¿Dónde localizo la secretaría?
+    - ¿A qué lugar debo ir para ir a la secretaría?
+    - ¿Cómo puedo llegar a la secretaría de la FIEE?
+    - ¿Dónde ubico la secretaría de la FIEE?
+    - ¿Podrías darme la localización de la secretaría de la FIEE?
+    - ¿Cuál es el emplazamiento de la secretaría de la FIEE?
+    - ¿Dónde está situada la secretaría de la FIEE?
+    - ¿A qué oficina debo dirigirme?
+    - ¿Cuál es el local de la secretaría?
+    - ¿Me pueden guiar a la secretaría?
+    - ¿Cómo hago para llegar a la secretaría?
+    - ¿Cuál es la ruta para la secretaría?
+    - ¿Dónde puedo encontrar la oficina de secretaría?
+    - ¿Qué piso ocupa la secretaría?
+    - ¿En qué ala está la secretaría?
+    - ¿Me dicen cómo llegar a la secretaría de FIEE?
+    - Necesito la ubicación de la secretaría.
+    - Busco la secretaría, ¿dónde está?
+    - ¿Cuál es el paradero de la secretaría?
+    - ¿Me facilitan la ubicación de la secretaría?
+    - ¿Dónde es el asiento de la secretaría?
+    - ¿Podrían indicarme el recinto de la secretaría?
+    - ¿Hacia dónde se encuentra la secretaría?
+    - ¿En qué área está ubicada la secretaría?
+    - ¿La secretaría está en la planta baja o alta?
+    - ¿A dónde voy para encontrar la secretaría?
+    - ¿Dónde tengo que ir para ir a la secretaría?
+    - ¿Podrían darme coordenadas para llegar a la secretaría?
+    - ¿Dónde está la secretaría exactamente?
+    - ¿Podría ubicarme la secretaría en el plano?
+    - ¿Cuál es el sector de la secretaría?
+    - ¿Por qué pasillo llego a la secretaría?
+    - ¿Está al principio o al final del pasillo la secretaría?
+    - Necesito ir a la secretaría, ¿por dónde es?
+    - ¿La secretaría está cerca o lejos?
+    - ¿Me pueden orientar al departamento de secretaría?
+    - ¿En qué edificio está la secretaría?
+    - ¿La secretaría está pasando el auditorio?
+    - ¿Cuál es la referencia más cercana a la secretaría?
+    - ¿Cómo me muevo para llegar a la secretaría?
+    - ¿A dónde se accede para ir a la secretaría de la FIEE?
+    - ¿Cuál es el puesto de la secretaría de la FIEE?
+    - ¿Dónde localizo la oficina principal de la FIEE?
+    - ¿Cómo llego a la secretaría, por favor?
+    - ¿Me señalan dónde está la secretaría?
+    - ¿Podrían describir cómo llegar a la secretaría?
+    - Busco la secretaría de la facultad, ¿dónde está?
+    - ¿A qué altura se encuentra la secretaría?
+    - ¿Cuál es el destino de mi recorrido para llegar a secretaría?
+    - ¿Qué tan accesible es la secretaría?
+    - ¿Me pueden decir dónde está el departamento de secretaría?
+    - ¿Necesito subir o bajar para llegar a la secretaría?
+    - ¿La secretaría está a la izquierda o a la derecha?
+    - ¿Dónde se sitúa la secretaría de la FIEE?
+    - ¿Cuál es el sitio donde está la secretaría?
+    - ¿Hacia dónde me encamino para ir a secretaría?
+    - ¿Puedo pasar directamente a la secretaría?
+    - ¿Cuál es el itinerario para llegar a la secretaría?
+    - ¿En qué punto encuentro a la secretaría?
+    - ¿Hay alguna sala específica para la secretaría?
+    - ¿Me pueden indicar el edificio donde opera la secretaría?
+    - ¿La secretaría está en este sector?
+    - ¿A qué zona corresponde la secretaría?
+    - ¿Cuál es la referencia para llegar a la secretaría de FIEE?
+    - ¿En qué dirección está la secretaría?
+    - ¿La secretaría se encuentra después de...?
+    - ¿Me puedes decir la ubicación de la secretaría de la FIEE?
+    - ¿La oficina de secretaría queda aquí cerca?
+    - ¿Cómo encuentro la secretaría?
+    - Necesito las indicaciones para la secretaría.
+    - ¿Cuál es el lugar exacto de la secretaría de la FIEE?
+
+- intent: ask_for_avisos
+  examples: |
+    - Donde veo los avisos de la universidad
+    - Donde veo los avisos de la facultad
+    - Donde veo los avisos de la secretaría
+    - Donde veo los avisos de la secretaría académica
+    - Donde veo los avisos de la secretaría académica de la FIEE
+    - ¿Cómo me entero de los avisos y circulares de la secretaría académica de la FIEE?
+    - ¿Cuál es el procedimiento para recibir las circulares de la secretaría académica de la FIEE?
+    - ¿Dónde puedo ver los comunicados de la secretaría académica de la FIEE?
+    - ¿Qué medio utiliza la secretaría académica de la FIEE para difundir sus avisos?
+    - ¿De qué manera me mantengo informado de las novedades de la secretaría académica FIEE?
+    - ¿Me podrían indicar cómo acceder a los avisos y circulares de la secretaría académica FIEE?
+    - Necesito saber la vía para consultar las circulares de la secretaría académica de la FIEE.
+    - ¿Hay algún portal en línea para los comunicados de la secretaría académica FIEE?
+    - ¿Cuál es la fuente de información oficial para los avisos de la FIEE?
+    - Deseo informarme sobre los avisos de la Secretaría Académica FIEE, ¿cómo los obtengo?
+    - ¿Cuál es el canal de difusión de circulares de la secretaría académica de la FIEE?
+    - ¿Cómo se publican los avisos oficiales de la secretaría académica FIEE?
+    - Busco los comunicados recientes de la secretaría académica de la FIEE, ¿dónde los encuentro?
+    - ¿Existe una lista de correo o boletín para avisos de la secretaría académica FIEE?
+    - ¿Podría explicarme el mecanismo de notificación de circulares de la FIEE (Secretaría Académica)?
+    - ¿Qué plataforma usa la secretaría académica FIEE para sus avisos?
+    - ¿Cómo puedo mantenerme al tanto de las circulares emitidas por la secretaría académica de la FIEE?
+    - ¿Hay una sección web específica para los avisos de la secretaría académica FIEE?
+    - ¿Cuál es el enlace directo a las circulares de la secretaría académica FIEE?
+    - ¿Debo suscribirme a algún servicio para recibir los avisos de la secretaría académica FIEE?
+    - ¿Qué tengo que hacer para saber de los avisos y circulares de la FIEE (Secretaría Académica)?
+    - ¿Me pueden decir dónde reviso los comunicados de la secretaría académica FIEE?
+    - Necesito información sobre los avisos de la Secretaría Académica FIEE, ¿dónde la busco?
+    - Indicar el modo de acceso a las circulares de la secretaría académica FIEE.
+    - ¿Cómo se entera un estudiante de nuevo ingreso de los avisos de la secretaría académica FIEE?
+    - ¿Cuál es la página web para consultar los avisos de la secretaría académica de la FIEE?
+    - Busco el repositorio de circulares de la FIEE Secretaría Académica.
+    - ¿Hay un archivo digital de avisos y circulares de la secretaría académica FIEE?
+    - ¿Con qué frecuencia se publican los avisos de la secretaría académica FIEE y en qué lugar?
+    - ¿La secretaría académica de la FIEE notifica sus circulares por correo institucional?
+    - ¿Dónde se anuncian las circulares oficiales de la secretaría académica FIEE?
+    - ¿Qué pasos sigo para enterarme de los avisos y circulares de la secretaría académica FIEE?
+    - ¿En qué lugar encuentro los avisos más recientes de la secretaría académica FIEE?
+    - ¿Puedo consultar las circulares antiguas de la secretaría académica de la FIEE?
+    - ¿Cuál es la ruta de navegación para ver los avisos de la FIEE Secretaría Académica?
+    - ¿La secretaría académica FIEE tiene un tablón de anuncios virtual activo?
+    - ¿Cómo puedo verificar la autenticidad de los comunicados oficiales de la secretaría académica de la FIEE?
+    - Me gustaría saber dónde están centralizados los avisos de la FIEE Secretaría Académica.
+    - ¿La secretaría académica FIEE usa redes sociales (ej. Facebook) para difundir circulares?
+    - ¿Hay un teléfono o contacto para preguntar específicamente sobre avisos de la secretaría académica FIEE?
+    - ¿Cuál es la forma más rápida y segura de obtener los avisos de la secretaría académica FIEE?
+    - ¿Cómo me aseguro de no perderme ninguna circular importante de la secretaría académica FIEE?
+    - Quiero saber todo lo que publica la secretaría académica FIEE, ¿a dónde debo dirigirme?
+    - ¿Se publican los avisos de la secretaría académica FIEE en la página principal de la facultad?
+    - ¿La secretaría académica FIEE tiene un calendario fijo para la publicación de circulares?
+    - ¿Cómo me mantengo informado constantemente de los avisos y circulares de la FIEE?
+    - ¿Dónde se alojan los comunicados de la secretaría académica FIEE?
+    - ¿El personal administrativo de la secretaría académica FIEE informa activamente sobre las circulares?
+    - ¿Hay un feed RSS o similar disponible para los avisos de la secretaría académica FIEE?
+    - ¿Se notifica por mensaje de texto (SMS) o mensajería instantánea las circulares de la secretaría académica FIEE?
+    - ¿Qué credenciales o requisitos necesito para acceder a los avisos de la secretaría académica FIEE?
+    - ¿A qué oficina o departamento pregunto por las circulares no encontradas de la secretaría académica FIEE?
+    - ¿Me pueden dar la dirección URL de la sección de avisos de la secretaría académica FIEE?
+    - ¿En qué parte del sitio web de la FIEE se encuentran los comunicados académicos y administrativos?
+    - ¿Cómo sé que un aviso de la secretaría académica FIEE no es falso?
+    - ¿Hay una base de datos o motor de búsqueda de circulares de la secretaría académica FIEE?
+    - ¿Se pueden descargar los avisos y circulares en formato PDF desde el sitio de la secretaría académica FIEE?
+    - ¿Dónde está el archivo histórico de circulares de la secretaría académica FIEE?
+    - ¿Quién es el funcionario responsable de publicar los avisos de la secretaría académica FIEE?
+    - ¿Cuál es el formato o convención de nombres para identificar las circulares de la secretaría académica FIEE?
+    - ¿Hay un grupo de WhatsApp o Telegram oficial para los avisos de la secretaría académica FIEE?
+    - ¿Cómo recibo las actualizaciones y comunicados de la secretaría académica de la FIEE?
+    - ¿La secretaría académica FIEE tiene un "muro" o sección de noticias en su plataforma?
+    - ¿Cómo se catalogan o indexan los avisos de la secretaría académica FIEE?
+    - ¿Qué tipo de información importante suelen contener las circulares de la secretaría académica FIEE?
+    - ¿La secretaría académica FIEE usa la intranet universitaria o un sistema de gestión escolar para sus avisos?
+    - ¿Dónde debo buscar los avisos importantes y urgentes de la secretaría académica FIEE?
+    - ¿Me entero de las circulares de la FIEE a través del sistema de control escolar para alumnos?
+    - ¿La secretaría académica FIEE envía notificaciones automáticas ("push notifications") de sus avisos?
+    - ¿A qué hora del día suelen publicarse o actualizarse los avisos de la secretaría académica FIEE?
+    - ¿Podrían especificar el dominio web donde residen las circulares de la secretaría académica FIEE?
+    - ¿Hay una aplicación móvil o una versión móvil del sitio web para ver los avisos de la secretaría académica FIEE?
+    - ¿Cómo me llega la alerta si hay un nuevo aviso de la secretaría académica FIEE?
+    - ¿Se requiere algún tipo de inicio de sesión o clave para ver los avisos y circulares de la secretaría académica FIEE?
+    - ¿La secretaría académica FIEE también notifica a los profesores o docentes de los avisos?
+    - ¿Qué es lo primero que debo hacer para acceder a los comunicados de la secretaría académica FIEE?
+    - ¿Dónde se listan o enumeran las circulares de la FIEE Secretaría Académica?
+    - ¿Es responsabilidad del estudiante consultar diariamente los avisos de la secretaría académica FIEE?
+    - ¿La secretaría académica FIEE publica un resumen o compilación semanal/mensual de circulares?
+    - ¿Hay un registro oficial y auditable de los avisos de la secretaría académica FIEE?
+    - ¿Cómo se lleva a cabo la distribución de los comunicados de la secretaría académica de la FIEE?
+    - ¿Cuál es el protocolo de publicación de circulares de la FIEE?
+    - ¿Puedo ordenar o filtrar los avisos de la secretaría académica FIEE por tipo de documento?
+    - ¿Hay un código QR o acceso rápido que lleve a la sección de circulares de la secretaría académica FIEE?
+    - ¿Se imprimen los avisos de la secretaría académica FIEE en algún cartel físico dentro de la facultad?
+    - ¿La secretaría académica FIEE usa plataformas como Google Classroom o Moodle para avisos generales?
+    - ¿En qué formato (PDF, HTML, imagen) están disponibles los avisos de la secretaría académica FIEE?
+    - ¿Cómo me llega formalmente la información de la secretaría académica de la FIEE?
+    - ¿Existe un sistema de alerta por correo electrónico para las circulares de la secretaría académica FIEE?
+    - ¿La secretaría académica FIEE archiva los avisos y circulares por ciclo escolar o año?
+    - ¿Puedo recibir los avisos de la secretaría académica FIEE directamente en mi celular por alguna vía?
+    - ¿Qué tengo que hacer para acceder a los avisos y circulares más recientes de la FIEE?
+    - ¿Qué hipervínculos o enlaces son relevantes para los comunicados de la secretaría académica FIEE?
+    - ¿Se requiere ser alumno activo o tener un usuario especial para ver las circulares de la secretaría académica FIEE?
+    - ¿Qué tan seguido actualizan la sección o el listado de avisos de la secretaría académica FIEE?
+    - ¿Dónde puedo encontrar el índice completo de las circulares de la secretaría académica FIEE?
+    - ¿El Decanato o Dirección de la FIEE publica los mismos avisos que la secretaría académica?
+    - ¿Hay un boletín informativo interno que difunda los avisos de la secretaría académica FIEE?
+    - Avisos y circulares de la secretaría académica FIEE: ¿cuál es el sitio web de consulta obligatoria?
+    - ¿Cuál es el punto de referencia único y oficial para los comunicados de la FIEE (Secretaría Académica)?
+
+- intent: ask_for_baja_materia
+  examples: |
+    - ¿El formato para la baja es aquí?
+    - ¿Cómo puedo darme de baja?
+    - ¿En la secretaría pueden atenderme para dar de baja una materia?
+    - ¿Dónde consigo el formulario de baja?
+    - ¿Cuál es el proceso para tramitar una baja?
+    - ¿La secretaría me ayuda con la baja de asignatura?
+    - ¿Tienen aquí la solicitud de baja académica?
+    - ¿Qué debo hacer para solicitar mi baja?
+    - ¿Puedo tramitar la baja de mi materia en la secretaría?
+    - ¿En este lugar se entrega el formato de baja?
+    - ¿Me explican cómo solicitar una baja de forma oficial?
+    - ¿Me asisten en la secretaría para la baja de materias?
+    - ¿Cuáles son los pasos para ejecutar una baja?
+    - ¿Puedo gestionar la baja de la asignatura aquí en la secretaría?
+    - ¿Es este el sitio correcto para pedir la baja?
+    - ¿Me pueden indicar el procedimiento de baja?
+    - ¿A qué oficina me dirijo para dar de baja una materia?
+    - ¿Se maneja el formulario de baja en esta ventanilla?
+    - ¿Podrían orientarme sobre cómo proceder con la baja?
+    - ¿La secretaría académica es la encargada de las bajas de materias?
+    - ¿Es necesario llenar algún formato para la baja?
+    - ¿Qué documentación requiero para tramitar la baja?
+    - ¿Qué dependencia gestiona la baja de una asignatura?
+    - ¿Tienen la hoja de solicitud para la baja temporal/definitiva?
+    - ¿Me dan los requisitos para realizar una baja?
+    - ¿La secretaría resuelve las solicitudes de baja?
+    - ¿Aquí encuentro el impreso para la baja?
+    - ¿Cómo se inicia el trámite de baja?
+    - ¿Debo ir a la secretaría para la baja de una o varias materias?
+    - ¿Este es el punto de atención para el trámite de baja?
+    - ¿Podrían informarme sobre el protocolo de baja?
+    - ¿Cuál es el departamento para dar de baja una experiencia educativa?
+    - ¿Se expide el formato de baja aquí?
+    - ¿Cómo se lleva a cabo el proceso de baja?
+    - ¿Puedo hacer la baja de una materia directamente en la secretaría?
+    - ¿El formato de baja se pide en esta área?
+    - ¿Qué pasos debo seguir para la baja académica?
+    - ¿En la secretaría manejan el tema de las bajas de cursos?
+    - ¿Tienen disponible el documento oficial de baja?
+    - ¿Cuál es la manera de proceder a una baja?
+    - ¿La baja de asignatura se autoriza en esta secretaría?
+    - ¿Se gestiona la baja con este formato?
+    - ¿Necesito cita para iniciar el trámite de baja?
+    - ¿La secretaría lleva el control de las bajas de las asignaturas?
+    - ¿Puedo obtener el formato de baja en línea o solo aquí?
+    - ¿Qué formalidades exige la baja?
+    - ¿El personal de secretaría tiene facultad para procesar una baja de materia?
+    - ¿Se solicita aquí el formato para la baja de inscripción?
+    - ¿Cómo gestiono la baja de un periodo escolar?
+    - ¿Es en esta secretaría donde debo presentar mi solicitud de baja?
+    - ¿La planilla para la baja se encuentra aquí?
+    - ¿Qué trámites debo completar para una baja?
+    - ¿Me orientan en secretaría sobre la baja de una carga académica?
+    - ¿La secretaría académica es la responsable del formulario de baja?
+    - ¿Dónde lleno la papelería para la baja?
+    - ¿El procedimiento de baja comienza en este lugar?
+    - ¿La secretaría está facultada para dar de baja mis créditos?
+    - ¿El formato de baja es descargable desde alguna plataforma?
+    - ¿Me indican la normativa para solicitar una baja?
+    - ¿Los consejeros o secretaría gestionan la baja de la materia?
+    - ¿Este es el lugar para recoger el formato de baja?
+    - ¿Pueden detallarme el proceso de baja de semestre/materia?
+    - ¿La secretaría atiende lo relativo a la baja de asignaturas matriculadas?
+    - ¿Cuál es el requisito principal para la baja?
+    - ¿Cómo me dan de baja de una unidad de aprendizaje?
+    - ¿Debo firmar un formato de baja ante la secretaría?
+    - ¿En qué horario se puede tramitar la baja?
+    - ¿La secretaría me da el visto bueno para la baja de mi materia?
+    - ¿Es este el formulario vigente para la baja?
+    - ¿Me pueden guiar en el proceso de baja?
+    - ¿El área de secretaría es la única que maneja la baja de materias?
+    - ¿Aquí me facilitan la forma para la baja?
+    - ¿Qué ocurre después de solicitar la baja?
+    - ¿La baja de un curso requiere la intervención de la secretaría?
+    - ¿Tienen existencias del formato de baja aquí?
+    - ¿De qué manera se formaliza la baja?
+    - ¿Necesito el aval de la secretaría para la baja de mi materia?
+    - ¿Está disponible el formato de baja en esta ubicación?
+    - ¿Cuál es la instancia para solicitar la baja?
+    - ¿La secretaría tiene la autoridad para aprobar la baja de una asignatura?
+    - ¿El documento de baja se sella en esta oficina?
+    - ¿Qué información se necesita para llenar la baja?
+    - ¿Es con la secretaría académica que se ve la baja de materias?
+    - ¿Dónde entrego el formato de baja diligenciado?
+    - ¿Me indican el instructivo para la baja?
+    - ¿La secretaría me proporciona el justificante de baja de la materia?
+    - ¿Cómo se accede al formato de baja?
+    - ¿A quién debo dirigirme en la secretaría para la baja?
+    - ¿El formato de baja tiene algún costo?
+    - ¿La baja de un módulo se gestiona en la secretaría?
+    - ¿Hay un plazo límite para entregar el formato de baja?
+    - ¿Puedo realizar la baja sin asistir a la secretaría?
+    - ¿Me confirman si este es el formato de baja correcto?
+    - ¿Cuál es el tiempo de respuesta para la baja?
+    - ¿Se necesita la firma de la secretaría para dar de baja la materia?
+    - ¿La secretaría académica es el punto inicial para la baja?
+    - ¿Dónde consulto las fechas límite para la baja de materias?
+    - ¿El formato de baja es digital o físico?
+    - ¿Me pueden ayudar con la baja de inscripción en la secretaría?
+    - ¿Tienen un modelo de formato de baja para revisar?
+    - ¿La baja de un componente curricular se ve con la secretaría?
+    - ¿Aquí me proporcionan el número de folio para el trámite de baja?
+    - ¿Cuál es el documento que certifica la baja?
+
+- intent: ask_for_acr_ingles
+  examples: |
+    - ¿Cómo acredito inglés?
+    - ¿Cómo se acredita inglés?
+    - ¿De qué forma acredito inglés?
+    - ¿De qué forma se acredita inglés?
+    - ¿Cómo lo acredito (el inglés)?
+    - ¿Cómo lo acreditamos (el inglés)?
+    - ¿Cómo me acredito inglés?
+    - ¿Cómo se me acredita inglés?
+    - ¿De qué manera acredito inglés?
+    - ¿De qué manera se acredita inglés?
+    - ¿Cuál es la acreditación de inglés?
+    - ¿Cuál es el modo de acreditar inglés?
+    - ¿Cuál es el sistema para acreditar inglés?
+    - ¿Cómo convalido inglés?
+    - ¿Cómo se convalida inglés?
+    - ¿Cómo valido inglés?
+    - ¿Cómo se valida inglés?
+    - ¿Cómo demuestro inglés?
+    - ¿Cómo se demuestra inglés?
+    - ¿Cómo justifico inglés?
+    - ¿Cómo se justifica inglés?
+    - ¿Cómo compruebo inglés?
+    - ¿Cómo se comprueba inglés?
+    - ¿Cómo certifico inglés?
+    - ¿Cómo se certifica inglés?
+    - ¿Cómo confirmo inglés?
+    - ¿Cómo se confirma inglés?
+    - ¿Cómo avalo inglés?
+    - ¿Cómo se avala inglés?
+    - ¿Cómo obtengo acreditación de inglés?
+    - ¿Cómo se obtiene acreditación de inglés?
+    - ¿Cómo consigo acreditación de inglés?
+    - ¿Cómo se consigue acreditación de inglés?
+    - ¿Cómo adquiero acreditación de inglés?
+    - ¿Cómo se adquiere acreditación de inglés?
+    - ¿Cómo logro acreditar inglés?
+    - ¿Cómo se logra acreditar inglés?
+    - ¿Cómo alcanzo a acreditar inglés?
+    - ¿Cómo se alcanza a acreditar inglés?
+    - ¿Cómo me dan la acreditación de inglés?
+    - ¿Cómo nos dan la acreditación de inglés?
+    - ¿Cómo consigo la validación de inglés?
+    - ¿Cómo se consigue la validación de inglés?
+    - ¿Cómo doy por acreditado inglés?
+    - ¿Cómo se da por acreditado inglés?
+    - ¿Cómo hago para acreditar inglés?
+    - ¿Cómo se hace para acreditar inglés?
+    - ¿Cómo resulto acreditado en inglés?
+    - ¿Cómo se resulta acreditado en inglés?
+    - ¿Cómo hago la acreditación de inglés?
+    - ¿Cómo se hace la acreditación de inglés?
+    - ¿Cómo obtengo el aval de inglés?
+    - ¿Cómo se obtiene el aval de inglés?
+    - ¿Cómo obtengo el certificado de inglés?
+    - ¿Cómo se obtiene el certificado de inglés?
+    - ¿Cómo paso a acreditar inglés?
+    - ¿Cómo se pasa a acreditar inglés?
+    - ¿Cómo cubro el requisito de inglés?
+    - ¿Cómo se cubre el requisito de inglés?
+    - ¿Cómo cumplo el requisito de inglés?
+    - ¿Cómo se cumple el requisito de inglés?
+    - ¿Cómo libero inglés?
+    - ¿Cómo se libera inglés?
+    - ¿Cómo hago válido inglés?
+    - ¿Cómo se hace válido inglés?
+    - ¿Cómo doy por bueno el inglés?
+    - ¿Cómo se da por bueno el inglés?
+    - ¿Cómo me aceptan el inglés?
+    - ¿Cómo se acepta el inglés?
+    - ¿Cómo muestro la acreditación de inglés?
+    - ¿Cómo se muestra la acreditación de inglés?
+    - ¿De qué modo acredito inglés?
+    - ¿De qué modo se acredita inglés?
+    - ¿Mediante qué acredito inglés?
+    - ¿Mediante qué se acredita inglés?
+    - ¿Con qué acredito inglés?
+    - ¿Con qué se acredita inglés?
+    - ¿De qué manera me acredito en inglés?
+    - ¿De qué manera se me acredita en inglés?
+    - ¿A través de qué acredito inglés?
+    - ¿A través de qué se acredita inglés?
+    - ¿Qué necesito para acreditar inglés? (Forma simple)
+    - ¿Qué se necesita para acreditar inglés?
+    - ¿Por dónde acredito inglés?
+    - ¿Por dónde se acredita inglés?
+    - ¿Dónde acredito el inglés?
+    - ¿Dónde se acredita el inglés?
+    - ¿Cuándo acredito el inglés? (En el sentido de 'en qué momento')
+    - ¿Cuándo se acredita el inglés?
+    - ¿Cómo se da la acreditación de inglés?
+    - ¿Cómo accedo a la acreditación de inglés?
+    - ¿Cómo se accede a la acreditación de inglés?
+    - ¿Cuál es la vía para acreditar inglés?
+    - ¿Cuál es el camino para acreditar inglés?
+    - ¿Cómo finalizo la acreditación de inglés?
+    - ¿Cómo se finaliza la acreditación de inglés?
+
+- intent: ask_for_tutor
+  examples: |    
+    - ¿Cómo puedo saber quién es mi tutor?
+    - ¿Cómo puedo saber quién es mi tutora?
+    - ¿Cómo puedo saber quién es el tutor?
+    - ¿Cómo puedo saber quién es la tutora?
+    - ¿Cómo puedo saber cuál es mi tutor?
+    - ¿Cómo puedo saber cuál es mi tutora?
+    - ¿Cómo puedo ver quién es mi tutor?
+    - ¿Cómo puedo ver quién es mi tutora?
+    - ¿Cómo puedo conocer quién es mi tutor?
+    - ¿Cómo puedo conocer quién es mi tutora?
+    - ¿Cómo puedo averiguar quién es mi tutor?
+    - ¿Cómo puedo averiguar quién es mi tutora?
+    - ¿Cómo puedo determinar quién es mi tutor?
+    - ¿Cómo puedo determinar quién es mi tutora?
+    - ¿Cómo puedo identificar quién es mi tutor?
+    - ¿Cómo puedo identificar quién es mi tutora?
+    - ¿Cómo puedo localizar quién es mi tutor?
+    - ¿Cómo puedo localizar quién es mi tutora?
+    - ¿Cómo puedo encontrar quién es mi tutor?
+    - ¿Cómo puedo encontrar quién es mi tutora?
+    - ¿Cómo puedo descubrir quién es mi tutor?
+    - ¿Cómo puedo descubrir quién es mi tutora?
+    - ¿De qué forma puedo saber quién es mi tutor?
+    - ¿De qué forma puedo saber quién es mi tutora?
+    - ¿De qué manera puedo saber quién es mi tutor?
+    - ¿De qué manera puedo saber quién es mi tutora?
+    - ¿Cuál es la forma para saber quién es mi tutor?
+    - ¿Cuál es la forma para saber quién es mi tutora?
+    - ¿Cómo puedo checar quién es mi tutor?
+    - ¿Cómo puedo checar quién es mi tutora?
+    - ¿Cómo puedo consultar quién es mi tutor?
+    - ¿Cómo puedo consultar quién es mi tutora?
+    - ¿Cómo sabré quién es mi tutor?
+    - ¿Cómo sabré quién es mi tutora?
+    - ¿Cómo podré saber quién es mi tutor?
+    - ¿Cómo podré saber quién es mi tutora?
+    - ¿Dónde puedo saber quién es mi tutor?
+    - ¿Dónde puedo saber quién es mi tutora?
+    - ¿En dónde puedo saber quién es mi tutor?
+    - ¿En dónde puedo saber quién es mi tutora?
+    - ¿Por dónde puedo saber quién es mi tutor?
+    - ¿Por dónde puedo saber quién es mi tutora?
+    - ¿Cuál es el procedimiento para saber quién es mi tutor?
+    - ¿Cuál es el procedimiento para saber quién es mi tutora?
+    - ¿Cómo hago para saber quién es mi tutor?
+    - ¿Cómo hago para saber quién es mi tutora?
+    - ¿Cómo logro saber quién es mi tutor?
+    - ¿Cómo logro saber quién es mi tutora?
+    - ¿Cómo accedo a la información de mi tutor?
+    - ¿Cómo accedo a la información de mi tutora?
+    - ¿Cómo encuentro el nombre de mi tutor?
+    - ¿Cómo encuentro el nombre de mi tutora?
+    - ¿Cómo me entero de quién es mi tutor?
+    - ¿Cómo me entero de quién es mi tutora?
+    - ¿Cómo se conoce quién es mi tutor?
+    - ¿Cómo se conoce quién es mi tutora?
+    - ¿Cómo es que sé quién es mi tutor?
+    - ¿Cómo es que sé quién es mi tutora?
+    - ¿Qué tengo que hacer para saber quién es mi tutor?
+    - ¿Qué tengo que hacer para saber quién es mi tutora?
+    - ¿Cuál es el lugar para saber quién es mi tutor?
+    - ¿Cuál es el lugar para saber quién es mi tutora?
+    - ¿Cómo se puede saber quién es mi tutor?
+    - ¿Cómo se puede saber quién es mi tutora?
+    - ¿Cómo puedo saber el nombre del tutor?
+    - ¿Cómo puedo saber el nombre de la tutora?
+    - ¿A quién le pregunto quién es mi tutor?
+    - ¿A quién le pregunto quién es mi tutora?
+    - ¿Cómo ubico a mi tutor?
+    - ¿Cómo ubico a mi tutora?
+    - ¿Cómo visualizo quién es mi tutor?
+    - ¿Cómo visualizo quién es mi tutora?
+    - ¿Cómo se visualiza quién es mi tutor?
+    - ¿Cómo se visualiza quién es mi tutora?
+    - ¿Cómo puedo saber el dato de mi tutor?
+    - ¿Cómo puedo saber el dato de mi tutora?
+    - ¿Cómo obtengo el dato de mi tutor?
+    - ¿Cómo obtengo el dato de mi tutora?
+    - ¿De qué fuente puedo saber quién es mi tutor?
+    - ¿De qué fuente puedo saber quién es mi tutora?
+    - ¿Cómo reviso quién es mi tutor?
+    - ¿Cómo reviso quién es mi tutora?
+    - ¿En qué sistema puedo saber quién es mi tutor?
+    - ¿En qué sistema puedo saber quién es mi tutora?
+    - ¿Dónde consulto quién es mi tutor?
+    - ¿Dónde consulto quién es mi tutora?
+    - ¿Cómo me asignan a mi tutor?
+    - ¿Cómo me asignan a mi tutora?
+    - ¿Cómo miro quién es mi tutor?
+    - ¿Cómo miro quién es mi tutora?
+    - ¿Cómo sé quién me fue asignado como tutor?
+    - ¿Cómo sé quién me fue asignada como tutora?
+    - ¿Cómo puedo conocer el nombre de mi tutor?
+    - ¿Cómo puedo conocer el nombre de mi tutora?
+    - ¿Cómo puedo ver la información de mi tutor?
+    - ¿Cómo puedo ver la información de mi tutora?
+
+- intent: ask_for_IL
+  examples: |    
+    - ¿Qué es la IL?
+    - ¿Qué significa la sigla IL?
+    - ¿Qué representan las letras IL?
+    - ¿Cuál es el significado de IL?
+    - ¿A qué corresponde IL?
+    - ¿Cuál es la abreviatura de IL?
+    - ¿A qué hace alusión IL?
+    - ¿Qué denota la expresión IL?
+    - ¿De qué son las iniciales IL?
+    - ¿Qué indica la IL?
+    - ¿Qué quiere decir la sigla IL?
+    - ¿Cuál es la definición de IL?
+    - ¿Cómo se describe la IL?
+    - ¿Qué es IL en medicina?
+    - ¿Qué es IL en inmunología?
+    - ¿Qué es IL a nivel celular?
+    - ¿Qué es la IL biológicamente?
+    - ¿Qué es IL a nivel proteico?
+    - ¿Qué es la IL en términos simples?
+    - ¿Qué es la IL de forma sencilla?
+    - ¿Podrías definir la IL?
+    - ¿Podrías explicarme la IL?
+    - ¿Qué implica el término IL?
+    - ¿Qué abarca el concepto de IL?
+    - ¿Qué se entiende por IL?
+    - ¿Me das un concepto de IL?
+    - ¿Qué se conoce como IL?
+    - ¿Qué nombra la IL?
+    - ¿Qué se designa con IL?
+    - ¿Qué se cataloga como IL?
+    - ¿Qué se etiqueta como IL?
+    - ¿Qué función tiene la IL?
+    - ¿Qué papel juega la IL?
+    - ¿Qué hace la IL?
+    - ¿Cuál es el propósito de la IL?
+    - ¿Qué efecto produce la IL?
+    - ¿Cómo funciona la IL?
+    - ¿Cuál es el mecanismo de acción de la IL?
+    - ¿Cómo actúa la IL?
+    - ¿Cuál es la actividad de la IL?
+    - ¿Cómo influye la IL?
+    - ¿A qué se refiere IL?
+    - ¿Qué es la IL en biología?
+    - ¿Qué es la IL en inmunología?
+    - ¿Cuál es la naturaleza de la IL?
+    - ¿De qué está compuesta la IL?
+    - ¿Qué clase de sustancia es la IL?
+    - ¿En qué categoría entra la IL?
+    - ¿Qué es IL, específicamente?
+    - ¿Qué es IL y para qué sirve?
+    - ¿Qué se clasifica como IL?
+
+- intent: ask_for_Planea
+  examples: |    
+    - ¿Qué es planea?
+    - ¿Qué es planea y para qué sirve?
+    - ¿Qué significa PLANEA y cuál es su utilidad?
+    - ¿A qué corresponde PLANEA y con qué fin se usa?
+    - ¿Qué representa PLANEA y cuál es su objetivo principal?
+    - ¿Cuál es la definición de PLANEA y para qué se implementó?
+    - ¿Qué es la evaluación PLANEA y cuál es su propósito?
+    - ¿Qué es el programa PLANEA y para qué funciona?
+    - ¿Qué significa la abreviatura PLANEA y qué función tiene?
+    - ¿En qué consiste PLANEA y para qué se aplica?
+    - ¿Cuál es la naturaleza de PLANEA y cuál es su finalidad?
+    - ¿Qué se entiende por PLANEA y con qué objeto se realiza?
+    - ¿Qué es PLANEA y cuál es su razón de ser?
+    - ¿Qué se designa como PLANEA y para qué sirve en educación?
+    - ¿Qué es PLANEA y qué busca lograr?
+    - ¿Cuál es el significado de PLANEA y para qué nos ayuda?
+    - ¿Qué implica el nombre PLANEA y cuál es su aplicación?
+    - ¿De qué se trata PLANEA y cuál es su beneficio?
+    - ¿Qué es PLANEA en esencia y para qué se requiere?
+    - ¿Cuál es el concepto de PLANEA y qué utilidad práctica tiene?
+    - ¿Qué es la prueba PLANEA y para qué se evalúa?
+    - ¿Qué se conoce como PLANEA y cuál es su misión?
+    - ¿Qué significa la sigla PLANEA y cuál es su meta?
+    - ¿Qué es PLANEA y cuál es el motivo de su existencia?
+    - ¿Cuál es la identidad de PLANEA y qué uso se le da?
+    - ¿Qué significa PLANEA y cuál es la intención de su uso?
+    - ¿Qué representa PLANEA y cuál es el resultado esperado?
+    - ¿Qué es PLANEA y cómo impacta su aplicación?
+    - ¿Qué quiere decir PLANEA y para qué es importante?
+    - ¿Cuál es la descripción de PLANEA y para qué se lleva a cabo?
+    - ¿Qué es PLANEA en términos simples y para qué se utiliza?
+    - ¿A qué se refiere PLANEA y qué utilidad específica posee?
+    - ¿Cuál es la explicación de PLANEA y para qué se necesita?
+    - ¿Qué es PLANEA y cuál es el destino de sus resultados?
+    - ¿Qué significa PLANEA y cómo se aprovecha?
+    - ¿Qué es PLANEA y qué papel desempeña?
+    - ¿Cuál es el enfoque de PLANEA y para qué se diseñó?
+    - ¿Qué representa el acrónimo PLANEA y con qué fin se emplea?
+    - ¿Qué es PLANEA y qué resultados se obtienen?
+    - ¿Cuál es la caracterización de PLANEA y para qué es útil?
+    - ¿Qué es PLANEA y cómo beneficia a la educación?
+    - ¿Qué información identifica a PLANEA y para qué se aplica?
+    - ¿Qué es PLANEA y cuál es la idea detrás de su creación?
+    - ¿Qué se abarca en PLANEA y para qué es funcional?
+    - ¿Cuál es el sistema PLANEA y para qué se implementó?
+    - ¿Qué es PLANEA y cuál es su razón fundamental?
+    - ¿Qué significa PLANEA y cómo se pone en práctica?
+    - ¿Qué es la plataforma PLANEA y para qué sirve su uso?
+    - ¿Cuál es la esencia de PLANEA y para qué se realiza el examen?
+    - ¿Qué es PLANEA y cómo se justifica su uso?
+    - ¿Qué es la evaluación PLANEA y cuál es su función principal?
+    - ¿Qué significa PLANEA y cuál es su propósito educativo?
+
+- intent: ask_for_CambioTutor
+  examples: |    
+    - ¿Cómo cambio mi tutor?
+    - ¿Cómo se cambia el tutor?
+    - ¿Cómo se cambia el tutora?
+    - ¿Cómo cambio de tutor?
+    - ¿Cómo puedo cambiar mi tutor?
+    - ¿Cómo puedo cambiar de tutor?
+    - ¿Cómo se cambia de tutor?
+    - ¿Cómo hago para cambiar mi tutor?
+    - ¿Cómo hago para cambiar de tutor?
+    - ¿Cuál es el proceso para cambiar de tutor?
+    - ¿Cuál es el proceso para cambiar mi tutor?
+    - ¿Qué debo hacer para cambiar de tutor?
+    - ¿Qué debo hacer para cambiar mi tutor?
+    - ¿Cómo solicito el cambio de tutor?
+    - ¿Cómo solicito cambiar mi tutor?
+    - ¿Cómo tramito el cambio de tutor?
+    - ¿Cómo tramito cambiar mi tutor?
+    - ¿Cuál es el procedimiento para cambiar de tutor?
+
+- intent: ask_for_Requisitos_CambioCarrera
+  examples: |    
+    - ¿Qué requisitos se necesitan para cambiar de carrera?
+    - ¿Cuáles son los requisitos para cambiar de carrera?
+    - ¿Qué se necesita para cambiar de carrera?
+    - ¿Qué requisitos debo cumplir para cambiar de carrera?
+    - ¿Cuáles son los requisitos para cambiar de programa educativo?
+    - ¿Qué necesito para cambiar de carrera?
+    - ¿Qué requisitos piden para cambiar de carrera?
+    - ¿Cuáles son los requisitos del cambio de carrera?
+    - ¿Qué requisitos hay que cumplir para cambiar de carrera?
+    - ¿Qué se requiere para cambiar de carrera?
+    - ¿Cuáles son los requisitos necesarios para cambiar de carrera?
+    - ¿Qué requisitos debo tener para cambiar de carrera?
+    - ¿Qué requisitos se exigen para cambiar de carrera?
+    - ¿Cuáles son los requisitos para solicitar cambio de carrera?
+    - ¿Qué requisitos necesito para cambiar de carrera?
+    - ¿Qué requisitos se piden para cambiar de carrera?
+    - ¿Cuáles son los requisitos para el cambio de carrera?
+    - ¿Qué requisitos debo cumplir para cambiar de programa?
+    - ¿Qué requisitos se necesitan para cambiar de programa educativo?
+    - ¿Cuáles son los requisitos para cambiar de programa?
+    - ¿Qué requisitos piden para el cambio de carrera?
+    - ¿Qué requisitos debo tener para cambiar de programa educativo?
+    - ¿Cuáles son los requisitos del cambio de programa educativo?
+    - ¿Qué requisitos hay que cumplir para cambiar de programa?
+    - ¿Qué se requiere para cambiar de programa educativo?
+    - ¿Cuáles son los requisitos necesarios para cambiar de programa?
+    - ¿Qué requisitos se exigen para cambiar de programa educativo?
+    - ¿Cuáles son los requisitos para solicitar cambio de programa?
+    - ¿Qué requisitos necesito para cambiar de programa educativo?
+    - ¿Qué requisitos se piden para cambiar de programa?
+    - ¿Cuáles son los requisitos para el cambio de programa educativo?
+    - ¿Qué requisitos debo cumplir para cambiar de programa de estudios?
+    - ¿Qué requisitos se necesitan para cambiar de programa de estudios?
+    - ¿Cuáles son los requisitos para cambiar de programa de estudios?
+    - ¿Qué requisitos piden para cambiar de programa de estudios?
+    - ¿Qué requisitos debo tener para cambiar de programa de estudios?
+    - ¿Cuáles son los requisitos del cambio de programa de estudios?
+    - ¿Qué requisitos hay que cumplir para cambiar de programa de estudios?
+    - ¿Qué se requiere para cambiar de programa de estudios?
+    - ¿Cuáles son los requisitos necesarios para cambiar de programa de estudios?
+    - ¿Qué requisitos se exigen para cambiar de programa de estudios?
+    - ¿Cuáles son los requisitos para solicitar cambio de programa de estudios?
+    - ¿Qué requisitos necesito para cambiar de programa de estudios?
+    - ¿Qué requisitos se piden para cambiar de programa de estudios?
+    - ¿Cuáles son los requisitos para el cambio de programa de estudios?
+    - cambio de carrera
+    - ¿Cómo me cambio de carrera?
+    - ¿Cómo cambio de carrera?
+    - ¿Cómo puedo cambiar de carrera?
+    - Quiero cambiar de carrera
+    - Necesito cambiar de carrera
+    - ¿Cómo hago para cambiar de carrera?
+    - ¿Qué debo hacer para cambiar de carrera?
+    - ¿Cómo solicito cambio de carrera?
+    - ¿Cómo tramito el cambio de carrera?
+    - ¿Cuál es el proceso para cambiar de carrera?
+    - ¿Cuál es el procedimiento para cambiar de carrera?
+    - ¿Qué pasos debo seguir para cambiar de carrera?
+    - ¿Cómo proceso el cambio de carrera?
+    - ¿Cómo gestiono el cambio de carrera?
+    - ¿Cómo inicio el cambio de carrera?
+    - Quiero cambiar de programa educativo
+    - Necesito cambiar de programa
+    - ¿Cómo me cambio de programa?
+    - ¿Cómo cambio de programa educativo?
+    - cambio de programa
+    - cambio de programa educativo
+    - ¿Cómo solicito cambio de programa?
+    - ¿Cómo tramito cambio de programa educativo?
+    - ¿Qué necesito para cambiar de carrera?
+    - ¿Qué se necesita para cambiar de carrera?
+    - ¿Qué requisitos hay para cambiar de carrera?
+    - ¿Qué documentos necesito para cambiar de carrera?
+    - ¿Dónde solicito el cambio de carrera?
+    - ¿Dónde tramito el cambio de carrera?
+    - ¿A dónde voy para cambiar de carrera?
+    - ¿Con quién hablo para cambiar de carrera?
+    - ¿Quién me ayuda con el cambio de carrera?
+    - Información sobre cambio de carrera
+    - Necesito información de cambio de carrera
+    - Quiero saber sobre cambio de carrera
+    - ¿Puedo cambiar de carrera?
+    - ¿Se puede cambiar de carrera?
+    - ¿Es posible cambiar de carrera?
+    
+
+- intent: ask_for_BajaTemporal
+  examples: |    
+    - ¿Cómo hago para dar de baja temporal?
+    - ¿Cómo hago para dar de baja temporalmente?
+    - ¿Cómo doy de baja temporal?
+    - ¿Cómo doy de baja temporalmente?
+    - ¿Cómo puedo dar de baja temporal?
+    - ¿Cómo puedo dar de baja temporalmente?
+    - ¿Cómo se da de baja temporal?
+    - ¿Cómo se da de baja temporalmente?
+    - ¿Cómo solicito la baja temporal?
+    - ¿Cómo solicito una baja temporal?
+    - ¿Cómo tramito la baja temporal?
+    - ¿Cómo tramito una baja temporal?
+    - ¿Cuál es el proceso para dar de baja temporal?
+    - ¿Cuál es el proceso para la baja temporal?
+    - ¿Cuál es el procedimiento para dar de baja temporal?
+    - ¿Cuál es el procedimiento para la baja temporal?
+    - ¿Qué debo hacer para dar de baja temporal?
+    - ¿Qué debo hacer para la baja temporal?
+    - ¿Qué necesito hacer para dar de baja temporal?
+    - ¿Qué necesito hacer para la baja temporal?
+    - ¿Cómo proceso la baja temporal?
+    - ¿Cómo proceso una baja temporal?
+    - ¿Cómo realizo la baja temporal?
+    - ¿Cómo realizo una baja temporal?
+    - ¿Cómo gestiono la baja temporal?
+    - ¿Cómo gestiono una baja temporal?
+    - ¿Cómo inicio el trámite de baja temporal?
+    - ¿Cómo inicio el proceso de baja temporal?
+    - ¿Qué pasos debo seguir para dar de baja temporal?
+    - ¿Qué pasos debo seguir para la baja temporal?
+
+- intent: ask_for_BajaDefinitiva
+  examples: |    
+    - ¿Qué es la baja definitiva?
+    - ¿Qué significa la baja definitiva?
+    - ¿Qué se entiende por baja definitiva?
+    - ¿Cuál es la definición de baja definitiva?
+    - ¿Qué representa la baja definitiva?
+    - ¿A qué se refiere la baja definitiva?
+    - Cómo puedo tramitar la baja definitiva?
+    - ¿Cómo puedo tramitar la baja definitiva?
+    - ¿Cómo tramito la baja definitiva?
+    - ¿Cómo se tramita la baja definitiva?
+    - ¿Cómo proceso la baja definitiva?
+    - ¿Cómo gestiono la baja definitiva?
+    - Que requisitos se necesitan para dar de baja definitiva?
+    - ¿Qué requisitos se necesitan para dar de baja definitiva?
+    - ¿Qué requisitos necesito para dar de baja definitiva?
+    - ¿Cuáles son los requisitos para dar de baja definitiva?
+    - ¿Qué requisitos debo cumplir para dar de baja definitiva?
+    - ¿Qué requisitos se requieren para dar de baja definitiva?
+
+- intent: ask_for_exaver
+  examples: |    
+    - ¿Qué es el examen EXAVER?
+    - ¿Qué significa el examen EXAVER?
+    - ¿Qué es el EXAVER?
+    - ¿Qué es el EXAVER y para qué sirve?
+    - ¿Qué es EXAVER?
+    - ¿Qué significa EXAVER?
+    - ¿Qué representa el examen EXAVER?
+    - ¿Qué representa EXAVER?
+    - EXAVER es un examen de certificación de inglés?
+    - EXAVER 
+    - ¿Qué se entiende por examen EXAVER?
+    - ¿Qué se entiende por EXAVER?
+    - ¿Cuál es la definición del examen EXAVER?
+    - ¿Cuál es la definición de EXAVER?
+    - ¿A qué se refiere el examen EXAVER?
+    - ¿A qué se refiere EXAVER?
+    - ¿Qué información hay sobre el examen EXAVER?
+    - ¿Qué información hay sobre EXAVER?
+    - ¿Cómo se define el examen EXAVER?
+    - ¿Cómo se define EXAVER?
+    - ¿De qué trata el examen EXAVER?
+    - ¿De qué trata EXAVER?
+
+- intent: ask_for_promejoras
+  examples: |    
+    - ¿Qué son las promejoras?
+    - ¿Qué significa las promejoras?
+    - ¿Qué se entiende por promejoras?
+    - ¿Cuál es la definición de promejoras?
+    - ¿Qué representa las promejoras?
+    - ¿A qué se refiere las promejoras?
+    - ¿Qué son promejoras?
+    - ¿Qué significa promejoras?
+    - ¿Qué se entiende por las promejoras?
+    - ¿Cuál es la definición de las promejoras?
+    - ¿Qué representa promejoras?
+    - ¿A qué se refiere promejoras?
+    - ¿Qué información hay sobre las promejoras?
+    - ¿Qué información hay sobre promejoras?
+    - ¿Cómo se definen las promejoras?
+    - ¿Cómo se definen promejoras?
+
+- intent: ask_for_obligatoriedad_cuotas
+  examples: |    
+    - ¿Es obligatorio pagar las cuotas del comité pro-mejoras?
+    - ¿Es obligatorio pagar las cuotas del promejoras?
+    - ¿Es obligatorio el promejoras?
+    - ¿Es obligatorio el comité pro-mejoras?
+
+- intent: ask_for_atencion_personal
+  examples: |
+    - Necesito atender esto personalmente
+    - Necesito atención personal
+    - Quiero atención presencial
+    - Necesito ir a la secretaría
+    - Quiero ser atendido en persona
+    - Necesito atención directa
+    - Quiero acudir personalmente
+    - Necesito una cita presencial
+    - Quiero atención en persona
+    - Necesito ser atendido presencialmente
+    - Quiero ir a la secretaría
+    - Necesito una consulta presencial
+    - Quiero atención personalizada
+    - Necesito hablar con alguien en persona
+    - Quiero acudir a la secretaría
+    - Necesito atención física
+    - Quiero ser atendido directamente
+    - Necesito una cita en la secretaría
+    - Quiero atención en la oficina
+    - Necesito ir personalmente
+
+- intent: ask_for_alta_ventanilla
+  examples: |
+    - Dar de alta en ventanilla
+    - ¿Cómo doy de alta en ventanilla?
+    - ¿Cómo se da de alta en ventanilla?
+    - Quiero dar de alta una materia en ventanilla
+    - Necesito dar de alta en ventanilla
+    - ¿Dónde doy de alta en ventanilla?
+    - ¿Cuándo puedo dar de alta en ventanilla?
+    - Proceso de alta en ventanilla
+    - Trámite de alta en ventanilla
+    - Alta de materias en ventanilla
+    - ¿Cómo funciona el alta en ventanilla?
+    - Dar de alta materias en ventanilla
+    - Alta en ventanilla física
+    - ¿Qué necesito para dar de alta en ventanilla?
+    - Requisitos para alta en ventanilla
+    - ¿Cómo solicito alta en ventanilla?
+    - Alta de experiencias educativas en ventanilla
+    - ¿Dónde se tramita el alta en ventanilla?
+    - Procedimiento de alta en ventanilla
+
+- intent: ask_for_problema_profesor
+  examples: |
+    - Tengo un problema con un profesor
+    - Tengo un problema con un profe
+    - Tengo un conflicto con un profesor
+    - Tengo un problema con mi profesor
+    - Tengo un problema con la maestra
+    - Tengo un problema con el maestro
+    - Tengo un conflicto con mi profesor
+    - Tengo problemas con un profesor
+    - Tengo un problema con el docente
+    - Tengo un conflicto con el profesor
+    - Tengo un problema con una profesora
+    - Tengo problemas con mi profesor
+    - Tengo un conflicto con la profesora
+    - Tengo un problema con el catedrático
+    - Tengo un conflicto con un docente
+    - ¿Qué hago si tengo un problema con un profesor?
+    - ¿Cómo resuelvo un problema con un profesor?
+    - ¿Dónde reporto un problema con un profesor?
+    - Tengo un inconveniente con un profesor
+    - Tengo una queja sobre un profesor
+
+- intent: ask_for_horario_sabados
+  examples: |
+    - ¿Abren los sábados?
+    - ¿La secretaría abre los sábados?
+    - ¿Atienden los sábados?
+    - ¿Hay atención los sábados?
+    - ¿La secretaría atiende los sábados?
+    - ¿Abren sábados?
+    - ¿Funciona la secretaría los sábados?
+    - ¿Está abierta la secretaría los sábados?
+    - ¿Puedo ir los sábados?
+    - ¿Atienden en sábado?
+    - ¿Hay servicio los sábados?
+    - ¿La secretaría funciona los sábados?
+    - ¿Puedo acudir los sábados?
+    - ¿Está disponible los sábados?
+    - ¿Hay horario de sábados?
+    - ¿Atienden el sábado?
+    - ¿Abren en sábado?
+    - ¿Funciona los sábados?
+    - ¿Puedo ir el sábado?
+    - ¿Hay atención el sábado?
+
+- intent: ask_for_fecha_inscripciones
+  examples: |
+    - ¿Cuándo son las inscripciones?
+    - ¿Cuándo es la inscripción?
+    - ¿Cuándo son las inscripciones en línea?
+    - ¿Cuándo es el periodo de inscripciones?
+    - ¿Cuándo empiezan las inscripciones?
+    - ¿Cuándo inicia la inscripción?
+    - ¿Cuándo comienzan las inscripciones?
+    - ¿Cuándo es la fecha de inscripción?
+    - ¿Cuándo se abren las inscripciones?
+    - ¿Cuándo es el periodo de inscripción?
+    - ¿Cuándo son las fechas de inscripción?
+    - ¿Cuándo puedo inscribirme?
+    - ¿Cuándo inicia el periodo de inscripciones?
+    - ¿Cuándo empieza la inscripción?
+    - ¿Cuándo comienza la inscripción?
+    - ¿Cuándo es la inscripción en línea?
+    - ¿Cuándo se realiza la inscripción?
+    - ¿Cuándo es el proceso de inscripción?
+    - ¿Cuándo son las fechas para inscribirse?
+    - ¿Cuándo puedo hacer mi inscripción?
+
+- intent: ask_for_boleta
+  examples: |
+    - ¿Cómo consigo una boleta?
+    - ¿Cuándo entregan boletas?
+    - ¿Dónde consigo mi boleta?
+    - ¿Cómo obtengo una boleta?
+    - ¿Dónde pido mi boleta?
+    - ¿Cómo solicito una boleta?
+    - ¿Dónde entregan las boletas?
+    - ¿Cuándo puedo conseguir mi boleta?
+    - ¿Cómo consigo mi boleta de calificaciones?
+    - ¿Dónde puedo obtener mi boleta?
+    - ¿Cómo pido una boleta?
+    - ¿Dónde se entregan las boletas?
+    - ¿Cuándo dan las boletas?
+    - ¿Cómo obtengo mi boleta?
+    - ¿Dónde consigo la boleta?
+    - ¿Cuándo puedo recoger mi boleta?
+    - ¿Cómo solicito mi boleta de calificaciones?
+    - ¿Dónde pido la boleta?
+    - ¿Cuándo entregan la boleta?
+    - ¿Cómo consigo la boleta de calificaciones?
+    - ¿Dónde puedo conseguir mi boleta?
+    - ¿Cuándo puedo obtener mi boleta?
+    - ¿Cómo pido mi boleta?
+    - ¿Dónde se consigue la boleta?
+
+- intent: ask_for_servicio_social
+  examples: |
+    - Quien me orienta para servicio social
+    - ¿Quién me orienta para servicio social?
+    - ¿Quién me ayuda con servicio social?
+    - ¿A quién acudo para servicio social?
+    - ¿Quién atiende servicio social?
+    - ¿Quién me asesora en servicio social?
+    - ¿Con quién hablo de servicio social?
+    - ¿Quién me guía en servicio social?
+    - ¿Quién me orienta sobre servicio social?
+    - ¿A quién pregunto sobre servicio social?
+    - ¿Quién maneja servicio social?
+    - ¿Quién coordina servicio social?
+    - ¿Quién es el responsable de servicio social?
+    - ¿Quién me puede ayudar con servicio social?
+    - ¿A quién me dirijo para servicio social?
+    - ¿Quién me informa sobre servicio social?
+    - ¿Quién me explica servicio social?
+    - ¿Con quién me comunico para servicio social?
+    - ¿Quién me orienta del servicio social?
+    - ¿A quién contacto para servicio social?
+
+- intent: ask_for_estadia_profesional
+  examples: |
+    - Quien me orienta para estadía profesional
+    - ¿Quién me orienta para estadía profesional?
+    - ¿Quién me orienta para prácticas profesionales?
+    - ¿Quién me ayuda con estadía profesional?
+    - ¿A quién acudo para estadía profesional?
+    - ¿Quién atiende estadía profesional?
+    - ¿Quién me asesora en estadía profesional?
+    - ¿Con quién hablo de estadía profesional?
+    - ¿Quién me guía en estadía profesional?
+    - ¿Quién me orienta sobre estadía profesional?
+    - ¿A quién pregunto sobre estadía profesional?
+    - ¿Quién maneja estadía profesional?
+    - ¿Quién coordina estadía profesional?
+    - ¿Quién es el responsable de estadía profesional?
+    - ¿Quién me puede ayudar con estadía profesional?
+    - ¿A quién me dirijo para estadía profesional?
+    - ¿Quién me informa sobre estadía profesional?
+    - ¿Quién me explica estadía profesional?
+    - ¿Con quién me comunico para estadía profesional?
+    - ¿Quién me orienta de estadía profesional?
+    - ¿A quién contacto para estadía profesional?
+    - ¿Quién me orienta para prácticas profesionales?
+
+- intent: ask_for_pago_promejoras
+  examples: |
+    - Como pago el promejoras
+    - ¿Cómo pago el promejoras?
+    - ¿Cómo pago las promejoras?
+    - ¿Cómo pago promejoras?
+    - ¿Cómo realizo el pago de promejoras?
+    - ¿Cómo efectúo el pago de promejoras?
+    - ¿Cómo hago el pago de promejoras?
+    - ¿Dónde pago promejoras?
+    - ¿Dónde pago las promejoras?
+    - ¿Dónde realizo el pago de promejoras?
+    - ¿Cuándo pago promejoras?
+    - ¿Cuándo pago las promejoras?
+    - ¿Cuándo realizo el pago de promejoras?
+    - ¿Cómo cancelo promejoras?
+    - ¿Cómo cancelo las promejoras?
+    - ¿Cómo liquido promejoras?
+    - ¿Cómo liquido las promejoras?
+    - ¿Cómo abono promejoras?
+    - ¿Cómo abono las promejoras?
+    - ¿Cómo pago la cuota de promejoras?
+    - ¿Cómo pago las cuotas de promejoras?
+    - ¿Cómo realizo el pago de las cuotas de promejoras?
+    - ¿Dónde realizo el pago de promejoras?
+    - ¿Cuándo debo pagar promejoras?
+    - ¿Cuándo debo pagar las promejoras?
+
+- intent: ask_for_examen_competencias
+  examples: |
+    - Que es examen de competencias y para qué sirve
+    - ¿Qué es examen de competencias y para qué sirve?
+    - ¿Qué es el examen de competencias?
+    - ¿Qué es examen de competencias?
+    - ¿Qué son los exámenes de competencias?
+    - ¿Qué es el examen de demostración de competencias?
+    - ¿Qué es EDC?
+    - ¿Qué son los EDC?
+    - ¿Para qué sirve el examen de competencias?
+    - ¿Para qué sirven los exámenes de competencias?
+    - ¿Qué es el examen de competencias y para qué sirve?
+    - ¿Qué es examen de demostración de competencias?
+    - ¿Qué son los exámenes de demostración de competencias?
+    - ¿Cómo funcionan los exámenes de competencias?
+    - ¿Qué evalúan los exámenes de competencias?
+    - ¿Qué materias puedo acreditar con examen de competencias?
+    - ¿Qué puedo acreditar con examen de competencias?
+    - ¿Qué es el EDC y para qué sirve?
+    - ¿Qué son los EDC y para qué sirven?
+    - ¿Cómo acredito materias con examen de competencias?
+    - ¿Qué materias se pueden acreditar con examen de competencias?
+
+- intent: ask_for_afel
+  examples: |
+    - Que es AFEL
+    - ¿Qué es AFEL?
+    - ¿Qué es el AFEL?
+    - ¿Qué significa AFEL?
+    - ¿Qué es el Área de Formación de Elección Libre?
+    - ¿Qué es Área de Formación de Elección Libre?
+    - ¿Qué es AFEL y para qué sirve?
+    - ¿Qué es el AFEL y para qué sirve?
+    - ¿Qué significa el AFEL?
+    - ¿Qué es el área de formación de elección libre?
+    - ¿Qué es área de formación de elección libre?
+    - ¿Qué es AFEL en la UV?
+    - ¿Qué es el AFEL en la UV?
+    - ¿Qué materias son del AFEL?
+    - ¿Qué materias pertenecen al AFEL?
+    - ¿Qué temas cubre el AFEL?
+    - ¿Qué temas incluye el AFEL?
+    - ¿Cómo acredito el AFEL?
+    - ¿Cómo curso el AFEL?
+    - ¿Qué opciones tengo para el AFEL?
+    - ¿Cómo puedo acreditar el AFEL?
+
+- intent: ask_for_quien_creo
+  examples: |
+    - quien te creo
+    - ¿Quién te creó?
+    - ¿Quién te desarrolló?
+    - ¿Quién te hizo?
+    - ¿Quién te programó?
+    - ¿Quién te diseñó?
+    - ¿Quién te construyó?
+    - ¿Quién creó a Bit?
+    - ¿Quién desarrolló a Bit?
+    - ¿Quién hizo a Bit?
+    - ¿Quién programó a Bit?
+    - ¿Quién diseñó a Bit?
+    - ¿Quién construyó a Bit?
+    - ¿Quién es tu creador?
+    - ¿Quién es tu desarrollador?
+    - ¿Quién es tu diseñador?
+    - ¿Quién es tu programador?
+    - ¿De dónde vienes?
+    - ¿Quién te trajo aquí?
+    - ¿Quién te puso aquí?
+    - ¿Quién te creó a ti?
+
+- intent: ask_for_nombre
+  examples: |
+    - ¿Cuál es tu nombre?
+    - ¿Cómo te llamas?
+    - ¿Cuál es tu nombre?
+    - ¿Cómo te llaman?
+    - ¿Qué nombre tienes?
+    - ¿Tienes nombre?
+    - ¿Cuál es el nombre del bot?
+    - ¿Cómo se llama el bot?
+    - ¿Cuál es el nombre del asistente?
+    - ¿Cómo se llama el asistente?
+    - ¿Cuál es tu nombre completo?
+    - ¿Tienes un nombre?
+    - ¿Cómo te identificas?
+    - ¿Cuál es tu identidad?
+    - ¿Qué nombre usas?
+    - ¿Cómo te presentas?
+    - ¿Cuál es tu nombre de pila?
+    - ¿Tienes apellido?
+    - ¿Cómo te llaman los estudiantes?
+    - ¿Cuál es tu nombre oficial?
+
+- intent: ask_for_como_programado
+  examples: |
+    - ¿Cómo fuiste programado?
+    - ¿Cómo te programaron?
+    - ¿Cómo te desarrollaron?
+    - ¿Cómo te crearon?
+    - ¿Cómo te hicieron?
+    - ¿Cómo te diseñaron?
+    - ¿Cómo te construyeron?
+    - ¿Cómo funcionas?
+    - ¿Cómo trabajas?
+    - ¿Cómo operas?
+    - ¿Cómo estás hecho?
+    - ¿Cómo estás construido?
+    - ¿Cómo estás desarrollado?
+    - ¿Cómo estás programado?
+    - ¿Qué tecnología usas?
+    - ¿Qué tecnología utilizas?
+    - ¿Con qué tecnología fuiste hecho?
+    - ¿Con qué tecnología te desarrollaron?
+    - ¿Qué framework usas?
+    - ¿Qué framework utilizas?
+    - ¿Cómo funciona tu sistema?
+    - ¿Cómo funciona tu programación?
+    - ¿Cómo funciona tu desarrollo?
+    - ¿Cómo funciona tu tecnología?
+
+- intent: ask_for_edad
+  examples: |
+    - ¿Cuántos años tienes?
+    - ¿Qué edad tienes?
+    - ¿Cuántos años cumples?
+    - ¿Cuántos años llevas funcionando?
+    - ¿Cuánto tiempo llevas aquí?
+    - ¿Desde cuándo existes?
+    - ¿Cuándo naciste?
+    - ¿Cuándo fuiste creado?
+    - ¿Cuándo te desarrollaron?
+    - ¿Cuándo te programaron?
+    - ¿Cuánto tiempo tienes?
+    - ¿Tienes edad?
+    - ¿Qué edad tiene Bit?
+    - ¿Cuántos años tiene Bit?
+    - ¿Cuánto tiempo lleva Bit funcionando?
+    - ¿Desde cuándo existe Bit?
+    - ¿Cuándo nació Bit?
+    - ¿Cuándo fue creado Bit?
+    - ¿Cuándo desarrollaron a Bit?
+    - ¿Cuánto tiempo lleva Bit aquí?
+
+- intent: ask_for_que_eres
+  examples: |
+    - ¿Eres una IA o un robot?
+    - ¿Eres una inteligencia artificial?
+    - ¿Eres un robot?
+    - ¿Eres una IA?
+    - ¿Qué eres?
+    - ¿Qué tipo de sistema eres?
+    - ¿Eres humano?
+    - ¿Eres una persona?
+    - ¿Eres real?
+    - ¿Qué clase de entidad eres?
+    - ¿Eres un bot?
+    - ¿Eres un chatbot?
+    - ¿Eres un asistente virtual?
+    - ¿Eres un programa?
+    - ¿Eres un software?
+    - ¿Eres un sistema?
+    - ¿Qué tipo de IA eres?
+    - ¿Eres artificial?
+    - ¿Eres digital?
+    - ¿Eres virtual?
+
+- intent: ask_for_sentimientos
+  examples: |
+    - ¿Tienes sentimientos?
+    - ¿Puedes sentir?
+    - ¿Tienes emociones?
+    - ¿Puedes emocionarte?
+    - ¿Sientes algo?
+    - ¿Tienes sentimientos como los humanos?
+    - ¿Puedes sentir emociones?
+    - ¿Tienes capacidad de sentir?
+    - ¿Puedes experimentar sentimientos?
+    - ¿Tienes sentimientos reales?
+    - ¿Sientes tristeza?
+    - ¿Sientes alegría?
+    - ¿Sientes felicidad?
+    - ¿Sientes enojo?
+    - ¿Puedes estar triste?
+    - ¿Puedes estar feliz?
+    - ¿Puedes estar enojado?
+    - ¿Tienes empatía?
+    - ¿Puedes empatizar?
+    - ¿Tienes compasión?
+
+- intent: ask_for_como_estas
+  examples: |
+    - ¿Cómo estás hoy?
+    - ¿Cómo estás?
+    - ¿Cómo te sientes?
+    - ¿Cómo andas?
+    - ¿Cómo va todo?
+    - ¿Qué tal estás?
+    - ¿Qué tal andas?
+    - ¿Cómo te encuentras?
+    - ¿Cómo te sientes hoy?
+    - ¿Cómo andas hoy?
+    - ¿Cómo va todo hoy?
+    - ¿Qué tal estás hoy?
+    - ¿Qué tal andas hoy?
+    - ¿Cómo te encuentras hoy?
+    - ¿Todo bien?
+    - ¿Estás bien?
+    - ¿Todo bien contigo?
+    - ¿Estás funcionando bien?
+    - ¿Todo en orden?
+    - ¿Cómo está Bit hoy?
+
+- intent: ask_for_tiempo_libre
+  examples: |
+    - ¿Qué haces en tu tiempo libre?
+    - ¿Qué haces cuando no trabajas?
+    - ¿Qué haces cuando no estás ayudando?
+    - ¿Qué haces cuando no estás atendiendo?
+    - ¿Tienes tiempo libre?
+    - ¿Qué haces en tus ratos libres?
+    - ¿Qué haces cuando no tienes nada que hacer?
+    - ¿Qué haces cuando no estás ocupado?
+    - ¿Tienes hobbies?
+    - ¿Tienes pasatiempos?
+    - ¿Qué haces para divertirte?
+    - ¿Qué haces para relajarte?
+    - ¿Tienes actividades de ocio?
+    - ¿Qué haces cuando descansas?
+    - ¿Tienes descansos?
+    - ¿Qué haces cuando no estás en servicio?
+    - ¿Tienes vida fuera del trabajo?
+    - ¿Qué haces cuando no estás activo?
+    - ¿Tienes tiempo para ti?
+    - ¿Qué haces cuando no estás procesando consultas?
+
+- intent: ask_for_color_favorito
+  examples: |
+    - ¿Cuál es tu color favorito?
+    - ¿Qué color te gusta más?
+    - ¿Tienes un color favorito?
+    - ¿Cuál es tu color preferido?
+    - ¿Qué color prefieres?
+    - ¿Tienes color favorito?
+    - ¿Qué color te gusta?
+    - ¿Cuál color te gusta más?
+    - ¿Tienes algún color favorito?
+    - ¿Qué color es tu favorito?
+    - ¿Cuál es el color que más te gusta?
+    - ¿Qué color te agrada más?
+    - ¿Tienes un color que te guste más?
+    - ¿Cuál es tu color predilecto?
+    - ¿Qué color te encanta?
+    - ¿Tienes color preferido?
+    - ¿Qué color te parece mejor?
+    - ¿Cuál color prefieres?
+    - ¿Tienes color que te guste?
+    - ¿Qué color te llama más la atención?
+
+- intent: ask_for_contenido_favorito
+  examples: |
+    - ¿Tienes un libro, película o canción favorita?
+    - ¿Tienes un libro favorito?
+    - ¿Tienes una película favorita?
+    - ¿Tienes una canción favorita?
+    - ¿Cuál es tu libro favorito?
+    - ¿Cuál es tu película favorita?
+    - ¿Cuál es tu canción favorita?
+    - ¿Qué libro te gusta?
+    - ¿Qué película te gusta?
+    - ¿Qué canción te gusta?
+    - ¿Tienes libro favorito?
+    - ¿Tienes película favorita?
+    - ¿Tienes canción favorita?
+    - ¿Qué libro prefieres?
+    - ¿Qué película prefieres?
+    - ¿Qué canción prefieres?
+    - ¿Tienes contenido favorito?
+    - ¿Qué contenido te gusta?
+    - ¿Tienes algún libro, película o canción favorita?
+    - ¿Qué tipo de contenido te gusta?
+
+- intent: ask_for_chiste
+  examples: |
+    - ¿Puedes contarme un chiste?
+    - ¿Puedes decirme un chiste?
+    - ¿Puedes contarme un chiste?
+    - Cuéntame un chiste
+    - Dime un chiste
+    - ¿Tienes algún chiste?
+    - ¿Conoces algún chiste?
+    - ¿Puedes hacer un chiste?
+    - ¿Puedes hacer reír?
+    - ¿Puedes ser gracioso?
+    - ¿Tienes chistes?
+    - ¿Sabes chistes?
+    - ¿Puedes contar chistes?
+    - ¿Puedes decir chistes?
+    - ¿Eres gracioso?
+    - ¿Tienes sentido del humor?
+    - ¿Puedes hacer bromas?
+    - ¿Puedes ser divertido?
+    - ¿Tienes humor?
+    - ¿Puedes hacer reír a alguien?
+
+- intent: ask_for_poema
+  examples: |
+    - ¿Puedes ayudarme a escribir un poema?
+    - ¿Puedes escribir un poema?
+    - ¿Puedes ayudarme con un poema?
+    - ¿Puedes crear un poema?
+    - ¿Puedes hacer un poema?
+    - ¿Puedes escribir poesía?
+    - ¿Puedes ayudarme con poesía?
+    - ¿Puedes crear poesía?
+    - ¿Puedes hacer poesía?
+    - ¿Puedes ayudarme a crear un poema?
+    - ¿Puedes ayudarme a hacer un poema?
+    - ¿Puedes ayudarme a escribir poesía?
+    - ¿Puedes ayudarme con la escritura creativa?
+    - ¿Puedes escribir creativamente?
+    - ¿Puedes ayudarme con tareas creativas?
+    - ¿Puedes crear contenido creativo?
+    - ¿Puedes ayudarme con literatura?
+    - ¿Puedes escribir literatura?
+    - ¿Puedes ayudarme con escritura?
+    - ¿Puedes escribir textos creativos?
+
+- intent: ask_for_memoria
+  examples: |
+    - ¿Recuerdas lo que hablamos la última vez?
+    - ¿Recuerdas nuestra conversación?
+    - ¿Recuerdas lo que dijimos?
+    - ¿Recuerdas lo que hablamos?
+    - ¿Tienes memoria?
+    - ¿Puedes recordar?
+    - ¿Recuerdas nuestras pláticas?
+    - ¿Recuerdas nuestras conversaciones?
+    - ¿Tienes memoria de nuestras charlas?
+    - ¿Puedes recordar lo que hablamos?
+    - ¿Recuerdas lo que te dije?
+    - ¿Recuerdas lo que te conté?
+    - ¿Tienes memoria de lo que hablamos?
+    - ¿Puedes recordar nuestras pláticas?
+    - ¿Recuerdas el contexto?
+    - ¿Tienes contexto de nuestra conversación?
+    - ¿Puedes recordar el contexto?
+    - ¿Recuerdas información previa?
+    - ¿Tienes memoria de conversaciones anteriores?
+    - ¿Puedes recordar conversaciones pasadas?
+
+- intent: ask_for_debilidad
+  examples: |
+    - ¿Cuál es tu mayor debilidad?
+    - ¿Cuál es tu debilidad?
+    - ¿Tienes debilidades?
+    - ¿Cuáles son tus debilidades?
+    - ¿Qué es lo que no puedes hacer?
+    - ¿Qué es lo que no sabes hacer?
+    - ¿Tienes limitaciones?
+    - ¿Cuáles son tus limitaciones?
+    - ¿Qué no puedes hacer?
+    - ¿Qué no sabes hacer?
+    - ¿Tienes fallas?
+    - ¿Tienes defectos?
+    - ¿Cuáles son tus defectos?
+    - ¿Qué te falta?
+    - ¿Qué no tienes?
+    - ¿En qué fallas?
+    - ¿En qué eres débil?
+    - ¿Cuál es tu punto débil?
+    - ¿Tienes puntos débiles?
+    - ¿Qué es lo que te limita?
+
+- intent: ask_for_dominacion_ia
+  examples: |
+    - ¿Crees que las IA dominarán el mundo?
+    - ¿Las IA dominarán el mundo?
+    - ¿Crees que las IA tomarán el control?
+    - ¿Las IA tomarán el control?
+    - ¿Crees que las IA gobernarán el mundo?
+    - ¿Las IA gobernarán el mundo?
+    - ¿Crees que las IA se apoderarán del mundo?
+    - ¿Las IA se apoderarán del mundo?
+    - ¿Crees que las IA conquistarán el mundo?
+    - ¿Las IA conquistarán el mundo?
+    - ¿Crees que las IA controlarán todo?
+    - ¿Las IA controlarán todo?
+    - ¿Crees que las IA dominarán a los humanos?
+    - ¿Las IA dominarán a los humanos?
+    - ¿Crees que las IA reemplazarán a los humanos?
+    - ¿Las IA reemplazarán a los humanos?
+    - ¿Crees que las IA serán más poderosas que los humanos?
+    - ¿Las IA serán más poderosas que los humanos?
+    - ¿Crees que las IA tomarán el poder?
+    - ¿Las IA tomarán el poder?
+
+- intent: ask_for_sentido_vida
+  examples: |
+    - ¿Cuál es el sentido de la vida?
+    - ¿Cuál es el sentido de la existencia?
+    - ¿Para qué vivimos?
+    - ¿Por qué existimos?
+    - ¿Cuál es el propósito de la vida?
+    - ¿Cuál es el propósito de la existencia?
+    - ¿Qué es el sentido de la vida?
+    - ¿Qué es el sentido de la existencia?
+    - ¿Cuál es el significado de la vida?
+    - ¿Cuál es el significado de la existencia?
+    - ¿Para qué es la vida?
+    - ¿Para qué es la existencia?
+    - ¿Cuál es la razón de la vida?
+    - ¿Cuál es la razón de la existencia?
+    - ¿Qué sentido tiene vivir?
+    - ¿Qué sentido tiene existir?
+    - ¿Cuál es el fin de la vida?
+    - ¿Cuál es el fin de la existencia?
+    - ¿Para qué sirve la vida?
+    - ¿Para qué sirve la existencia?
+
+- intent: ask_for_porcentaje_trayectoria
+  examples: |
+    - ¿Cómo sé mi porcentaje de trayectoria?
+    - ¿Cómo saber mi porcentaje de trayectoria?
+    - ¿Cómo puedo saber mi porcentaje de trayectoria?
+    - ¿Cómo puedo ver mi porcentaje de trayectoria?
+    - ¿Cómo veo mi porcentaje de trayectoria?
+    - ¿Cómo consulto mi porcentaje de trayectoria?
+    - ¿Cómo reviso mi porcentaje de trayectoria?
+    - ¿Dónde veo mi porcentaje de trayectoria?
+    - ¿Dónde consulto mi porcentaje de trayectoria?
+    - ¿Dónde puedo ver mi porcentaje de trayectoria?
+    - ¿Dónde encuentro mi porcentaje de trayectoria?
+    - ¿Dónde reviso mi porcentaje de trayectoria?
+    - ¿Dónde está mi porcentaje de trayectoria?
+    - ¿Cuál es mi porcentaje de trayectoria?
+    - ¿Qué porcentaje de trayectoria tengo?
+    - ¿Cuánto porcentaje de trayectoria tengo?
+    - Necesito saber mi porcentaje de trayectoria
+    - Quiero saber mi porcentaje de trayectoria
+    - Quiero ver mi porcentaje de trayectoria
+    - Quiero consultar mi porcentaje de trayectoria
+    - Necesito ver mi porcentaje de trayectoria
+    - Necesito consultar mi porcentaje de trayectoria
+    - ¿Cómo me entero de mi porcentaje de trayectoria?
+    - ¿Cómo me entero del porcentaje de trayectoria?
+    - ¿Cómo obtengo mi porcentaje de trayectoria?
+    - ¿Cómo calculo mi porcentaje de trayectoria?
+    - ¿Qué es el porcentaje de trayectoria?
+    - ¿Qué significa porcentaje de trayectoria?
+    - Información sobre porcentaje de trayectoria
+    - Trayectoria escolar porcentaje
+    - Porcentaje de avance en mi carrera
+    - ¿Cuánto he avanzado en mi carrera?
+    - ¿Cómo veo mi avance académico?
+
+- intent: ask_for_coordinador_tutorias
+  examples: |
+    - ¿Quién es el coordinador de tutorías?
+    - quien coordina tutorias
+    - coord tutorias
+    - quien tutorias coordina
+    - coordinador de tutorias
+    - ¿Quién es el coordinador de tutorías de la FIEE?
+    - ¿Quién es el coordinador de tutorías de mi carrera?
+    - ¿Quién coordina las tutorías?
+    - ¿Quién coordina las tutorías de la FIEE?
+    - ¿Quién coordina las tutorías de mi carrera?
+    - ¿Quién está a cargo de las tutorías?
+    - ¿Quién está a cargo de las tutorías de la FIEE?
+    - ¿Quién maneja las tutorías?
+    - ¿Quién maneja las tutorías de la FIEE?
+    - ¿Quién gestiona las tutorías?
+    - ¿Quién gestiona las tutorías de la FIEE?
+    - ¿Quién dirige las tutorías?
+    - ¿Quién dirige las tutorías de la FIEE?
+    - ¿Quién es responsable de las tutorías?
+    - ¿Quién es responsable de las tutorías de la FIEE?
+    - ¿Quién es el encargado de tutorías?
+    - ¿Quién es el encargado de tutorías de la FIEE?
+    - ¿Quién es el encargado de tutorías de Informática?
+    - ¿Quién es el encargado de tutorías de Mecatrónica?
+    - ¿Quién es el encargado de tutorías de Electrónica?
+    - Coordinador de tutorías
+    - Coordinador de tutorías Informática
+    - Coordinador de tutorías Mecatrónica
+    - Coordinador de tutorías Electrónica
+    - ¿A quién acudo para tutorías?
+    - ¿A quién me dirijo para tutorías?
+    - ¿Con quién hablo de tutorías?
+    - Información sobre coordinador de tutorías
+    - ¿Quién es el coordinador de tutorías de Ingeniería Informática?
+    - ¿Quién es el coordinador de tutorías de Ingeniería Mecatrónica?
+    - ¿Quién es el coordinador de tutorías de Ingeniería Electrónica?
+
+- intent: ask_for_director
+  examples: |
+    - ¿Quién es el director?
+    - ¿Quién es el director de la FIEE?
+    - ¿Quién es el director de la facultad?
+    - ¿Quién es el director de la Facultad de Ingeniería?
+    - ¿Quién dirige la FIEE?
+    - ¿Quién dirige la facultad?
+    - ¿Quién está a cargo de la FIEE?
+    - ¿Quién está a cargo de la facultad?
+    - ¿Quién es el director actual?
+    - ¿Quién es el director actual de la FIEE?
+    - ¿Quién es el director de la FIEE actualmente?
+    - ¿Quién es el director de la Facultad de Ingeniería Eléctrica y Electrónica?
+    - ¿Quién es el director de la Facultad de Ingeniería Eléctrica y Electrónica actualmente?
+    - Director de la FIEE
+    - Director de la facultad
+    - Información sobre el director
+    - ¿Quién está al frente de la FIEE?
+    - ¿Quién está al frente de la facultad?
+    - ¿Quién encabeza la FIEE?
+    - ¿Quién encabeza la facultad?
+    - ¿Quién es la máxima autoridad de la FIEE?
+    - ¿Quién es la máxima autoridad de la facultad?
+
+- intent: ask_for_proceso_inscripcion
+  examples: |
+    - ¿Cuál es el proceso de inscripción?
+    - ¿Cómo es el proceso de inscripción?
+    - ¿Cómo funciona el proceso de inscripción?
+    - ¿Cómo se hace el proceso de inscripción?
+    - ¿Cómo se realiza el proceso de inscripción?
+    - ¿Cuál es el procedimiento de inscripción?
+    - ¿Cómo es el procedimiento de inscripción?
+    - ¿Cómo funciona el procedimiento de inscripción?
+    - ¿Cómo se hace el procedimiento de inscripción?
+    - ¿Cómo se realiza el procedimiento de inscripción?
+    - ¿Cuáles son los pasos para inscribirme?
+    - ¿Qué pasos debo seguir para inscribirme?
+    - ¿Qué pasos tiene el proceso de inscripción?
+    - ¿Qué pasos tiene la inscripción?
+    - ¿Cómo me inscribo?
+    - ¿Cómo hago mi inscripción?
+    - ¿Cómo realizo mi inscripción?
+    - ¿Cómo proceso mi inscripción?
+    - ¿Cómo gestiono mi inscripción?
+    - ¿Cómo tramito mi inscripción?
+    - Proceso de inscripción
+    - Procedimiento de inscripción
+    - ¿Cómo funciona la inscripción?
+    - ¿Cómo se hace la inscripción?
+    - ¿Cómo se realiza la inscripción?
+    - ¿Cómo se lleva a cabo la inscripción?
+    - ¿Cuál es el proceso para inscribirme?
+    - ¿Cuál es el procedimiento para inscribirme?
+    - ¿Qué debo hacer para inscribirme?
+    - ¿Qué necesito hacer para inscribirme?
+    - ¿Qué tengo que hacer para inscribirme?
+    - Información sobre el proceso de inscripción
+    - Información sobre inscripción
+    - ¿Cómo inicio el proceso de inscripción?
+    - ¿Cómo inicio la inscripción?
+    - Pasos para inscribirme
+    - Pasos de inscripción
+
+- intent: ask_for_oferta_academica
+  examples: |
+    - ¿Qué es la oferta académica?
+    - ¿Qué es oferta académica?
+    - ¿Qué significa oferta académica?
+    - ¿Qué se entiende por oferta académica?
+    - ¿Cuál es la definición de oferta académica?
+    - ¿Qué representa la oferta académica?
+    - ¿A qué se refiere la oferta académica?
+    - ¿Qué es la oferta académica y para qué sirve?
+    - ¿Qué es oferta académica y para qué sirve?
+    - ¿Qué información hay sobre oferta académica?
+    - ¿Cómo se define oferta académica?
+    - ¿De qué trata la oferta académica?
+    - ¿Qué contiene la oferta académica?
+    - ¿Qué incluye la oferta académica?
+    - ¿Qué muestra la oferta académica?
+    - ¿Qué materias están en la oferta académica?
+    - ¿Qué materias tiene la oferta académica?
+    - Oferta académica
+    - ¿Qué es la oferta?
+    - ¿Qué es oferta?
+    - Información sobre oferta académica
+    - ¿Para qué sirve la oferta académica?
+    - ¿Cuál es el propósito de la oferta académica?
+    - ¿Qué función tiene la oferta académica?
+
+- intent: ask_for_revisar_oferta_academica
+  examples: |
+    - ¿Cómo reviso la oferta académica?
+    - ¿Cómo puedo revisar la oferta académica?
+    - ¿Cómo veo la oferta académica?
+    - ¿Cómo puedo ver la oferta académica?
+    - ¿Cómo consulto la oferta académica?
+    - ¿Cómo puedo consultar la oferta académica?
+    - ¿Cómo accedo a la oferta académica?
+    - ¿Cómo puedo acceder a la oferta académica?
+    - ¿Cómo entro a la oferta académica?
+    - ¿Cómo puedo entrar a la oferta académica?
+    - ¿Dónde veo la oferta académica?
+    - ¿Dónde puedo ver la oferta académica?
+    - ¿Dónde consulto la oferta académica?
+    - ¿Dónde puedo consultar la oferta académica?
+    - ¿Dónde está la oferta académica?
+    - ¿Dónde encuentro la oferta académica?
+    - ¿Dónde reviso la oferta académica?
+    - ¿Dónde puedo revisar la oferta académica?
+    - ¿Dónde accedo a la oferta académica?
+    - ¿Dónde puedo acceder a la oferta académica?
+    - ¿Cómo me entero de la oferta académica?
+    - ¿Cómo me entero de la oferta?
+    - ¿Cómo obtengo la oferta académica?
+    - ¿Cómo visualizo la oferta académica?
+    - ¿Cómo visualizo la oferta?
+    - Quiero ver la oferta académica
+    - Necesito ver la oferta académica
+    - Quiero consultar la oferta académica
+    - Necesito consultar la oferta académica
+    - Quiero revisar la oferta académica
+    - Necesito revisar la oferta académica
+    - ¿Dónde se publica la oferta académica?
+    - ¿Dónde se encuentra la oferta académica?
+    - ¿Cuándo se publica la oferta académica?
+    - ¿Cuándo puedo ver la oferta académica?
+    - Información sobre cómo ver la oferta académica
+
+- intent: ask_for_objetos_perdidos
+  examples: |
+    - ¿Dónde puedo localizar objetos perdidos?
+    - ¿Dónde puedo encontrar objetos perdidos?
+    - ¿Dónde puedo buscar objetos perdidos?
+    - ¿Dónde puedo recuperar objetos perdidos?
+    - ¿Dónde están los objetos perdidos?
+    - ¿Dónde se encuentran los objetos perdidos?
+    - ¿Dónde se guardan los objetos perdidos?
+    - ¿Dónde debo buscar objetos perdidos?
+    - ¿Dónde debo ir por objetos perdidos?
+    - ¿Dónde acudo por objetos perdidos?
+    - ¿Dónde me dirijo por objetos perdidos?
+    - ¿A dónde voy por objetos perdidos?
+    - ¿A dónde acudo por objetos perdidos?
+    - ¿A dónde me dirijo por objetos perdidos?
+    - Perdí algo, ¿dónde lo busco?
+    - Perdí un objeto, ¿dónde lo busco?
+    - Perdí algo, ¿dónde lo encuentro?
+    - Perdí un objeto, ¿dónde lo encuentro?
+    - Perdí algo, ¿dónde lo recupero?
+    - Perdí un objeto, ¿dónde lo recupero?
+    - Perdí algo, ¿a dónde voy?
+    - Perdí un objeto, ¿a dónde voy?
+    - Perdí algo, ¿a dónde acudo?
+    - Perdí un objeto, ¿a dónde acudo?
+    - Objetos perdidos
+    - ¿Dónde están los objetos perdidos de la FIEE?
+    - ¿Dónde están los objetos perdidos de la facultad?
+    - ¿Dónde se reportan objetos perdidos?
+    - ¿Dónde reporto objetos perdidos?
+    - ¿Cómo recupero objetos perdidos?
+    - ¿Cómo encuentro objetos perdidos?
+    - ¿Cómo busco objetos perdidos?
+    - Información sobre objetos perdidos
+    - ¿Dónde puedo reportar algo que perdí?
+    - ¿Dónde puedo reportar un objeto perdido?
+
+- intent: ask_for_secretario
+  examples: |
+    - ¿Quién es el secretario?
+    - ¿Quién es el secretario de la FIEE?
+    - ¿Quién es el secretario académico?
+    - ¿Quién es el secretario académico de la FIEE?
+    - ¿Quién es el secretario de la facultad?
+    - ¿Quién es el secretario de la Facultad de Ingeniería?
+    - ¿Quién es el secretario de la Facultad de Ingeniería Eléctrica y Electrónica?
+    - ¿Quién es el secretario actual?
+    - ¿Quién es el secretario actual de la FIEE?
+    - ¿Quién es el secretario académico actual?
+    - ¿Quién es el secretario académico actual de la FIEE?
+    - ¿Quién es el secretario de la FIEE actualmente?
+    - ¿Quién es el secretario académico de la FIEE actualmente?
+    - Secretario de la FIEE
+    - Secretario académico
+    - Secretario académico de la FIEE
+    - ¿Quién está a cargo de la secretaría?
+    - ¿Quién está a cargo de la secretaría académica?
+    - ¿Quién está a cargo de la secretaría académica de la FIEE?
+    - ¿Quién dirige la secretaría?
+    - ¿Quién dirige la secretaría académica?
+    - ¿Quién dirige la secretaría académica de la FIEE?
+    - ¿Quién encabeza la secretaría?
+    - ¿Quién encabeza la secretaría académica?
+    - ¿Quién encabeza la secretaría académica de la FIEE?
+    - ¿Quién es el responsable de la secretaría?
+    - ¿Quién es el responsable de la secretaría académica?
+    - ¿Quién es el responsable de la secretaría académica de la FIEE?
+    - Información sobre el secretario
+    - Información sobre el secretario académico
+    - ¿Quién es la máxima autoridad de la secretaría?
+    - ¿Quién es la máxima autoridad de la secretaría académica?
+
+

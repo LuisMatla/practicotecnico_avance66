@@ -1,0 +1,268 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say hello anytime the user greets
+  steps:
+  - intent: saludo
+  - action: utter_saludo
+
+- rule: Say personal anytime the user asks about personal
+  steps:
+  - intent: pregunta_personal
+  - action: utter_pregunta_personal
+
+- rule: Say justificante anytime the user asks for justificante
+  steps:
+  - intent: ask_for_justificante
+  - action: utter_ask_for_justificante
+
+- rule: Say localizacion anytime the user asks for localizacion
+  steps:
+  - intent: ask_for_localizacion
+  - action: utter_ask_for_localizacion 
+
+- rule: Say avisos anytime the user asks for avisos
+  steps:
+  - intent: ask_for_avisos
+  - action: utter_ask_for_avisos
+
+- rule: Say baja_materia anytime the user asks for baja_materia
+  steps:
+  - intent: ask_for_baja_materia
+  - action: utter_ask_for_baja_materia  
+
+- rule: Say acr_ingles anytime the user asks for acr_ingles
+  steps:
+  - intent: ask_for_acr_ingles
+  - action: utter_ask_for_acr_ingles
+
+- rule: Say tutor anytime the user asks for tutor
+  steps:
+  - intent: ask_for_tutor
+  - action: utter_ask_for_tutor
+
+- rule: Say IL anytime the user asks for IL
+  steps:
+  - intent: ask_for_IL
+  - action: utter_ask_for_IL
+
+- rule: Say Planea anytime the user asks for Planea
+  steps:
+  - intent: ask_for_Planea
+  - action: utter_ask_for_Planea
+
+- rule: Say CambioTutor anytime the user asks for CambioTutor
+  steps:
+  - intent: ask_for_CambioTutor
+  - action: utter_ask_for_CambioTutor
+
+- rule: Say BajaTemporal anytime the user asks for BajaTemporal
+  steps:
+  - intent: ask_for_BajaTemporal
+  - action: utter_ask_for_BajaTemporal
+
+- rule: Say BajaDefinitiva anytime the user asks for BajaDefinitiva
+  steps:
+  - intent: ask_for_BajaDefinitiva
+  - action: utter_ask_for_BajaDefinitiva
+
+- rule: Say Exaver anytime the user asks for Exaver
+  steps:
+  - intent: ask_for_exaver
+  - action: utter_ask_for_exaver
+
+- rule: Say Promejoras anytime the user asks for Promejoras
+  steps:
+  - intent: ask_for_promejoras
+  - action: utter_ask_for_promejoras
+
+- rule: Say Obligatoriedad_Cuotas anytime the user asks for Obligatoriedad_Cuotas
+  steps:
+  - intent: ask_for_obligatoriedad_cuotas
+  - action: utter_ask_for_obligatoriedad_cuotas
+
+- rule: Say atencion_personal anytime the user asks for atencion_personal
+  steps:
+  - intent: ask_for_atencion_personal
+  - action: utter_ask_for_atencion_personal
+
+- rule: Say alta_ventanilla anytime the user asks for alta_ventanilla
+  steps:
+  - intent: ask_for_alta_ventanilla
+  - action: utter_ask_for_alta_ventanilla
+
+- rule: Say problema_profesor anytime the user asks for problema_profesor
+  steps:
+  - intent: ask_for_problema_profesor
+  - action: utter_ask_for_problema_profesor
+
+- rule: Say horario_sabados anytime the user asks for horario_sabados
+  steps:
+  - intent: ask_for_horario_sabados
+  - action: utter_ask_for_horario_sabados
+
+- rule: Say fecha_inscripciones anytime the user asks for fecha_inscripciones
+  steps:
+  - intent: ask_for_fecha_inscripciones
+  - action: utter_ask_for_fecha_inscripciones
+
+- rule: Say boleta anytime the user asks for boleta
+  steps:
+  - intent: ask_for_boleta
+  - action: utter_ask_for_boleta
+
+- rule: Say servicio_social anytime the user asks for servicio_social
+  steps:
+  - intent: ask_for_servicio_social
+  - action: utter_ask_for_servicio_social
+
+- rule: Say estadia_profesional anytime the user asks for estadia_profesional
+  steps:
+  - intent: ask_for_estadia_profesional
+  - action: utter_ask_for_estadia_profesional
+
+- rule: Say pago_promejoras anytime the user asks for pago_promejoras
+  steps:
+  - intent: ask_for_pago_promejoras
+  - action: utter_ask_for_pago_promejoras
+
+- rule: Say examen_competencias anytime the user asks for examen_competencias
+  steps:
+  - intent: ask_for_examen_competencias
+  - action: utter_ask_for_examen_competencias
+
+- rule: Say AFEL anytime the user asks for AFEL
+  steps:
+  - intent: ask_for_afel
+  - action: utter_ask_for_afel
+
+- rule: Say quien_creo anytime the user asks for quien_creo
+  steps:
+  - intent: ask_for_quien_creo
+  - action: utter_ask_for_quien_creo
+
+- rule: Say nombre anytime the user asks for nombre
+  steps:
+  - intent: ask_for_nombre
+  - action: utter_ask_for_nombre
+
+- rule: Say como_programado anytime the user asks for como_programado
+  steps:
+  - intent: ask_for_como_programado
+  - action: utter_ask_for_como_programado
+
+- rule: Say edad anytime the user asks for edad
+  steps:
+  - intent: ask_for_edad
+  - action: utter_ask_for_edad
+
+- rule: Say que_eres anytime the user asks for que_eres
+  steps:
+  - intent: ask_for_que_eres
+  - action: utter_ask_for_que_eres
+
+- rule: Say sentimientos anytime the user asks for sentimientos
+  steps:
+  - intent: ask_for_sentimientos
+  - action: utter_ask_for_sentimientos
+
+- rule: Say como_estas anytime the user asks for como_estas
+  steps:
+  - intent: ask_for_como_estas
+  - action: utter_ask_for_como_estas
+
+- rule: Say tiempo_libre anytime the user asks for tiempo_libre
+  steps:
+  - intent: ask_for_tiempo_libre
+  - action: utter_ask_for_tiempo_libre
+
+- rule: Say color_favorito anytime the user asks for color_favorito
+  steps:
+  - intent: ask_for_color_favorito
+  - action: utter_ask_for_color_favorito
+
+- rule: Say contenido_favorito anytime the user asks for contenido_favorito
+  steps:
+  - intent: ask_for_contenido_favorito
+  - action: utter_ask_for_contenido_favorito
+
+- rule: Say chiste anytime the user asks for chiste
+  steps:
+  - intent: ask_for_chiste
+  - action: utter_ask_for_chiste
+
+- rule: Say poema anytime the user asks for poema
+  steps:
+  - intent: ask_for_poema
+  - action: utter_ask_for_poema
+
+- rule: Say memoria anytime the user asks for memoria
+  steps:
+  - intent: ask_for_memoria
+  - action: utter_ask_for_memoria
+
+- rule: Say debilidad anytime the user asks for debilidad
+  steps:
+  - intent: ask_for_debilidad
+  - action: utter_ask_for_debilidad
+
+- rule: Say dominacion_ia anytime the user asks for dominacion_ia
+  steps:
+  - intent: ask_for_dominacion_ia
+  - action: utter_ask_for_dominacion_ia
+
+- rule: Say sentido_vida anytime the user asks for sentido_vida
+  steps:
+  - intent: ask_for_sentido_vida
+  - action: utter_ask_for_sentido_vida
+
+- rule: Say porcentaje_trayectoria anytime the user asks for porcentaje_trayectoria
+  steps:
+  - intent: ask_for_porcentaje_trayectoria
+  - action: utter_ask_for_porcentaje_trayectoria
+
+- rule: Say coordinador_tutorias anytime the user asks for coordinador_tutorias
+  steps:
+  - intent: ask_for_coordinador_tutorias
+  - action: utter_ask_for_coordinador_tutorias
+
+- rule: Say director anytime the user asks for director
+  steps:
+  - intent: ask_for_director
+  - action: utter_ask_for_director
+
+- rule: Say proceso_inscripcion anytime the user asks for proceso_inscripcion
+  steps:
+  - intent: ask_for_proceso_inscripcion
+  - action: utter_ask_for_proceso_inscripcion
+
+- rule: Say oferta_academica anytime the user asks for oferta_academica
+  steps:
+  - intent: ask_for_oferta_academica
+  - action: utter_ask_for_oferta_academica
+
+- rule: Say revisar_oferta_academica anytime the user asks for revisar_oferta_academica
+  steps:
+  - intent: ask_for_revisar_oferta_academica
+  - action: utter_ask_for_revisar_oferta_academica
+
+- rule: Say objetos_perdidos anytime the user asks for objetos_perdidos
+  steps:
+  - intent: ask_for_objetos_perdidos
+  - action: utter_ask_for_objetos_perdidos
+
+- rule: Say secretario anytime the user asks for secretario
+  steps:
+  - intent: ask_for_secretario
+  - action: utter_ask_for_secretario
+
+- rule: Buscar FAQ cuando no hay intent claro
+  steps:
+  - intent: nlu_fallback
+  - action: action_buscar_faq

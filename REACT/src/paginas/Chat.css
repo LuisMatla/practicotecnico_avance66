@@ -1,0 +1,30 @@
+/* envoltorio de la ruta del chat a pantalla completa. */
+/* paleta y tokens: src/estilos/colores.css (import global en index.css). */
+.chat-page {
+  min-height: 100vh; /*altura minima del viewport.*/
+  background: var(--blanco-UV); /*fondo blanco (variable global).*/
+  width: 100%; /*ancho completo.*/
+  height: 100vh; /*altura fija para layout tipo app.*/
+  overflow: hidden; /*evita scroll en el contenedor exterior.*/
+}
+
+/* contenedor interno que ocupa el viewport. */
+.chat-page-container {
+  width: 100%; /*ancho completo.*/
+  height: 100vh; /*altura fija.*/
+  overflow: hidden; /*sin scroll exterior.*/
+}
+
+/* movil: mantiene altura fija sin scroll exterior. */
+@media (max-width: 768px) {
+  /* misma altura en pantallas pequenas. */
+  .chat-page {
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* contenedor interno igual de alto. */
+  .chat-page-container {
+    height: 100vh;
+  }
+}

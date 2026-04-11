@@ -1,0 +1,72 @@
+/* estilos globales importados desde index.js. */
+@import './colores.css';
+
+/* reset y caja universal para todo el documento. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--pagina-fondo);
+}
+
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* contenedor raiz del componente app. */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* utilidad .sr-only: oculta visualmente pero deja el texto accesible. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* tipografia heredada en botones y campos. */
+button {
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* enlaces sin subrayado por defecto. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* listas sin vinetas por defecto. */
+ul, ol {
+  list-style: none;
+}
+
+/* imagenes fluidas que no desbordan el contenedor. */
+img {
+  max-width: 100%;
+  height: auto;
+}

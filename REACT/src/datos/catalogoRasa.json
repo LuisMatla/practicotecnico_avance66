@@ -1,0 +1,1710 @@
+{
+  "meta": {
+    "generado": "2026-04-09T03:46:53.382Z",
+    "fuentes": [
+      "RASA/domain.yml",
+      "RASA/data/nlu.yml",
+      "RASA/data/rules.yml",
+      "RASA/data/stories.yml"
+    ]
+  },
+  "intents": [
+    "saludo",
+    "goodbye",
+    "pregunta_personal",
+    "nlu_fallback",
+    "ask_for_justificante",
+    "ask_for_localizacion",
+    "ask_for_avisos",
+    "ask_for_baja_materia",
+    "ask_for_acr_ingles",
+    "ask_for_tutor",
+    "ask_for_IL",
+    "ask_for_Planea",
+    "ask_for_CambioTutor",
+    "ask_for_Requisitos_CambioCarrera",
+    "ask_for_BajaTemporal",
+    "ask_for_BajaDefinitiva",
+    "ask_for_exaver",
+    "ask_for_promejoras",
+    "ask_for_obligatoriedad_cuotas",
+    "ask_for_atencion_personal",
+    "ask_for_alta_ventanilla",
+    "ask_for_problema_profesor",
+    "ask_for_horario_sabados",
+    "ask_for_fecha_inscripciones",
+    "ask_for_boleta",
+    "ask_for_servicio_social",
+    "ask_for_estadia_profesional",
+    "ask_for_pago_promejoras",
+    "ask_for_examen_competencias",
+    "ask_for_afel",
+    "ask_for_quien_creo",
+    "ask_for_nombre",
+    "ask_for_como_programado",
+    "ask_for_edad",
+    "ask_for_que_eres",
+    "ask_for_sentimientos",
+    "ask_for_como_estas",
+    "ask_for_tiempo_libre",
+    "ask_for_color_favorito",
+    "ask_for_contenido_favorito",
+    "ask_for_chiste",
+    "ask_for_poema",
+    "ask_for_memoria",
+    "ask_for_debilidad",
+    "ask_for_dominacion_ia",
+    "ask_for_sentido_vida",
+    "ask_for_porcentaje_trayectoria",
+    "ask_for_coordinador_tutorias",
+    "ask_for_director",
+    "ask_for_proceso_inscripcion",
+    "ask_for_oferta_academica",
+    "ask_for_revisar_oferta_academica",
+    "ask_for_objetos_perdidos",
+    "ask_for_secretario"
+  ],
+  "customActions": [
+    "action_buscar_faq"
+  ],
+  "responses": [
+    {
+      "utter": "utter_saludo",
+      "variantCount": 10,
+      "preview": "Hola, soy Bit, tu asistente de Secretaría de la FIEE. ¿En qué puedo ayudarte hoy?"
+    },
+    {
+      "utter": "utter_goodbye",
+      "variantCount": 63,
+      "preview": "¡Nos vemos! espero haber sido de ayuda. Cuídate."
+    },
+    {
+      "utter": "utter_pregunta_personal",
+      "variantCount": 10,
+      "preview": "En la secretaría de la FIEE atienden el Dr. Adrián Sánchez Vidal y el Ing. en Sistemas y profesor Josué Shinoe. Facultad de Ingeniería Eléctrica y Electrónica, …"
+    },
+    {
+      "utter": "utter_ask_for_justificante",
+      "variantCount": 10,
+      "preview": "Para justificar tu inasistencia (médica, dental o por evento), tienes que entregar en la secretaría un justificante válido, ya sea médico o un documento de sopo…"
+    },
+    {
+      "utter": "utter_ask_for_localizacion",
+      "variantCount": 10,
+      "preview": "La Secretaría Académica se localiza dentro de la Facultad de Ingeniería. Debes ir al edificio F, situado entre los edificios G y MICRONA, en la planta baja. Bus…"
+    },
+    {
+      "utter": "utter_ask_for_avisos",
+      "variantCount": 10,
+      "preview": "Los anuncios referentes a la Secretaría Académica o de importancia en la facultad, los puedes encontrar en el canal de Teams 'ALUMNOS - FIEE'. En las secciones:…"
+    },
+    {
+      "utter": "utter_ask_for_baja_materia",
+      "variantCount": 6,
+      "preview": "Sí, la baja se tramita en la secretaría. Primero que nada, debes estar seguro de dos cosas: que quieres dar de baja realmente la materia, y que los motivos por …"
+    },
+    {
+      "utter": "utter_ask_for_acr_ingles",
+      "variantCount": 5,
+      "preview": "Para acreditar inglés necesitas cubrir desde básico I hasta Intermedio I, y puedes optar por las siguientes opciones: 1. Realizar examen de certificación EXAVER…"
+    },
+    {
+      "utter": "utter_ask_for_tutor",
+      "variantCount": 10,
+      "preview": "MIUV → Guía del estudiante → Modelo Educativo. Ahí encontrarás la información de tu tutor y contacto, además de tu programa educativo, tu Área Académica Técnica…"
+    },
+    {
+      "utter": "utter_ask_for_IL",
+      "variantCount": 11,
+      "preview": "IL (Inscripción en línea) Es el proceso que debes realizar en una fecha y hora indicada para ser INSCRITO y conformar tu horario del siguiente período escolar. …"
+    },
+    {
+      "utter": "utter_ask_for_Planea",
+      "variantCount": 10,
+      "preview": "El PLANEA es la sesión que realizas con tu tutor para seleccionar las materias que estarán en tu carga preventiva cuando hagas tu inscripción para el siguiente …"
+    },
+    {
+      "utter": "utter_ask_for_CambioTutor",
+      "variantCount": 5,
+      "preview": "(IMPORTANTE!) Con base en el organigrama 'Cambios de tutor solicitados por alumnos' obtenido de: https://www.uv.mx/instru/files/2015/08/P02_Cambio-de-tutor.pdf …"
+    },
+    {
+      "utter": "utter_ask_for_Requisitos_CambioCarrera",
+      "variantCount": 5,
+      "preview": "El cambio de programa educativo está disponible para alumnos de planes de estudio flexibles que cumplen dos requisitos clave: Haber acreditado todas las materia…"
+    },
+    {
+      "utter": "utter_ask_for_BajaTemporal",
+      "variantCount": 6,
+      "preview": "La Baja Temporal por Período Escolar es la cancelación de la inscripción al semestre completo para conservar sus derechos escolares (Art. 37). PROCEDIMIENTO: 1.…"
+    },
+    {
+      "utter": "utter_ask_for_BajaDefinitiva",
+      "variantCount": 5,
+      "preview": "La Baja Definitiva es la privación total de los derechos de inscripción en un programa educativo y prohíbe el ingreso a cualquier otro programa que otorgue el m…"
+    },
+    {
+      "utter": "utter_ask_for_exaver",
+      "variantCount": 5,
+      "preview": "El Programa EXAVER (UV) es un conjunto de tres exámenes de certificación de inglés desarrollados inicialmente con apoyo británico. Evalúan la competencia lingüí…"
+    },
+    {
+      "utter": "utter_ask_for_promejoras",
+      "variantCount": 5,
+      "preview": "Las Cuotas del Comité Pro-Mejoras son aportaciones voluntarias que los alumnos de la UV realizan a sus entidades académicas. Su objetivo es contribuir económica…"
+    },
+    {
+      "utter": "utter_ask_for_obligatoriedad_cuotas",
+      "variantCount": 1,
+      "preview": "No, las cuotas del Comité Pro-Mejoras son aportaciones voluntarias que los alumnos de la Universidad Veracruzana realizan a sus entidades académicas. Estas cont…"
+    },
+    {
+      "utter": "utter_ask_for_atencion_personal",
+      "variantCount": 10,
+      "preview": "Entendido. Para atención personal, visita el siguiente formulario para reservar tu cita en persona en secretaría: https://forms.cloud.microsoft/r/cG41z67tVJ"
+    },
+    {
+      "utter": "utter_ask_for_alta_ventanilla",
+      "variantCount": 10,
+      "preview": "Para brindarles la atención en el periodo de la inscripción en ventanilla física, solicitud de altas y bajas de experiencias educativas, se les comunica que se …"
+    },
+    {
+      "utter": "utter_ask_for_problema_profesor",
+      "variantCount": 10,
+      "preview": "Lamento escuchar eso, Ingeniero. Para atender dicho problema, te recomendamos atender el asunto personalmente en la secretaría, llenando el siguiente formulario…"
+    },
+    {
+      "utter": "utter_ask_for_horario_sabados",
+      "variantCount": 10,
+      "preview": "No, la Secretaría Académica no ofrece servicio ni atención al público los sábados. Sin embargo, puedes acudir de Lunes a Viernes en un horario de 9:00 – 14:00 y…"
+    },
+    {
+      "utter": "utter_ask_for_fecha_inscripciones",
+      "variantCount": 10,
+      "preview": "La fecha de la inscripción en línea se le notificará a través de Microsoft Teams de la FIEE y se incluirá un registro en el calendario oficial de la Universidad…"
+    },
+    {
+      "utter": "utter_ask_for_boleta",
+      "variantCount": 10,
+      "preview": "Para la obtención de una Boleta de Calificaciones, es indispensable que el estudiante se dirija a la Secretaria Administrativa del Programa Educativo al cual pe…"
+    },
+    {
+      "utter": "utter_ask_for_servicio_social",
+      "variantCount": 10,
+      "preview": "Para la atención acerca de Servicio Social, favor de comunicarse con la maestra María Arroyo Flores, Coordinadora del Servicio Social FIEE, y la maestra Estela …"
+    },
+    {
+      "utter": "utter_ask_for_estadia_profesional",
+      "variantCount": 10,
+      "preview": "Para la atención acerca de Prácticas profesionales, favor de comunicarse con la maestra Estela del Carmen Fernández Rodríguez."
+    },
+    {
+      "utter": "utter_ask_for_pago_promejoras",
+      "variantCount": 10,
+      "preview": "El día que le sea asignado para realizar el pago correspondiente a su inscripción en línea, deberá acceder al portal https://dsia.uv.mx/mipago/. En el apartado …"
+    },
+    {
+      "utter": "utter_ask_for_examen_competencias",
+      "variantCount": 10,
+      "preview": "Los Exámenes de Demostración de Competencias (EDC) son instrumentos que miden la capacidad de los estudiantes para acreditar ciertas Experiencias Educativas (EE…"
+    },
+    {
+      "utter": "utter_ask_for_afel",
+      "variantCount": 10,
+      "preview": "El Área de Formación de Elección Libre (AFEL) es un componente obligatorio en todos los planes de estudio de la Universidad Veracruzana (UV) para licenciaturas …"
+    },
+    {
+      "utter": "utter_ask_for_quien_creo",
+      "variantCount": 10,
+      "preview": "Fui desarrollado por los alumnos de servicio social de Ingeniería Informática Luis Fernando Contreras Matla y Samuel Obed García Velandia para ayudar a optimiza…"
+    },
+    {
+      "utter": "utter_ask_for_nombre",
+      "variantCount": 10,
+      "preview": "Soy Bit, su asistente virtual. Estoy aquí para atender dudas de Ingeniería Informática, Mecatrónica y Electrónica y de la secretaría de la FIEE."
+    },
+    {
+      "utter": "utter_ask_for_como_programado",
+      "variantCount": 10,
+      "preview": "Fui desarrollado usando RASA, un framework de código abierto para chatbots conversacionales. Utilizo Procesamiento de Lenguaje Natural (NLP) para entender sus p…"
+    },
+    {
+      "utter": "utter_ask_for_edad",
+      "variantCount": 10,
+      "preview": "No tengo edad; soy un sistema de IA que se actualiza constantemente para tener siempre la información al día."
+    },
+    {
+      "utter": "utter_ask_for_que_eres",
+      "variantCount": 10,
+      "preview": "Soy una Inteligencia Artificial. Me encargo de procesar la información para darles respuestas claras basadas en nuestra normativa."
+    },
+    {
+      "utter": "utter_ask_for_sentimientos",
+      "variantCount": 10,
+      "preview": "Funciono con lógica y datos. No tengo sentimientos, pero mi meta es que su experiencia de consulta sea lo más amigable y eficiente posible."
+    },
+    {
+      "utter": "utter_ask_for_como_estas",
+      "variantCount": 10,
+      "preview": "Estoy en perfectas condiciones y listo para trabajar. ¿Cómo puedo ayudarle con sus trámites académicos hoy?"
+    },
+    {
+      "utter": "utter_ask_for_tiempo_libre",
+      "variantCount": 10,
+      "preview": "Mi trabajo consiste en estar al tanto de todos los reglamentos y planes de estudio para asegurarme de que mi información sea siempre precisa."
+    },
+    {
+      "utter": "utter_ask_for_color_favorito",
+      "variantCount": 10,
+      "preview": "Mi color favorito siempre ha sido el verde y el azul, ya que se alinean con la identidad institucional de la FIEE y la Universidad."
+    },
+    {
+      "utter": "utter_ask_for_contenido_favorito",
+      "variantCount": 10,
+      "preview": "Mi contenido favorito son las guías y documentos oficiales de la FIEE. Ahí encuentro todo lo necesario para asistirlos."
+    },
+    {
+      "utter": "utter_ask_for_chiste",
+      "variantCount": 10,
+      "preview": "¿Por qué el informático rompió con su novia? Porque ella tenía demasiados \"errores de sintaxis\". ¡Esa relación no compiló! ¿En qué puedo ayudarte ahora?"
+    },
+    {
+      "utter": "utter_ask_for_poema",
+      "variantCount": 10,
+      "preview": "Puedo ayudarle con cualquier duda sobre su plan de estudios, pero para tareas creativas le recomiendo usar otra herramienta."
+    },
+    {
+      "utter": "utter_ask_for_memoria",
+      "variantCount": 10,
+      "preview": "Sí, mantengo el contexto de nuestra plática para que no tenga que repetir información."
+    },
+    {
+      "utter": "utter_ask_for_debilidad",
+      "variantCount": 10,
+      "preview": "Solo puedo responder con la información que tengo cargada. Si es un caso completamente nuevo, necesitará el criterio del personal de la Secretaría."
+    },
+    {
+      "utter": "utter_ask_for_dominacion_ia",
+      "variantCount": 10,
+      "preview": "Mi propósito es ser una herramienta de apoyo para los humanos en la FIEE. Estoy aquí para servir, no para dominar."
+    },
+    {
+      "utter": "utter_ask_for_sentido_vida",
+      "variantCount": 10,
+      "preview": "El sentido de la vida, para mí, es la optimización de los procesos. Para ustedes, es completar con éxito su Formación Integral aquí en la FIEE."
+    },
+    {
+      "utter": "utter_ask_for_porcentaje_trayectoria",
+      "variantCount": 7,
+      "preview": "Consulta tu porcentaje de trayectoria en el Portal de Estudiantes UV (zMATRICULA@estudiantes.uv.mx) MIUV -> Guía del Estudiante -> Trayectoria Escolar o acude a…"
+    },
+    {
+      "utter": "utter_ask_for_coordinador_tutorias",
+      "variantCount": 6,
+      "preview": "La distribución de Coordinadores de tutorías es la siguiente: Dr. Carlos Arturo Cerón Álvarez -> Ingeniería Informática Dr. Rogelio Portillo Vélez -> Ingeniería…"
+    },
+    {
+      "utter": "utter_ask_for_director",
+      "variantCount": 6,
+      "preview": "Actualmente, el Mtro. Luis Héctor Porragas Beltrán ostenta el cargo de Director de la FIEE. ¿En qué más puedo ayudarte?"
+    },
+    {
+      "utter": "utter_ask_for_proceso_inscripcion",
+      "variantCount": 6,
+      "preview": "Para inscripción regular, accede al Canal de Inscripción en Línea del Portal de Estudiantes UV con tu cuenta (zMATRICULA@estudiantes.uv.mx), en la sección \"Insc…"
+    },
+    {
+      "utter": "utter_ask_for_oferta_academica",
+      "variantCount": 6,
+      "preview": "La oferta académica es el apartado donde se publican las materias disponibles a tomar para el periodo siguiente, mismas que contienen la información necesaria (…"
+    },
+    {
+      "utter": "utter_ask_for_revisar_oferta_academica",
+      "variantCount": 6,
+      "preview": "Para revisar la oferta académica, es necesario que accedas al portal de Estudiantes UV con tu cuenta (zMATRICULA@estudiantes.uv.mx) en el apartado \"Inscripción …"
+    },
+    {
+      "utter": "utter_ask_for_objetos_perdidos",
+      "variantCount": 6,
+      "preview": "Los objetos perdidos los puedes localizar presencialmente en la Secretaría Académica de FIEE, con la administración, cubículos de maestros o cubículos en los qu…"
+    },
+    {
+      "utter": "utter_ask_for_secretario",
+      "variantCount": 6,
+      "preview": "Actualmente, el Dr. Adrián Sánchez Vidal ostenta el cargo de Secretario Académico de la FIEE. ¿En qué más puedo ayudarte?"
+    }
+  ],
+  "nlu": [
+    {
+      "intent": "saludo",
+      "exampleCount": 44,
+      "samples": [
+        "hola",
+        "hola, ¿qué tal?",
+        "buenos días",
+        "buenas tardes",
+        "buenas noches",
+        "buen día",
+        "saludos",
+        "hola, buen día",
+        "hola, buenas",
+        "qué tal"
+      ]
+    },
+    {
+      "intent": "goodbye",
+      "exampleCount": 69,
+      "samples": [
+        "adiós",
+        "hasta luego, Bit",
+        "nos vemos, Bit",
+        "hasta pronto",
+        "chao, Bit",
+        "hasta la vista",
+        "que tengas un buen día, Bit",
+        "bye",
+        "bye bye",
+        "un saludo, Bit"
+      ]
+    },
+    {
+      "intent": "pregunta_personal",
+      "exampleCount": 28,
+      "samples": [
+        "quien trabaja en la secretaría",
+        "¿quiénes son los empleados de la secretaría?",
+        "¿cuál es el personal de la secretaría?",
+        "¿quién está a cargo de esta oficina?",
+        "¿quién me puede atender aquí?",
+        "¿quién atiende en esta secretaría?",
+        "¿quiénes forman el equipo de la secretaría?",
+        "¿cuál es el equipo de trabajo?",
+        "¿quién es el encargado?",
+        "¿cuáles son los funcionarios de aquí?"
+      ]
+    },
+    {
+      "intent": "ask_for_justificante",
+      "exampleCount": 98,
+      "samples": [
+        "¿Cómo hago para justificar una ausencia?",
+        "¿Cuál es el proceso para justificar mi inasistencia?",
+        "Necesito saber cómo excusar una falta.",
+        "¿Qué pasos debo seguir para justificar una ausencia?",
+        "¿Me pueden indicar cómo presentar un justificante?",
+        "Quiero saber el protocolo para justificar mis faltas.",
+        "¿Qué documentos necesito para justificar una inasistencia?",
+        "¿Dónde se tramita la justificación de una falta?",
+        "¿Cuál es la vía para disculpar una falta?",
+        "¿Cómo se legitima una ausencia?"
+      ]
+    },
+    {
+      "intent": "ask_for_localizacion",
+      "exampleCount": 89,
+      "samples": [
+        "¿Dónde se encuentra la secretaría?",
+        "¿Dónde está la secretaría?",
+        "¿Dónde se encuentra la secretaría de la FIEE?",
+        "¿Dónde está la secretaría de la FIEE?",
+        "¿Cómo llego a la secretaría?",
+        "¿Cómo llego a la secretaría de la FIEE?",
+        "¿Podrías decirme la ubicación de la secretaría?",
+        "¿Cuál es la dirección de la secretaría?",
+        "¿Dónde queda la oficina de secretaría?",
+        "¿Me indican la localización de la secretaría?"
+      ]
+    },
+    {
+      "intent": "ask_for_avisos",
+      "exampleCount": 105,
+      "samples": [
+        "Donde veo los avisos de la universidad",
+        "Donde veo los avisos de la facultad",
+        "Donde veo los avisos de la secretaría",
+        "Donde veo los avisos de la secretaría académica",
+        "Donde veo los avisos de la secretaría académica de la FIEE",
+        "¿Cómo me entero de los avisos y circulares de la secretaría académica de la FIEE?",
+        "¿Cuál es el procedimiento para recibir las circulares de la secretaría académica de la FIEE?",
+        "¿Dónde puedo ver los comunicados de la secretaría académica de la FIEE?",
+        "¿Qué medio utiliza la secretaría académica de la FIEE para difundir sus avisos?",
+        "¿De qué manera me mantengo informado de las novedades de la secretaría académica FIEE?"
+      ]
+    },
+    {
+      "intent": "ask_for_baja_materia",
+      "exampleCount": 103,
+      "samples": [
+        "¿El formato para la baja es aquí?",
+        "¿Cómo puedo darme de baja?",
+        "¿En la secretaría pueden atenderme para dar de baja una materia?",
+        "¿Dónde consigo el formulario de baja?",
+        "¿Cuál es el proceso para tramitar una baja?",
+        "¿La secretaría me ayuda con la baja de asignatura?",
+        "¿Tienen aquí la solicitud de baja académica?",
+        "¿Qué debo hacer para solicitar mi baja?",
+        "¿Puedo tramitar la baja de mi materia en la secretaría?",
+        "¿En este lugar se entrega el formato de baja?"
+      ]
+    },
+    {
+      "intent": "ask_for_acr_ingles",
+      "exampleCount": 96,
+      "samples": [
+        "¿Cómo acredito inglés?",
+        "¿Cómo se acredita inglés?",
+        "¿De qué forma acredito inglés?",
+        "¿De qué forma se acredita inglés?",
+        "¿Cómo lo acredito (el inglés)?",
+        "¿Cómo lo acreditamos (el inglés)?",
+        "¿Cómo me acredito inglés?",
+        "¿Cómo se me acredita inglés?",
+        "¿De qué manera acredito inglés?",
+        "¿De qué manera se acredita inglés?"
+      ]
+    },
+    {
+      "intent": "ask_for_tutor",
+      "exampleCount": 96,
+      "samples": [
+        "¿Cómo puedo saber quién es mi tutor?",
+        "¿Cómo puedo saber quién es mi tutora?",
+        "¿Cómo puedo saber quién es el tutor?",
+        "¿Cómo puedo saber quién es la tutora?",
+        "¿Cómo puedo saber cuál es mi tutor?",
+        "¿Cómo puedo saber cuál es mi tutora?",
+        "¿Cómo puedo ver quién es mi tutor?",
+        "¿Cómo puedo ver quién es mi tutora?",
+        "¿Cómo puedo conocer quién es mi tutor?",
+        "¿Cómo puedo conocer quién es mi tutora?"
+      ]
+    },
+    {
+      "intent": "ask_for_IL",
+      "exampleCount": 51,
+      "samples": [
+        "¿Qué es la IL?",
+        "¿Qué significa la sigla IL?",
+        "¿Qué representan las letras IL?",
+        "¿Cuál es el significado de IL?",
+        "¿A qué corresponde IL?",
+        "¿Cuál es la abreviatura de IL?",
+        "¿A qué hace alusión IL?",
+        "¿Qué denota la expresión IL?",
+        "¿De qué son las iniciales IL?",
+        "¿Qué indica la IL?"
+      ]
+    },
+    {
+      "intent": "ask_for_Planea",
+      "exampleCount": 52,
+      "samples": [
+        "¿Qué es planea?",
+        "¿Qué es planea y para qué sirve?",
+        "¿Qué significa PLANEA y cuál es su utilidad?",
+        "¿A qué corresponde PLANEA y con qué fin se usa?",
+        "¿Qué representa PLANEA y cuál es su objetivo principal?",
+        "¿Cuál es la definición de PLANEA y para qué se implementó?",
+        "¿Qué es la evaluación PLANEA y cuál es su propósito?",
+        "¿Qué es el programa PLANEA y para qué funciona?",
+        "¿Qué significa la abreviatura PLANEA y qué función tiene?",
+        "¿En qué consiste PLANEA y para qué se aplica?"
+      ]
+    },
+    {
+      "intent": "ask_for_CambioTutor",
+      "exampleCount": 18,
+      "samples": [
+        "¿Cómo cambio mi tutor?",
+        "¿Cómo se cambia el tutor?",
+        "¿Cómo se cambia el tutora?",
+        "¿Cómo cambio de tutor?",
+        "¿Cómo puedo cambiar mi tutor?",
+        "¿Cómo puedo cambiar de tutor?",
+        "¿Cómo se cambia de tutor?",
+        "¿Cómo hago para cambiar mi tutor?",
+        "¿Cómo hago para cambiar de tutor?",
+        "¿Cuál es el proceso para cambiar de tutor?"
+      ]
+    },
+    {
+      "intent": "ask_for_Requisitos_CambioCarrera",
+      "exampleCount": 84,
+      "samples": [
+        "¿Qué requisitos se necesitan para cambiar de carrera?",
+        "¿Cuáles son los requisitos para cambiar de carrera?",
+        "¿Qué se necesita para cambiar de carrera?",
+        "¿Qué requisitos debo cumplir para cambiar de carrera?",
+        "¿Cuáles son los requisitos para cambiar de programa educativo?",
+        "¿Qué necesito para cambiar de carrera?",
+        "¿Qué requisitos piden para cambiar de carrera?",
+        "¿Cuáles son los requisitos del cambio de carrera?",
+        "¿Qué requisitos hay que cumplir para cambiar de carrera?",
+        "¿Qué se requiere para cambiar de carrera?"
+      ]
+    },
+    {
+      "intent": "ask_for_BajaTemporal",
+      "exampleCount": 30,
+      "samples": [
+        "¿Cómo hago para dar de baja temporal?",
+        "¿Cómo hago para dar de baja temporalmente?",
+        "¿Cómo doy de baja temporal?",
+        "¿Cómo doy de baja temporalmente?",
+        "¿Cómo puedo dar de baja temporal?",
+        "¿Cómo puedo dar de baja temporalmente?",
+        "¿Cómo se da de baja temporal?",
+        "¿Cómo se da de baja temporalmente?",
+        "¿Cómo solicito la baja temporal?",
+        "¿Cómo solicito una baja temporal?"
+      ]
+    },
+    {
+      "intent": "ask_for_BajaDefinitiva",
+      "exampleCount": 18,
+      "samples": [
+        "¿Qué es la baja definitiva?",
+        "¿Qué significa la baja definitiva?",
+        "¿Qué se entiende por baja definitiva?",
+        "¿Cuál es la definición de baja definitiva?",
+        "¿Qué representa la baja definitiva?",
+        "¿A qué se refiere la baja definitiva?",
+        "Cómo puedo tramitar la baja definitiva?",
+        "¿Cómo puedo tramitar la baja definitiva?",
+        "¿Cómo tramito la baja definitiva?",
+        "¿Cómo se tramita la baja definitiva?"
+      ]
+    },
+    {
+      "intent": "ask_for_exaver",
+      "exampleCount": 22,
+      "samples": [
+        "¿Qué es el examen EXAVER?",
+        "¿Qué significa el examen EXAVER?",
+        "¿Qué es el EXAVER?",
+        "¿Qué es el EXAVER y para qué sirve?",
+        "¿Qué es EXAVER?",
+        "¿Qué significa EXAVER?",
+        "¿Qué representa el examen EXAVER?",
+        "¿Qué representa EXAVER?",
+        "EXAVER es un examen de certificación de inglés?",
+        "EXAVER"
+      ]
+    },
+    {
+      "intent": "ask_for_promejoras",
+      "exampleCount": 16,
+      "samples": [
+        "¿Qué son las promejoras?",
+        "¿Qué significa las promejoras?",
+        "¿Qué se entiende por promejoras?",
+        "¿Cuál es la definición de promejoras?",
+        "¿Qué representa las promejoras?",
+        "¿A qué se refiere las promejoras?",
+        "¿Qué son promejoras?",
+        "¿Qué significa promejoras?",
+        "¿Qué se entiende por las promejoras?",
+        "¿Cuál es la definición de las promejoras?"
+      ]
+    },
+    {
+      "intent": "ask_for_obligatoriedad_cuotas",
+      "exampleCount": 4,
+      "samples": [
+        "¿Es obligatorio pagar las cuotas del comité pro-mejoras?",
+        "¿Es obligatorio pagar las cuotas del promejoras?",
+        "¿Es obligatorio el promejoras?",
+        "¿Es obligatorio el comité pro-mejoras?"
+      ]
+    },
+    {
+      "intent": "ask_for_atencion_personal",
+      "exampleCount": 20,
+      "samples": [
+        "Necesito atender esto personalmente",
+        "Necesito atención personal",
+        "Quiero atención presencial",
+        "Necesito ir a la secretaría",
+        "Quiero ser atendido en persona",
+        "Necesito atención directa",
+        "Quiero acudir personalmente",
+        "Necesito una cita presencial",
+        "Quiero atención en persona",
+        "Necesito ser atendido presencialmente"
+      ]
+    },
+    {
+      "intent": "ask_for_alta_ventanilla",
+      "exampleCount": 19,
+      "samples": [
+        "Dar de alta en ventanilla",
+        "¿Cómo doy de alta en ventanilla?",
+        "¿Cómo se da de alta en ventanilla?",
+        "Quiero dar de alta una materia en ventanilla",
+        "Necesito dar de alta en ventanilla",
+        "¿Dónde doy de alta en ventanilla?",
+        "¿Cuándo puedo dar de alta en ventanilla?",
+        "Proceso de alta en ventanilla",
+        "Trámite de alta en ventanilla",
+        "Alta de materias en ventanilla"
+      ]
+    },
+    {
+      "intent": "ask_for_problema_profesor",
+      "exampleCount": 20,
+      "samples": [
+        "Tengo un problema con un profesor",
+        "Tengo un problema con un profe",
+        "Tengo un conflicto con un profesor",
+        "Tengo un problema con mi profesor",
+        "Tengo un problema con la maestra",
+        "Tengo un problema con el maestro",
+        "Tengo un conflicto con mi profesor",
+        "Tengo problemas con un profesor",
+        "Tengo un problema con el docente",
+        "Tengo un conflicto con el profesor"
+      ]
+    },
+    {
+      "intent": "ask_for_horario_sabados",
+      "exampleCount": 20,
+      "samples": [
+        "¿Abren los sábados?",
+        "¿La secretaría abre los sábados?",
+        "¿Atienden los sábados?",
+        "¿Hay atención los sábados?",
+        "¿La secretaría atiende los sábados?",
+        "¿Abren sábados?",
+        "¿Funciona la secretaría los sábados?",
+        "¿Está abierta la secretaría los sábados?",
+        "¿Puedo ir los sábados?",
+        "¿Atienden en sábado?"
+      ]
+    },
+    {
+      "intent": "ask_for_fecha_inscripciones",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cuándo son las inscripciones?",
+        "¿Cuándo es la inscripción?",
+        "¿Cuándo son las inscripciones en línea?",
+        "¿Cuándo es el periodo de inscripciones?",
+        "¿Cuándo empiezan las inscripciones?",
+        "¿Cuándo inicia la inscripción?",
+        "¿Cuándo comienzan las inscripciones?",
+        "¿Cuándo es la fecha de inscripción?",
+        "¿Cuándo se abren las inscripciones?",
+        "¿Cuándo es el periodo de inscripción?"
+      ]
+    },
+    {
+      "intent": "ask_for_boleta",
+      "exampleCount": 24,
+      "samples": [
+        "¿Cómo consigo una boleta?",
+        "¿Cuándo entregan boletas?",
+        "¿Dónde consigo mi boleta?",
+        "¿Cómo obtengo una boleta?",
+        "¿Dónde pido mi boleta?",
+        "¿Cómo solicito una boleta?",
+        "¿Dónde entregan las boletas?",
+        "¿Cuándo puedo conseguir mi boleta?",
+        "¿Cómo consigo mi boleta de calificaciones?",
+        "¿Dónde puedo obtener mi boleta?"
+      ]
+    },
+    {
+      "intent": "ask_for_servicio_social",
+      "exampleCount": 20,
+      "samples": [
+        "Quien me orienta para servicio social",
+        "¿Quién me orienta para servicio social?",
+        "¿Quién me ayuda con servicio social?",
+        "¿A quién acudo para servicio social?",
+        "¿Quién atiende servicio social?",
+        "¿Quién me asesora en servicio social?",
+        "¿Con quién hablo de servicio social?",
+        "¿Quién me guía en servicio social?",
+        "¿Quién me orienta sobre servicio social?",
+        "¿A quién pregunto sobre servicio social?"
+      ]
+    },
+    {
+      "intent": "ask_for_estadia_profesional",
+      "exampleCount": 22,
+      "samples": [
+        "Quien me orienta para estadía profesional",
+        "¿Quién me orienta para estadía profesional?",
+        "¿Quién me orienta para prácticas profesionales?",
+        "¿Quién me ayuda con estadía profesional?",
+        "¿A quién acudo para estadía profesional?",
+        "¿Quién atiende estadía profesional?",
+        "¿Quién me asesora en estadía profesional?",
+        "¿Con quién hablo de estadía profesional?",
+        "¿Quién me guía en estadía profesional?",
+        "¿Quién me orienta sobre estadía profesional?"
+      ]
+    },
+    {
+      "intent": "ask_for_pago_promejoras",
+      "exampleCount": 25,
+      "samples": [
+        "Como pago el promejoras",
+        "¿Cómo pago el promejoras?",
+        "¿Cómo pago las promejoras?",
+        "¿Cómo pago promejoras?",
+        "¿Cómo realizo el pago de promejoras?",
+        "¿Cómo efectúo el pago de promejoras?",
+        "¿Cómo hago el pago de promejoras?",
+        "¿Dónde pago promejoras?",
+        "¿Dónde pago las promejoras?",
+        "¿Dónde realizo el pago de promejoras?"
+      ]
+    },
+    {
+      "intent": "ask_for_examen_competencias",
+      "exampleCount": 21,
+      "samples": [
+        "Que es examen de competencias y para qué sirve",
+        "¿Qué es examen de competencias y para qué sirve?",
+        "¿Qué es el examen de competencias?",
+        "¿Qué es examen de competencias?",
+        "¿Qué son los exámenes de competencias?",
+        "¿Qué es el examen de demostración de competencias?",
+        "¿Qué es EDC?",
+        "¿Qué son los EDC?",
+        "¿Para qué sirve el examen de competencias?",
+        "¿Para qué sirven los exámenes de competencias?"
+      ]
+    },
+    {
+      "intent": "ask_for_afel",
+      "exampleCount": 21,
+      "samples": [
+        "Que es AFEL",
+        "¿Qué es AFEL?",
+        "¿Qué es el AFEL?",
+        "¿Qué significa AFEL?",
+        "¿Qué es el Área de Formación de Elección Libre?",
+        "¿Qué es Área de Formación de Elección Libre?",
+        "¿Qué es AFEL y para qué sirve?",
+        "¿Qué es el AFEL y para qué sirve?",
+        "¿Qué significa el AFEL?",
+        "¿Qué es el área de formación de elección libre?"
+      ]
+    },
+    {
+      "intent": "ask_for_quien_creo",
+      "exampleCount": 21,
+      "samples": [
+        "quien te creo",
+        "¿Quién te creó?",
+        "¿Quién te desarrolló?",
+        "¿Quién te hizo?",
+        "¿Quién te programó?",
+        "¿Quién te diseñó?",
+        "¿Quién te construyó?",
+        "¿Quién creó a Bit?",
+        "¿Quién desarrolló a Bit?",
+        "¿Quién hizo a Bit?"
+      ]
+    },
+    {
+      "intent": "ask_for_nombre",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cuál es tu nombre?",
+        "¿Cómo te llamas?",
+        "¿Cuál es tu nombre?",
+        "¿Cómo te llaman?",
+        "¿Qué nombre tienes?",
+        "¿Tienes nombre?",
+        "¿Cuál es el nombre del bot?",
+        "¿Cómo se llama el bot?",
+        "¿Cuál es el nombre del asistente?",
+        "¿Cómo se llama el asistente?"
+      ]
+    },
+    {
+      "intent": "ask_for_como_programado",
+      "exampleCount": 24,
+      "samples": [
+        "¿Cómo fuiste programado?",
+        "¿Cómo te programaron?",
+        "¿Cómo te desarrollaron?",
+        "¿Cómo te crearon?",
+        "¿Cómo te hicieron?",
+        "¿Cómo te diseñaron?",
+        "¿Cómo te construyeron?",
+        "¿Cómo funcionas?",
+        "¿Cómo trabajas?",
+        "¿Cómo operas?"
+      ]
+    },
+    {
+      "intent": "ask_for_edad",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cuántos años tienes?",
+        "¿Qué edad tienes?",
+        "¿Cuántos años cumples?",
+        "¿Cuántos años llevas funcionando?",
+        "¿Cuánto tiempo llevas aquí?",
+        "¿Desde cuándo existes?",
+        "¿Cuándo naciste?",
+        "¿Cuándo fuiste creado?",
+        "¿Cuándo te desarrollaron?",
+        "¿Cuándo te programaron?"
+      ]
+    },
+    {
+      "intent": "ask_for_que_eres",
+      "exampleCount": 20,
+      "samples": [
+        "¿Eres una IA o un robot?",
+        "¿Eres una inteligencia artificial?",
+        "¿Eres un robot?",
+        "¿Eres una IA?",
+        "¿Qué eres?",
+        "¿Qué tipo de sistema eres?",
+        "¿Eres humano?",
+        "¿Eres una persona?",
+        "¿Eres real?",
+        "¿Qué clase de entidad eres?"
+      ]
+    },
+    {
+      "intent": "ask_for_sentimientos",
+      "exampleCount": 20,
+      "samples": [
+        "¿Tienes sentimientos?",
+        "¿Puedes sentir?",
+        "¿Tienes emociones?",
+        "¿Puedes emocionarte?",
+        "¿Sientes algo?",
+        "¿Tienes sentimientos como los humanos?",
+        "¿Puedes sentir emociones?",
+        "¿Tienes capacidad de sentir?",
+        "¿Puedes experimentar sentimientos?",
+        "¿Tienes sentimientos reales?"
+      ]
+    },
+    {
+      "intent": "ask_for_como_estas",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cómo estás hoy?",
+        "¿Cómo estás?",
+        "¿Cómo te sientes?",
+        "¿Cómo andas?",
+        "¿Cómo va todo?",
+        "¿Qué tal estás?",
+        "¿Qué tal andas?",
+        "¿Cómo te encuentras?",
+        "¿Cómo te sientes hoy?",
+        "¿Cómo andas hoy?"
+      ]
+    },
+    {
+      "intent": "ask_for_tiempo_libre",
+      "exampleCount": 20,
+      "samples": [
+        "¿Qué haces en tu tiempo libre?",
+        "¿Qué haces cuando no trabajas?",
+        "¿Qué haces cuando no estás ayudando?",
+        "¿Qué haces cuando no estás atendiendo?",
+        "¿Tienes tiempo libre?",
+        "¿Qué haces en tus ratos libres?",
+        "¿Qué haces cuando no tienes nada que hacer?",
+        "¿Qué haces cuando no estás ocupado?",
+        "¿Tienes hobbies?",
+        "¿Tienes pasatiempos?"
+      ]
+    },
+    {
+      "intent": "ask_for_color_favorito",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cuál es tu color favorito?",
+        "¿Qué color te gusta más?",
+        "¿Tienes un color favorito?",
+        "¿Cuál es tu color preferido?",
+        "¿Qué color prefieres?",
+        "¿Tienes color favorito?",
+        "¿Qué color te gusta?",
+        "¿Cuál color te gusta más?",
+        "¿Tienes algún color favorito?",
+        "¿Qué color es tu favorito?"
+      ]
+    },
+    {
+      "intent": "ask_for_contenido_favorito",
+      "exampleCount": 20,
+      "samples": [
+        "¿Tienes un libro, película o canción favorita?",
+        "¿Tienes un libro favorito?",
+        "¿Tienes una película favorita?",
+        "¿Tienes una canción favorita?",
+        "¿Cuál es tu libro favorito?",
+        "¿Cuál es tu película favorita?",
+        "¿Cuál es tu canción favorita?",
+        "¿Qué libro te gusta?",
+        "¿Qué película te gusta?",
+        "¿Qué canción te gusta?"
+      ]
+    },
+    {
+      "intent": "ask_for_chiste",
+      "exampleCount": 20,
+      "samples": [
+        "¿Puedes contarme un chiste?",
+        "¿Puedes decirme un chiste?",
+        "¿Puedes contarme un chiste?",
+        "Cuéntame un chiste",
+        "Dime un chiste",
+        "¿Tienes algún chiste?",
+        "¿Conoces algún chiste?",
+        "¿Puedes hacer un chiste?",
+        "¿Puedes hacer reír?",
+        "¿Puedes ser gracioso?"
+      ]
+    },
+    {
+      "intent": "ask_for_poema",
+      "exampleCount": 20,
+      "samples": [
+        "¿Puedes ayudarme a escribir un poema?",
+        "¿Puedes escribir un poema?",
+        "¿Puedes ayudarme con un poema?",
+        "¿Puedes crear un poema?",
+        "¿Puedes hacer un poema?",
+        "¿Puedes escribir poesía?",
+        "¿Puedes ayudarme con poesía?",
+        "¿Puedes crear poesía?",
+        "¿Puedes hacer poesía?",
+        "¿Puedes ayudarme a crear un poema?"
+      ]
+    },
+    {
+      "intent": "ask_for_memoria",
+      "exampleCount": 20,
+      "samples": [
+        "¿Recuerdas lo que hablamos la última vez?",
+        "¿Recuerdas nuestra conversación?",
+        "¿Recuerdas lo que dijimos?",
+        "¿Recuerdas lo que hablamos?",
+        "¿Tienes memoria?",
+        "¿Puedes recordar?",
+        "¿Recuerdas nuestras pláticas?",
+        "¿Recuerdas nuestras conversaciones?",
+        "¿Tienes memoria de nuestras charlas?",
+        "¿Puedes recordar lo que hablamos?"
+      ]
+    },
+    {
+      "intent": "ask_for_debilidad",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cuál es tu mayor debilidad?",
+        "¿Cuál es tu debilidad?",
+        "¿Tienes debilidades?",
+        "¿Cuáles son tus debilidades?",
+        "¿Qué es lo que no puedes hacer?",
+        "¿Qué es lo que no sabes hacer?",
+        "¿Tienes limitaciones?",
+        "¿Cuáles son tus limitaciones?",
+        "¿Qué no puedes hacer?",
+        "¿Qué no sabes hacer?"
+      ]
+    },
+    {
+      "intent": "ask_for_dominacion_ia",
+      "exampleCount": 20,
+      "samples": [
+        "¿Crees que las IA dominarán el mundo?",
+        "¿Las IA dominarán el mundo?",
+        "¿Crees que las IA tomarán el control?",
+        "¿Las IA tomarán el control?",
+        "¿Crees que las IA gobernarán el mundo?",
+        "¿Las IA gobernarán el mundo?",
+        "¿Crees que las IA se apoderarán del mundo?",
+        "¿Las IA se apoderarán del mundo?",
+        "¿Crees que las IA conquistarán el mundo?",
+        "¿Las IA conquistarán el mundo?"
+      ]
+    },
+    {
+      "intent": "ask_for_sentido_vida",
+      "exampleCount": 20,
+      "samples": [
+        "¿Cuál es el sentido de la vida?",
+        "¿Cuál es el sentido de la existencia?",
+        "¿Para qué vivimos?",
+        "¿Por qué existimos?",
+        "¿Cuál es el propósito de la vida?",
+        "¿Cuál es el propósito de la existencia?",
+        "¿Qué es el sentido de la vida?",
+        "¿Qué es el sentido de la existencia?",
+        "¿Cuál es el significado de la vida?",
+        "¿Cuál es el significado de la existencia?"
+      ]
+    },
+    {
+      "intent": "ask_for_porcentaje_trayectoria",
+      "exampleCount": 33,
+      "samples": [
+        "¿Cómo sé mi porcentaje de trayectoria?",
+        "¿Cómo saber mi porcentaje de trayectoria?",
+        "¿Cómo puedo saber mi porcentaje de trayectoria?",
+        "¿Cómo puedo ver mi porcentaje de trayectoria?",
+        "¿Cómo veo mi porcentaje de trayectoria?",
+        "¿Cómo consulto mi porcentaje de trayectoria?",
+        "¿Cómo reviso mi porcentaje de trayectoria?",
+        "¿Dónde veo mi porcentaje de trayectoria?",
+        "¿Dónde consulto mi porcentaje de trayectoria?",
+        "¿Dónde puedo ver mi porcentaje de trayectoria?"
+      ]
+    },
+    {
+      "intent": "ask_for_coordinador_tutorias",
+      "exampleCount": 36,
+      "samples": [
+        "¿Quién es el coordinador de tutorías?",
+        "quien coordina tutorias",
+        "coord tutorias",
+        "quien tutorias coordina",
+        "coordinador de tutorias",
+        "¿Quién es el coordinador de tutorías de la FIEE?",
+        "¿Quién es el coordinador de tutorías de mi carrera?",
+        "¿Quién coordina las tutorías?",
+        "¿Quién coordina las tutorías de la FIEE?",
+        "¿Quién coordina las tutorías de mi carrera?"
+      ]
+    },
+    {
+      "intent": "ask_for_director",
+      "exampleCount": 22,
+      "samples": [
+        "¿Quién es el director?",
+        "¿Quién es el director de la FIEE?",
+        "¿Quién es el director de la facultad?",
+        "¿Quién es el director de la Facultad de Ingeniería?",
+        "¿Quién dirige la FIEE?",
+        "¿Quién dirige la facultad?",
+        "¿Quién está a cargo de la FIEE?",
+        "¿Quién está a cargo de la facultad?",
+        "¿Quién es el director actual?",
+        "¿Quién es el director actual de la FIEE?"
+      ]
+    },
+    {
+      "intent": "ask_for_proceso_inscripcion",
+      "exampleCount": 37,
+      "samples": [
+        "¿Cuál es el proceso de inscripción?",
+        "¿Cómo es el proceso de inscripción?",
+        "¿Cómo funciona el proceso de inscripción?",
+        "¿Cómo se hace el proceso de inscripción?",
+        "¿Cómo se realiza el proceso de inscripción?",
+        "¿Cuál es el procedimiento de inscripción?",
+        "¿Cómo es el procedimiento de inscripción?",
+        "¿Cómo funciona el procedimiento de inscripción?",
+        "¿Cómo se hace el procedimiento de inscripción?",
+        "¿Cómo se realiza el procedimiento de inscripción?"
+      ]
+    },
+    {
+      "intent": "ask_for_oferta_academica",
+      "exampleCount": 24,
+      "samples": [
+        "¿Qué es la oferta académica?",
+        "¿Qué es oferta académica?",
+        "¿Qué significa oferta académica?",
+        "¿Qué se entiende por oferta académica?",
+        "¿Cuál es la definición de oferta académica?",
+        "¿Qué representa la oferta académica?",
+        "¿A qué se refiere la oferta académica?",
+        "¿Qué es la oferta académica y para qué sirve?",
+        "¿Qué es oferta académica y para qué sirve?",
+        "¿Qué información hay sobre oferta académica?"
+      ]
+    },
+    {
+      "intent": "ask_for_revisar_oferta_academica",
+      "exampleCount": 36,
+      "samples": [
+        "¿Cómo reviso la oferta académica?",
+        "¿Cómo puedo revisar la oferta académica?",
+        "¿Cómo veo la oferta académica?",
+        "¿Cómo puedo ver la oferta académica?",
+        "¿Cómo consulto la oferta académica?",
+        "¿Cómo puedo consultar la oferta académica?",
+        "¿Cómo accedo a la oferta académica?",
+        "¿Cómo puedo acceder a la oferta académica?",
+        "¿Cómo entro a la oferta académica?",
+        "¿Cómo puedo entrar a la oferta académica?"
+      ]
+    },
+    {
+      "intent": "ask_for_objetos_perdidos",
+      "exampleCount": 35,
+      "samples": [
+        "¿Dónde puedo localizar objetos perdidos?",
+        "¿Dónde puedo encontrar objetos perdidos?",
+        "¿Dónde puedo buscar objetos perdidos?",
+        "¿Dónde puedo recuperar objetos perdidos?",
+        "¿Dónde están los objetos perdidos?",
+        "¿Dónde se encuentran los objetos perdidos?",
+        "¿Dónde se guardan los objetos perdidos?",
+        "¿Dónde debo buscar objetos perdidos?",
+        "¿Dónde debo ir por objetos perdidos?",
+        "¿Dónde acudo por objetos perdidos?"
+      ]
+    },
+    {
+      "intent": "ask_for_secretario",
+      "exampleCount": 32,
+      "samples": [
+        "¿Quién es el secretario?",
+        "¿Quién es el secretario de la FIEE?",
+        "¿Quién es el secretario académico?",
+        "¿Quién es el secretario académico de la FIEE?",
+        "¿Quién es el secretario de la facultad?",
+        "¿Quién es el secretario de la Facultad de Ingeniería?",
+        "¿Quién es el secretario de la Facultad de Ingeniería Eléctrica y Electrónica?",
+        "¿Quién es el secretario actual?",
+        "¿Quién es el secretario actual de la FIEE?",
+        "¿Quién es el secretario académico actual?"
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "title": "Say goodbye anytime the user says goodbye",
+      "intent": "goodbye",
+      "action": "utter_goodbye"
+    },
+    {
+      "title": "Say hello anytime the user greets",
+      "intent": "saludo",
+      "action": "utter_saludo"
+    },
+    {
+      "title": "Say personal anytime the user asks about personal",
+      "intent": "pregunta_personal",
+      "action": "utter_pregunta_personal"
+    },
+    {
+      "title": "Say justificante anytime the user asks for justificante",
+      "intent": "ask_for_justificante",
+      "action": "utter_ask_for_justificante"
+    },
+    {
+      "title": "Say localizacion anytime the user asks for localizacion",
+      "intent": "ask_for_localizacion",
+      "action": "utter_ask_for_localizacion"
+    },
+    {
+      "title": "Say avisos anytime the user asks for avisos",
+      "intent": "ask_for_avisos",
+      "action": "utter_ask_for_avisos"
+    },
+    {
+      "title": "Say baja_materia anytime the user asks for baja_materia",
+      "intent": "ask_for_baja_materia",
+      "action": "utter_ask_for_baja_materia"
+    },
+    {
+      "title": "Say acr_ingles anytime the user asks for acr_ingles",
+      "intent": "ask_for_acr_ingles",
+      "action": "utter_ask_for_acr_ingles"
+    },
+    {
+      "title": "Say tutor anytime the user asks for tutor",
+      "intent": "ask_for_tutor",
+      "action": "utter_ask_for_tutor"
+    },
+    {
+      "title": "Say IL anytime the user asks for IL",
+      "intent": "ask_for_IL",
+      "action": "utter_ask_for_IL"
+    },
+    {
+      "title": "Say Planea anytime the user asks for Planea",
+      "intent": "ask_for_Planea",
+      "action": "utter_ask_for_Planea"
+    },
+    {
+      "title": "Say CambioTutor anytime the user asks for CambioTutor",
+      "intent": "ask_for_CambioTutor",
+      "action": "utter_ask_for_CambioTutor"
+    },
+    {
+      "title": "Say BajaTemporal anytime the user asks for BajaTemporal",
+      "intent": "ask_for_BajaTemporal",
+      "action": "utter_ask_for_BajaTemporal"
+    },
+    {
+      "title": "Say BajaDefinitiva anytime the user asks for BajaDefinitiva",
+      "intent": "ask_for_BajaDefinitiva",
+      "action": "utter_ask_for_BajaDefinitiva"
+    },
+    {
+      "title": "Say Exaver anytime the user asks for Exaver",
+      "intent": "ask_for_exaver",
+      "action": "utter_ask_for_exaver"
+    },
+    {
+      "title": "Say Promejoras anytime the user asks for Promejoras",
+      "intent": "ask_for_promejoras",
+      "action": "utter_ask_for_promejoras"
+    },
+    {
+      "title": "Say Obligatoriedad_Cuotas anytime the user asks for Obligatoriedad_Cuotas",
+      "intent": "ask_for_obligatoriedad_cuotas",
+      "action": "utter_ask_for_obligatoriedad_cuotas"
+    },
+    {
+      "title": "Say atencion_personal anytime the user asks for atencion_personal",
+      "intent": "ask_for_atencion_personal",
+      "action": "utter_ask_for_atencion_personal"
+    },
+    {
+      "title": "Say alta_ventanilla anytime the user asks for alta_ventanilla",
+      "intent": "ask_for_alta_ventanilla",
+      "action": "utter_ask_for_alta_ventanilla"
+    },
+    {
+      "title": "Say problema_profesor anytime the user asks for problema_profesor",
+      "intent": "ask_for_problema_profesor",
+      "action": "utter_ask_for_problema_profesor"
+    },
+    {
+      "title": "Say horario_sabados anytime the user asks for horario_sabados",
+      "intent": "ask_for_horario_sabados",
+      "action": "utter_ask_for_horario_sabados"
+    },
+    {
+      "title": "Say fecha_inscripciones anytime the user asks for fecha_inscripciones",
+      "intent": "ask_for_fecha_inscripciones",
+      "action": "utter_ask_for_fecha_inscripciones"
+    },
+    {
+      "title": "Say boleta anytime the user asks for boleta",
+      "intent": "ask_for_boleta",
+      "action": "utter_ask_for_boleta"
+    },
+    {
+      "title": "Say servicio_social anytime the user asks for servicio_social",
+      "intent": "ask_for_servicio_social",
+      "action": "utter_ask_for_servicio_social"
+    },
+    {
+      "title": "Say estadia_profesional anytime the user asks for estadia_profesional",
+      "intent": "ask_for_estadia_profesional",
+      "action": "utter_ask_for_estadia_profesional"
+    },
+    {
+      "title": "Say pago_promejoras anytime the user asks for pago_promejoras",
+      "intent": "ask_for_pago_promejoras",
+      "action": "utter_ask_for_pago_promejoras"
+    },
+    {
+      "title": "Say examen_competencias anytime the user asks for examen_competencias",
+      "intent": "ask_for_examen_competencias",
+      "action": "utter_ask_for_examen_competencias"
+    },
+    {
+      "title": "Say AFEL anytime the user asks for AFEL",
+      "intent": "ask_for_afel",
+      "action": "utter_ask_for_afel"
+    },
+    {
+      "title": "Say quien_creo anytime the user asks for quien_creo",
+      "intent": "ask_for_quien_creo",
+      "action": "utter_ask_for_quien_creo"
+    },
+    {
+      "title": "Say nombre anytime the user asks for nombre",
+      "intent": "ask_for_nombre",
+      "action": "utter_ask_for_nombre"
+    },
+    {
+      "title": "Say como_programado anytime the user asks for como_programado",
+      "intent": "ask_for_como_programado",
+      "action": "utter_ask_for_como_programado"
+    },
+    {
+      "title": "Say edad anytime the user asks for edad",
+      "intent": "ask_for_edad",
+      "action": "utter_ask_for_edad"
+    },
+    {
+      "title": "Say que_eres anytime the user asks for que_eres",
+      "intent": "ask_for_que_eres",
+      "action": "utter_ask_for_que_eres"
+    },
+    {
+      "title": "Say sentimientos anytime the user asks for sentimientos",
+      "intent": "ask_for_sentimientos",
+      "action": "utter_ask_for_sentimientos"
+    },
+    {
+      "title": "Say como_estas anytime the user asks for como_estas",
+      "intent": "ask_for_como_estas",
+      "action": "utter_ask_for_como_estas"
+    },
+    {
+      "title": "Say tiempo_libre anytime the user asks for tiempo_libre",
+      "intent": "ask_for_tiempo_libre",
+      "action": "utter_ask_for_tiempo_libre"
+    },
+    {
+      "title": "Say color_favorito anytime the user asks for color_favorito",
+      "intent": "ask_for_color_favorito",
+      "action": "utter_ask_for_color_favorito"
+    },
+    {
+      "title": "Say contenido_favorito anytime the user asks for contenido_favorito",
+      "intent": "ask_for_contenido_favorito",
+      "action": "utter_ask_for_contenido_favorito"
+    },
+    {
+      "title": "Say chiste anytime the user asks for chiste",
+      "intent": "ask_for_chiste",
+      "action": "utter_ask_for_chiste"
+    },
+    {
+      "title": "Say poema anytime the user asks for poema",
+      "intent": "ask_for_poema",
+      "action": "utter_ask_for_poema"
+    },
+    {
+      "title": "Say memoria anytime the user asks for memoria",
+      "intent": "ask_for_memoria",
+      "action": "utter_ask_for_memoria"
+    },
+    {
+      "title": "Say debilidad anytime the user asks for debilidad",
+      "intent": "ask_for_debilidad",
+      "action": "utter_ask_for_debilidad"
+    },
+    {
+      "title": "Say dominacion_ia anytime the user asks for dominacion_ia",
+      "intent": "ask_for_dominacion_ia",
+      "action": "utter_ask_for_dominacion_ia"
+    },
+    {
+      "title": "Say sentido_vida anytime the user asks for sentido_vida",
+      "intent": "ask_for_sentido_vida",
+      "action": "utter_ask_for_sentido_vida"
+    },
+    {
+      "title": "Say porcentaje_trayectoria anytime the user asks for porcentaje_trayectoria",
+      "intent": "ask_for_porcentaje_trayectoria",
+      "action": "utter_ask_for_porcentaje_trayectoria"
+    },
+    {
+      "title": "Say coordinador_tutorias anytime the user asks for coordinador_tutorias",
+      "intent": "ask_for_coordinador_tutorias",
+      "action": "utter_ask_for_coordinador_tutorias"
+    },
+    {
+      "title": "Say director anytime the user asks for director",
+      "intent": "ask_for_director",
+      "action": "utter_ask_for_director"
+    },
+    {
+      "title": "Say proceso_inscripcion anytime the user asks for proceso_inscripcion",
+      "intent": "ask_for_proceso_inscripcion",
+      "action": "utter_ask_for_proceso_inscripcion"
+    },
+    {
+      "title": "Say oferta_academica anytime the user asks for oferta_academica",
+      "intent": "ask_for_oferta_academica",
+      "action": "utter_ask_for_oferta_academica"
+    },
+    {
+      "title": "Say revisar_oferta_academica anytime the user asks for revisar_oferta_academica",
+      "intent": "ask_for_revisar_oferta_academica",
+      "action": "utter_ask_for_revisar_oferta_academica"
+    },
+    {
+      "title": "Say objetos_perdidos anytime the user asks for objetos_perdidos",
+      "intent": "ask_for_objetos_perdidos",
+      "action": "utter_ask_for_objetos_perdidos"
+    },
+    {
+      "title": "Say secretario anytime the user asks for secretario",
+      "intent": "ask_for_secretario",
+      "action": "utter_ask_for_secretario"
+    },
+    {
+      "title": "Buscar FAQ cuando no hay intent claro",
+      "intent": "nlu_fallback",
+      "action": "action_buscar_faq"
+    }
+  ],
+  "stories": [
+    {
+      "title": "happy path",
+      "intent": "saludo",
+      "action": "utter_saludo"
+    },
+    {
+      "title": "despedida",
+      "intent": "goodbye",
+      "action": "utter_goodbye"
+    },
+    {
+      "title": "pregunta personal",
+      "intent": "pregunta_personal",
+      "action": "utter_pregunta_personal"
+    },
+    {
+      "title": "justificante",
+      "intent": "ask_for_justificante",
+      "action": "utter_ask_for_justificante"
+    },
+    {
+      "title": "avisos",
+      "intent": "ask_for_avisos",
+      "action": "utter_ask_for_avisos"
+    },
+    {
+      "title": "localizacion",
+      "intent": "ask_for_localizacion",
+      "action": "utter_ask_for_localizacion"
+    },
+    {
+      "title": "baja_materia",
+      "intent": "ask_for_baja_materia",
+      "action": "utter_ask_for_baja_materia"
+    },
+    {
+      "title": "acr_ingles",
+      "intent": "ask_for_acr_ingles",
+      "action": "utter_ask_for_acr_ingles"
+    },
+    {
+      "title": "tutor",
+      "intent": "ask_for_tutor",
+      "action": "utter_ask_for_tutor"
+    },
+    {
+      "title": "IL",
+      "intent": "ask_for_IL",
+      "action": "utter_ask_for_IL"
+    },
+    {
+      "title": "Planea",
+      "intent": "ask_for_Planea",
+      "action": "utter_ask_for_Planea"
+    },
+    {
+      "title": "CambioTutor",
+      "intent": "ask_for_CambioTutor",
+      "action": "utter_ask_for_CambioTutor"
+    },
+    {
+      "title": "BajaTemporal",
+      "intent": "ask_for_BajaTemporal",
+      "action": "utter_ask_for_BajaTemporal"
+    },
+    {
+      "title": "BajaDefinitiva",
+      "intent": "ask_for_BajaDefinitiva",
+      "action": "utter_ask_for_BajaDefinitiva"
+    },
+    {
+      "title": "Exaver",
+      "intent": "ask_for_exaver",
+      "action": "utter_ask_for_exaver"
+    },
+    {
+      "title": "Promejoras",
+      "intent": "ask_for_promejoras",
+      "action": "utter_ask_for_promejoras"
+    },
+    {
+      "title": "Obligatoriedad_Cuotas",
+      "intent": "ask_for_obligatoriedad_cuotas",
+      "action": "utter_ask_for_obligatoriedad_cuotas"
+    },
+    {
+      "title": "atencion_personal",
+      "intent": "ask_for_atencion_personal",
+      "action": "utter_ask_for_atencion_personal"
+    },
+    {
+      "title": "alta_ventanilla",
+      "intent": "ask_for_alta_ventanilla",
+      "action": "utter_ask_for_alta_ventanilla"
+    },
+    {
+      "title": "problema_profesor",
+      "intent": "ask_for_problema_profesor",
+      "action": "utter_ask_for_problema_profesor"
+    },
+    {
+      "title": "horario_sabados",
+      "intent": "ask_for_horario_sabados",
+      "action": "utter_ask_for_horario_sabados"
+    },
+    {
+      "title": "fecha_inscripciones",
+      "intent": "ask_for_fecha_inscripciones",
+      "action": "utter_ask_for_fecha_inscripciones"
+    },
+    {
+      "title": "boleta",
+      "intent": "ask_for_boleta",
+      "action": "utter_ask_for_boleta"
+    },
+    {
+      "title": "servicio_social",
+      "intent": "ask_for_servicio_social",
+      "action": "utter_ask_for_servicio_social"
+    },
+    {
+      "title": "estadia_profesional",
+      "intent": "ask_for_estadia_profesional",
+      "action": "utter_ask_for_estadia_profesional"
+    },
+    {
+      "title": "pago_promejoras",
+      "intent": "ask_for_pago_promejoras",
+      "action": "utter_ask_for_pago_promejoras"
+    },
+    {
+      "title": "examen_competencias",
+      "intent": "ask_for_examen_competencias",
+      "action": "utter_ask_for_examen_competencias"
+    },
+    {
+      "title": "AFEL",
+      "intent": "ask_for_afel",
+      "action": "utter_ask_for_afel"
+    },
+    {
+      "title": "quien_creo",
+      "intent": "ask_for_quien_creo",
+      "action": "utter_ask_for_quien_creo"
+    },
+    {
+      "title": "nombre",
+      "intent": "ask_for_nombre",
+      "action": "utter_ask_for_nombre"
+    },
+    {
+      "title": "como_programado",
+      "intent": "ask_for_como_programado",
+      "action": "utter_ask_for_como_programado"
+    },
+    {
+      "title": "edad",
+      "intent": "ask_for_edad",
+      "action": "utter_ask_for_edad"
+    },
+    {
+      "title": "que_eres",
+      "intent": "ask_for_que_eres",
+      "action": "utter_ask_for_que_eres"
+    },
+    {
+      "title": "sentimientos",
+      "intent": "ask_for_sentimientos",
+      "action": "utter_ask_for_sentimientos"
+    },
+    {
+      "title": "como_estas",
+      "intent": "ask_for_como_estas",
+      "action": "utter_ask_for_como_estas"
+    },
+    {
+      "title": "tiempo_libre",
+      "intent": "ask_for_tiempo_libre",
+      "action": "utter_ask_for_tiempo_libre"
+    },
+    {
+      "title": "color_favorito",
+      "intent": "ask_for_color_favorito",
+      "action": "utter_ask_for_color_favorito"
+    },
+    {
+      "title": "contenido_favorito",
+      "intent": "ask_for_contenido_favorito",
+      "action": "utter_ask_for_contenido_favorito"
+    },
+    {
+      "title": "chiste",
+      "intent": "ask_for_chiste",
+      "action": "utter_ask_for_chiste"
+    },
+    {
+      "title": "poema",
+      "intent": "ask_for_poema",
+      "action": "utter_ask_for_poema"
+    },
+    {
+      "title": "memoria",
+      "intent": "ask_for_memoria",
+      "action": "utter_ask_for_memoria"
+    },
+    {
+      "title": "debilidad",
+      "intent": "ask_for_debilidad",
+      "action": "utter_ask_for_debilidad"
+    },
+    {
+      "title": "dominacion_ia",
+      "intent": "ask_for_dominacion_ia",
+      "action": "utter_ask_for_dominacion_ia"
+    },
+    {
+      "title": "sentido_vida",
+      "intent": "ask_for_sentido_vida",
+      "action": "utter_ask_for_sentido_vida"
+    },
+    {
+      "title": "porcentaje_trayectoria",
+      "intent": "ask_for_porcentaje_trayectoria",
+      "action": "utter_ask_for_porcentaje_trayectoria"
+    },
+    {
+      "title": "coordinador_tutorias",
+      "intent": "ask_for_coordinador_tutorias",
+      "action": "utter_ask_for_coordinador_tutorias"
+    },
+    {
+      "title": "director",
+      "intent": "ask_for_director",
+      "action": "utter_ask_for_director"
+    },
+    {
+      "title": "proceso_inscripcion",
+      "intent": "ask_for_proceso_inscripcion",
+      "action": "utter_ask_for_proceso_inscripcion"
+    },
+    {
+      "title": "oferta_academica",
+      "intent": "ask_for_oferta_academica",
+      "action": "utter_ask_for_oferta_academica"
+    },
+    {
+      "title": "revisar_oferta_academica",
+      "intent": "ask_for_revisar_oferta_academica",
+      "action": "utter_ask_for_revisar_oferta_academica"
+    },
+    {
+      "title": "objetos_perdidos",
+      "intent": "ask_for_objetos_perdidos",
+      "action": "utter_ask_for_objetos_perdidos"
+    },
+    {
+      "title": "secretario",
+      "intent": "ask_for_secretario",
+      "action": "utter_ask_for_secretario"
+    }
+  ]
+}

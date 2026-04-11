@@ -1,0 +1,54 @@
+{
+  "name": "proyecto-react",
+  "version": "1.0.0",
+  "description": "Proyecto React con estructura organizada en español",
+  "main": "index.js",
+  "scripts": {
+    "catalogo-rasa": "node scripts/generar-catalogo-rasa.mjs",
+    "prebuild": "node scripts/generar-catalogo-rasa.mjs",
+    "start": "react-scripts start",
+    "build": "cross-env CI=false react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "react-scripts start",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
+  },
+  "keywords": [
+    "react",
+    "javascript",
+    "frontend",
+    "web"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.76.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "cross-env": "^10.1.0",
+    "eslint": "^8.35.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "js-yaml": "^4.1.1",
+    "prettier": "^2.8.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

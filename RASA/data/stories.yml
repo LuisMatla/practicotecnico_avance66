@@ -1,0 +1,263 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: saludo
+  - action: utter_saludo
+
+- story: despedida
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: pregunta personal
+  steps:
+  - intent: pregunta_personal
+  - action: utter_pregunta_personal
+
+- story: justificante
+  steps:
+  - intent: ask_for_justificante
+  - action: utter_ask_for_justificante
+
+- story: avisos
+  steps:
+  - intent: ask_for_avisos
+  - action: utter_ask_for_avisos
+
+- story: localizacion
+  steps:
+  - intent: ask_for_localizacion
+  - action: utter_ask_for_localizacion
+
+- story: baja_materia
+  steps:
+  - intent: ask_for_baja_materia
+  - action: utter_ask_for_baja_materia
+
+- story: acr_ingles
+  steps:
+  - intent: ask_for_acr_ingles
+  - action: utter_ask_for_acr_ingles
+
+- story: tutor
+  steps:
+  - intent: ask_for_tutor
+  - action: utter_ask_for_tutor
+
+- story: IL
+  steps:
+  - intent: ask_for_IL
+  - action: utter_ask_for_IL
+
+- story: Planea
+  steps:
+  - intent: ask_for_Planea
+  - action: utter_ask_for_Planea
+
+- story: CambioTutor
+  steps:
+  - intent: ask_for_CambioTutor
+  - action: utter_ask_for_CambioTutor
+
+- story: BajaTemporal
+  steps:
+  - intent: ask_for_BajaTemporal
+  - action: utter_ask_for_BajaTemporal  
+
+- story: BajaDefinitiva
+  steps:
+  - intent: ask_for_BajaDefinitiva
+  - action: utter_ask_for_BajaDefinitiva  
+
+- story: Exaver
+  steps:
+  - intent: ask_for_exaver
+  - action: utter_ask_for_exaver
+
+- story: Promejoras
+  steps:
+  - intent: ask_for_promejoras
+  - action: utter_ask_for_promejoras  
+
+- story: Obligatoriedad_Cuotas
+  steps:
+  - intent: ask_for_obligatoriedad_cuotas
+  - action: utter_ask_for_obligatoriedad_cuotas
+
+- story: atencion_personal
+  steps:
+  - intent: ask_for_atencion_personal
+  - action: utter_ask_for_atencion_personal
+
+- story: alta_ventanilla
+  steps:
+  - intent: ask_for_alta_ventanilla
+  - action: utter_ask_for_alta_ventanilla
+
+- story: problema_profesor
+  steps:
+  - intent: ask_for_problema_profesor
+  - action: utter_ask_for_problema_profesor
+
+- story: horario_sabados
+  steps:
+  - intent: ask_for_horario_sabados
+  - action: utter_ask_for_horario_sabados
+
+- story: fecha_inscripciones
+  steps:
+  - intent: ask_for_fecha_inscripciones
+  - action: utter_ask_for_fecha_inscripciones
+
+- story: boleta
+  steps:
+  - intent: ask_for_boleta
+  - action: utter_ask_for_boleta
+
+- story: servicio_social
+  steps:
+  - intent: ask_for_servicio_social
+  - action: utter_ask_for_servicio_social
+
+- story: estadia_profesional
+  steps:
+  - intent: ask_for_estadia_profesional
+  - action: utter_ask_for_estadia_profesional
+
+- story: pago_promejoras
+  steps:
+  - intent: ask_for_pago_promejoras
+  - action: utter_ask_for_pago_promejoras
+
+- story: examen_competencias
+  steps:
+  - intent: ask_for_examen_competencias
+  - action: utter_ask_for_examen_competencias
+
+- story: AFEL
+  steps:
+  - intent: ask_for_afel
+  - action: utter_ask_for_afel
+
+- story: quien_creo
+  steps:
+  - intent: ask_for_quien_creo
+  - action: utter_ask_for_quien_creo
+
+- story: nombre
+  steps:
+  - intent: ask_for_nombre
+  - action: utter_ask_for_nombre
+
+- story: como_programado
+  steps:
+  - intent: ask_for_como_programado
+  - action: utter_ask_for_como_programado
+
+- story: edad
+  steps:
+  - intent: ask_for_edad
+  - action: utter_ask_for_edad
+
+- story: que_eres
+  steps:
+  - intent: ask_for_que_eres
+  - action: utter_ask_for_que_eres
+
+- story: sentimientos
+  steps:
+  - intent: ask_for_sentimientos
+  - action: utter_ask_for_sentimientos
+
+- story: como_estas
+  steps:
+  - intent: ask_for_como_estas
+  - action: utter_ask_for_como_estas
+
+- story: tiempo_libre
+  steps:
+  - intent: ask_for_tiempo_libre
+  - action: utter_ask_for_tiempo_libre
+
+- story: color_favorito
+  steps:
+  - intent: ask_for_color_favorito
+  - action: utter_ask_for_color_favorito
+
+- story: contenido_favorito
+  steps:
+  - intent: ask_for_contenido_favorito
+  - action: utter_ask_for_contenido_favorito
+
+- story: chiste
+  steps:
+  - intent: ask_for_chiste
+  - action: utter_ask_for_chiste
+
+- story: poema
+  steps:
+  - intent: ask_for_poema
+  - action: utter_ask_for_poema
+
+- story: memoria
+  steps:
+  - intent: ask_for_memoria
+  - action: utter_ask_for_memoria
+
+- story: debilidad
+  steps:
+  - intent: ask_for_debilidad
+  - action: utter_ask_for_debilidad
+
+- story: dominacion_ia
+  steps:
+  - intent: ask_for_dominacion_ia
+  - action: utter_ask_for_dominacion_ia
+
+- story: sentido_vida
+  steps:
+  - intent: ask_for_sentido_vida
+  - action: utter_ask_for_sentido_vida
+
+- story: porcentaje_trayectoria
+  steps:
+  - intent: ask_for_porcentaje_trayectoria
+  - action: utter_ask_for_porcentaje_trayectoria
+
+- story: coordinador_tutorias
+  steps:
+  - intent: ask_for_coordinador_tutorias
+  - action: utter_ask_for_coordinador_tutorias
+
+- story: director
+  steps:
+  - intent: ask_for_director
+  - action: utter_ask_for_director
+
+- story: proceso_inscripcion
+  steps:
+  - intent: ask_for_proceso_inscripcion
+  - action: utter_ask_for_proceso_inscripcion
+
+- story: oferta_academica
+  steps:
+  - intent: ask_for_oferta_academica
+  - action: utter_ask_for_oferta_academica
+
+- story: revisar_oferta_academica
+  steps:
+  - intent: ask_for_revisar_oferta_academica
+  - action: utter_ask_for_revisar_oferta_academica
+
+- story: objetos_perdidos
+  steps:
+  - intent: ask_for_objetos_perdidos
+  - action: utter_ask_for_objetos_perdidos
+
+- story: secretario
+  steps:
+  - intent: ask_for_secretario
+  - action: utter_ask_for_secretario

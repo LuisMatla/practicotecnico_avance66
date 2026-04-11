@@ -1,0 +1,7 @@
+/* raiz visual del componente app: columna flexible. */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+

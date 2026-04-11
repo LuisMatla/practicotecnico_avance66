@@ -1,0 +1,312 @@
+/* estilos de la pagina de inicio de sesion de usuario. */
+/* reset basico y caja universal. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* documento base: sin scroll horizontal en layout split. */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* colores: src/estilos/colores.css */
+
+/* layout principal: gif a un lado y formulario al otro. */
+.pagina-login {
+  min-height: 100vh !important;
+  width: 100vw !important;
+  background: linear-gradient(90deg, var(--azul-UV) 0%, var(--verde-UV) 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0 !important;
+  padding: 0 60px !important;
+}
+
+/* area del gif animado del asistente. */
+.gif-contenedor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  max-width: 900px;
+  margin: 0;
+}
+
+/* gif del asistente (asset en /public). */
+.gif-bot {
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* columna que centra la tarjeta de acceso. */
+.contenedor-login {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 600% !important;
+  max-width: 900px !important;
+  margin: 0 !important;
+}
+
+/* tarjeta blanca con sombra sobre el degradado. */
+.tarjeta-login {
+  background: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 700px;
+}
+
+/* cabecera del formulario: logo y textos. */
+.header-formulario {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* contenedor del logo bitbot. */
+.logo-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo-bitbot {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* texto secundario bajo el titulo. */
+.subtitulo {
+  font-size: 1rem;
+  color: var(--gris-oscuro);
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+/* formulario de correo y contraseña. */
+.formulario-login {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* grupo label mas input en columna. */
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* etiqueta sobre cada input. */
+.campo-formulario label {
+  font-weight: 500;
+  color: var(--gris-oscuro);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+/* input de texto o correo. */
+.campo-formulario input {
+  padding: 10px 14px;
+  border: 1px solid var(--gris-borde-input);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: var(--blanco);
+}
+
+/* foco accesible y acento UV. */
+.campo-formulario input:focus {
+  outline: none;
+  border-color: var(--azul-claro);
+  box-shadow: 0 0 0 3px rgba(24, 82, 157, 0.1);
+}
+
+/* placeholder legible en gris. */
+.campo-formulario input::placeholder {
+  color: var(--gris-claro);
+  font-size: 0.9rem;
+}
+
+/* input con boton de mostrar contraseña absoluto. */
+.input-contenedor {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* input a ancho completo deja espacio al boton ojo. */
+.input-contenedor input {
+  width: 100%;
+  padding-right: 50px;
+}
+
+/* alterna visibilidad del texto de contraseña. */
+.boton-mostrar-contraseña {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--gris-claro);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.boton-mostrar-contraseña:hover {
+  color: var(--gris-oscuro);
+  background-color: var(--gris-hover);
+}
+
+/* boton principal de iniciar sesion. */
+.boton-login {
+  background: linear-gradient(180deg, var(--azul-UV) 0%, var(--azul-UV-oscuro) 100%);
+  color: var(--blanco);
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(24, 82, 157, 0.3);
+  width: 100%;
+}
+
+/* elevacion sutil al hover. */
+.boton-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 82, 157, 0.4);
+}
+
+/* feedback al click. */
+.boton-login:active {
+  transform: translateY(0);
+}
+
+/* enlaces registro, recuperar y acceso admin. */
+.enlaces-ayuda {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+/* enlace secundario (registro / olvido). */
+.enlace-ayuda {
+  color: var(--gris-oscuro);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.3s ease;
+  line-height: 1.4;
+}
+
+/* subrayado al pasar el mouse. */
+.enlace-ayuda:hover {
+  color: var(--azul-claro);
+  text-decoration: underline;
+}
+
+/* acceso admin destacado en tono advertencia. */
+.enlace-admin {
+  color: var(--amarillo-advertencia);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  line-height: 1.4;
+  padding: 0.5rem;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* hover con mas contraste. */
+.enlace-admin:hover {
+  color: var(--amarillo-advertencia);
+  background: rgba(245, 158, 11, 0.2);
+  transform: translateY(-1px);
+}
+
+/* tablet: menos padding en la tarjeta. */
+@media (max-width: 768px) {
+  /* menos padding en tarjeta para tablets. */
+  .tarjeta-login {
+    padding: 2rem;
+  }
+  
+  /* titulo grande si existe en la vista. */
+  .titulo-miuv {
+    font-size: 2.5rem;
+  }
+}
+
+/* movil: columna unica y sin gif. */
+@media (max-width: 480px) {
+  .pagina-login {
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .gif-contenedor {
+    display: none;
+  }
+
+  .contenedor-login {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  .tarjeta-login {
+    padding: 1.5rem 1.25rem;
+    max-width: 100%;
+  }
+  
+  .logo-bitbot {
+    max-width: 160px;
+  }
+  
+  .subtitulo {
+    font-size: 0.9375rem;
+  }
+  
+  .formulario-login {
+    gap: 1rem;
+  }
+  
+  .campo-formulario input {
+    padding: 10px 14px;
+    font-size: 16px;
+  }
+  
+  .boton-login {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+
+  .enlaces-ayuda {
+    gap: 0.5rem;
+  }
+
+  .enlace-ayuda {
+    font-size: 0.8rem;
+  }
+}

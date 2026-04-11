@@ -1,0 +1,1778 @@
+/* hoja de estilos del panel de administracion, usuarios y faq rasa. */
+/* colores: src/estilos/colores.css (import global en index.css). */
+
+/* contenedor de pagina con fondo en degradado. */
+.admin-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--gris-fondo) 0%, var(--azul-claro-fondo) 100%);
+  padding: 2rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* cabecera de la vista de administrador. */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: var(--blanco);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+/* bloque izquierdo de cabecera: menu hamburguesa y titulo. */
+.admin-header-izquierda {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+}
+
+/* disparador del menu lateral y panel off-canvas. */
+.admin-menu-trigger {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid var(--gris-borde);
+  border-radius: 10px;
+  background: var(--gris-fondo);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-menu-trigger:hover {
+  background: var(--azul-claro-fondo);
+  border-color: var(--azul-principal);
+}
+
+.admin-menu-trigger-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.admin-menu-trigger-dots span {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gris-oscuro);
+}
+
+/* fondo semitransparente al abrir menu lateral. */
+.admin-menu-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1040;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--overlay-menu);
+  cursor: pointer;
+  animation: adminFadeIn 0.2s ease;
+}
+
+@keyframes adminFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.admin-menu-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  width: min(300px, 88vw);
+  height: 100vh;
+  max-height: 100dvh;
+  background: var(--blanco);
+  box-shadow: 8px 0 32px rgba(0, 0, 0, 0.15);
+  transform: translateX(-100%);
+  transition: transform 0.28s ease;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.admin-menu-panel--abierto {
+  transform: translateX(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.admin-menu-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1rem;
+  border-bottom: 1px solid var(--gris-borde);
+  font-weight: 700;
+  color: var(--azul-principal);
+  font-size: 1.1rem;
+}
+
+.admin-menu-cerrar {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--gris-fondo);
+  border-radius: 8px;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--gris-oscuro);
+}
+
+.admin-menu-cerrar:hover {
+  background: var(--rojo-fondo-borde);
+  color: var(--rojo-peligro);
+}
+
+.admin-menu-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  gap: 0.35rem;
+}
+
+.admin-menu-item {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gris-oscuro);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.admin-menu-item:hover {
+  background: var(--gris-fondo);
+  color: var(--azul-principal);
+}
+
+.admin-menu-item.activo {
+  background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-UV-oscuro) 100%);
+  color: var(--blanco);
+}
+
+/* seccion principal: bienvenida e incrustacion del chatbot. */
+.admin-seccion-principal {
+  margin-bottom: 2rem;
+}
+
+.admin-bienvenida {
+  margin: 0 0 1.5rem 0;
+  padding: 1rem 1.25rem;
+  background: var(--blanco);
+  border-radius: 12px;
+  border: 1px solid var(--gris-borde);
+  color: var(--gris-oscuro);
+  line-height: 1.55;
+  font-size: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.admin-chatbot-embed {
+  margin-bottom: 2rem;
+}
+
+.admin-chatbot-embed-nota {
+  margin: 0 0 1rem 0;
+  color: var(--gris-oscuro);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+/* marco con sombra donde se incrusta el chat. */
+.admin-chatbot-embed-inner {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--gris-borde);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  min-height: min(70vh, 720px);
+  max-height: calc(100vh - 180px);
+  background: var(--blanco);
+}
+
+/* el chat ocupa el alto disponible dentro del embed. */
+.admin-chatbot-embed-inner .chat-usuario {
+  min-height: min(70vh, 720px);
+  height: 100%;
+}
+
+/* titulo y subtitulo de la cabecera admin. */
+.admin-titulo h1 {
+  margin: 0;
+  color: var(--azul-principal);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.admin-titulo p {
+  margin: 0.5rem 0 0 0;
+  color: var(--gris-claro);
+  font-size: 1rem;
+}
+
+/* boton para cerrar sesion desde la cabecera. */
+.cerrar-sesion-boton {
+  background: var(--rojo-peligro);
+  color: var(--blanco);
+  border: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  width: fit-content;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cerrar-sesion-boton:hover {
+  background: var(--rojo-intenso);
+  transform: translateY(-1px);
+}
+
+/* tarjetas de estadisticas resumidas. */
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* tarjeta individual de estadistica. */
+.stat-card {
+  background: var(--blanco);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+/* leve elevacion al pasar el mouse. */
+.stat-card:hover {
+  transform: translateY(-4px);
+}
+
+/* titulo de la metrica. */
+.stat-card h3 {
+  margin: 0 0 1rem 0;
+  color: var(--gris-oscuro);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* valor numerico destacado. */
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--azul-principal);
+}
+
+/* panel de filtros de usuarios. */
+.admin-filters {
+  background: var(--blanco);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.filter-section h3 {
+  margin: 0 0 1.5rem 0;
+  color: var(--azul-principal);
+  font-size: 1.2rem;
+}
+
+/* grupo label + control dentro de filtros. */
+.filter-group {
+  margin-bottom: 1rem;
+}
+
+/* etiqueta del filtro. */
+.filter-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--gris-oscuro);
+  font-weight: 600;
+}
+
+/* select o input de filtro a ancho completo. */
+.filter-group select,
+.filter-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+/* foco con acento UV. */
+.filter-group select:focus,
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--azul-principal);
+}
+
+/* resetea filtros aplicados. */
+.limpiar-filtros-boton {
+  background: var(--amarillo-advertencia);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover mas oscuro y leve lift. */
+.limpiar-filtros-boton:hover {
+  background: var(--naranja-acento);
+  transform: translateY(-2px);
+}
+
+/* area blanca con listado de usuarios. */
+.admin-content {
+  background: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* barra superior del listado de usuarios. */
+.usuarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: var(--gris-fondo);
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+/* titulo de la seccion usuarios. */
+.usuarios-header h2 {
+  margin: 0;
+  color: var(--azul-principal);
+  font-size: 1.5rem;
+}
+
+/* grupo de botones crear/actualizar. */
+.usuarios-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+/* boton crear usuario nuevo. */
+.crear-usuario-boton {
+  background: var(--azul-principal);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.crear-usuario-boton:hover {
+  background: var(--azul-UV-oscuro);
+  transform: translateY(-2px);
+}
+
+/* refresca datos desde servidor. */
+.actualizar-boton {
+  background: var(--verde-principal);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover verde mas oscuro. */
+.actualizar-boton:hover {
+  background: var(--verde-UV-hover);
+  transform: translateY(-2px);
+}
+
+/* rejilla de tarjetas de usuario. */
+.usuarios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+/* tarjeta de usuario en la rejilla. */
+.usuario-card {
+  background: var(--blanco);
+  border: 2px solid var(--gris-borde);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* resalta tarjeta al hover. */
+.usuario-card:hover {
+  border-color: var(--azul-principal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.usuario-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.usuario-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--azul-principal), var(--verde-principal));
+  color: var(--blanco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+}
+
+.usuario-info h3 {
+  margin: 0;
+  color: var(--gris-oscuro);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.usuario-matricula {
+  margin: 0.25rem 0 0 0;
+  color: var(--gris-claro);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.usuario-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.detail-label {
+  color: var(--gris-claro);
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 120px;
+}
+
+.detail-value {
+  color: var(--gris-oscuro);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+  flex: 1;
+}
+
+.detail-value.activo {
+  color: var(--verde-exito);
+}
+
+.detail-value.inactivo {
+  color: var(--rojo-peligro);
+}
+
+.usuario-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gris-borde);
+}
+
+/* boton editar en tarjeta de usuario. */
+.editar-boton {
+  background: var(--amarillo-advertencia);
+  color: var(--blanco);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.editar-boton:hover {
+  background: var(--naranja-acento);
+  transform: translateY(-1px);
+}
+
+/* boton eliminar en tarjeta de usuario. */
+.eliminar-boton {
+  background: var(--rojo-peligro);
+  color: var(--blanco);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.eliminar-boton:hover {
+  background: var(--rojo-intenso);
+  transform: translateY(-1px);
+}
+
+.no-usuarios {
+  text-align: center;
+  padding: 3rem;
+  color: var(--gris-claro);
+}
+
+.no-usuarios p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* estado de carga a pantalla completa en admin. */
+.admin-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  color: var(--gris-claro);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--gris-borde);
+  border-top: 4px solid var(--azul-principal);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* modal de confirmacion sobre el contenido. */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.modal-container {
+  background: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
+  animation: slideIn 0.3s ease;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gris-borde);
+  background: var(--gris-fondo);
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: var(--rojo-peligro);
+  font-size: 1.2rem;
+}
+
+/* cuerpo del modal de confirmacion. */
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* resumen del usuario en el modal. */
+.usuario-info-modal {
+  background: var(--gris-fondo);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 4px solid var(--azul-principal);
+}
+
+/* texto de advertencia antes de eliminar. */
+.warning-text {
+  color: var(--rojo-peligro);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 1rem 0 0 0;
+}
+
+/* botones cancelar / confirmar en el modal. */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-top: 1px solid var(--gris-borde);
+  background: var(--gris-fondo);
+  border-radius: 0 0 12px 12px;
+}
+
+/* seccion faq y catalogo rasa. */
+.faq-section {
+  background: var(--blanco);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+  position: relative;
+  overflow: visible;
+}
+
+/* barra superior de titulos y acciones faq. */
+.faq-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  background: var(--gris-fondo);
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.faq-toolbar-texto h2 {
+  margin: 0 0 0.35rem;
+  color: var(--azul-principal);
+  font-size: 1.5rem;
+}
+
+.faq-toolbar-subtitulo {
+  margin: 0;
+  max-width: 52rem;
+  color: var(--gris-claro);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.faq-toolbar-meta {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--gris-claro);
+  opacity: 0.95;
+}
+
+/* pestañas de la vista rasa: tabla, nlu, etc. */
+.faq-rasa-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.75rem 1rem 0;
+  background: var(--gris-fondo);
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.faq-rasa-tab {
+  padding: 0.55rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  color: var(--gris-oscuro);
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.faq-rasa-tab:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.faq-rasa-tab--activo {
+  background: var(--blanco);
+  border-color: var(--gris-borde);
+  border-bottom-color: var(--blanco);
+  color: var(--azul-principal);
+  margin-bottom: -1px;
+  padding-bottom: 0.65rem;
+}
+
+.faq-rasa-panel {
+  padding: 0 0 1rem;
+  background: var(--blanco);
+}
+
+.faq-rasa-nota {
+  margin: 0;
+  padding: 1rem 1.5rem 0.75rem;
+  font-size: 0.88rem;
+  color: var(--gris-oscuro);
+  line-height: 1.45;
+}
+
+.faq-rasa-nota code {
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+}
+
+.faq-rasa-tabla-wrap {
+  padding: 0 1rem 1rem;
+  overflow-x: auto;
+}
+
+.faq-rasa-tabla {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.faq-rasa-tabla th,
+.faq-rasa-tabla td {
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--gris-borde);
+  vertical-align: top;
+}
+
+.faq-rasa-tabla th {
+  background: var(--gris-fondo);
+  font-weight: 700;
+  color: var(--azul-principal);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.faq-rasa-tabla tbody tr:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.faq-rasa-code {
+  font-size: 0.82rem;
+  word-break: break-word;
+}
+
+.faq-rasa-previa {
+  color: var(--gris-oscuro);
+  line-height: 1.4;
+  max-width: 28rem;
+}
+
+.faq-rasa-regla-titulo {
+  max-width: 14rem;
+  font-size: 0.85rem;
+  line-height: 1.35;
+}
+
+.faq-rasa-vacio {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--gris-claro);
+}
+
+/* lista acordeon de intents nlu. */
+.faq-nlu-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem 1rem;
+}
+
+/* fila de un intent en la lista NLU. */
+.faq-nlu-item {
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  background: var(--blanco);
+}
+
+/* boton cabecera del acordeon por intent. */
+.faq-nlu-cabecera {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: var(--gris-fondo);
+  border: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.faq-nlu-cabecera:hover {
+  background: var(--gris-admin-fondo);
+}
+
+.faq-nlu-chevron {
+  flex-shrink: 0;
+  width: 1rem;
+  color: var(--gris-claro);
+  font-size: 0.8rem;
+}
+
+.faq-nlu-cabecera-derecha {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.faq-nlu-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gris-claro);
+}
+
+.faq-nlu-menu-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.faq-nlu-menu-dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0 0.35rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--gris-oscuro);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.faq-nlu-menu-dots:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* menu contextual flotante por intent. */
+.faq-nlu-menu-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin: 0.2rem 0 0;
+  padding: 0.35rem 0;
+  min-width: 10rem;
+  list-style: none;
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  background: var(--blanco);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 30;
+}
+
+/* opcion dentro del menu de tres puntos. */
+.faq-nlu-menu-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.85rem;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: var(--gris-oscuro);
+}
+
+.faq-nlu-menu-item:hover:not(:disabled) {
+  background: var(--gris-fondo);
+}
+
+.faq-nlu-menu-item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.faq-nlu-menu-item--peligro {
+  color: var(--rojo-texto-oscuro);
+}
+
+.faq-catalogo-remoto {
+  color: var(--verde-exito-texto);
+  font-weight: 600;
+}
+
+.faq-catalogo-aviso {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--amarillo-peligro-texto);
+  line-height: 1.4;
+}
+
+.faq-nlu-local-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(34, 197, 94, 0.18);
+  color: var(--verde-badge-texto);
+}
+
+.faq-nlu-ejemplos {
+  margin: 0;
+  padding: 0.5rem 1rem 0.85rem 2.25rem;
+  list-style: disc;
+  color: var(--gris-oscuro);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.faq-nlu-ejemplos li {
+  margin-bottom: 0.25rem;
+}
+
+.faq-nlu-mas {
+  list-style: none;
+  margin-left: -1rem;
+  font-style: italic;
+  color: var(--gris-claro);
+}
+
+.faq-rasa-ayuda {
+  margin: 0 1rem 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  background: rgba(24, 82, 157, 0.06);
+}
+
+.faq-rasa-ayuda summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--azul-principal);
+  font-size: 0.92rem;
+}
+
+.faq-rasa-ayuda-body {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gris-borde);
+}
+
+.faq-rasa-ayuda-body p {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--gris-oscuro);
+}
+
+.faq-rasa-ayuda-body p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-nlu-expandido {
+  border-top: 1px solid var(--gris-borde);
+  background: var(--blanco);
+}
+
+.faq-nlu-seccion-ejemplos {
+  padding: 1rem 1.25rem 1rem;
+  background: var(--gris-fondo);
+}
+
+.faq-nlu-titulo-seccion {
+  margin: 0 0 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--azul-principal);
+}
+
+.faq-nlu-hint {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  color: var(--gris-claro);
+  line-height: 1.4;
+}
+
+.faq-nlu-grid-tres {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--gris-borde);
+}
+
+.faq-nlu-columna {
+  padding: 1rem 1rem 1.25rem;
+  border-right: 1px solid var(--gris-borde);
+  min-width: 0;
+}
+
+.faq-nlu-columna:last-child {
+  border-right: none;
+}
+
+.faq-nlu-col-desc {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  color: var(--gris-claro);
+  line-height: 1.4;
+}
+
+.faq-nlu-sin-datos {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--gris-claro);
+  font-style: italic;
+}
+
+.faq-nlu-dominio-card {
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  background: var(--gris-fondo);
+}
+
+.faq-nlu-dominio-card:last-child {
+  margin-bottom: 0;
+}
+
+.faq-nlu-variantes {
+  display: block;
+  margin: 0.25rem 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gris-claro);
+}
+
+.faq-nlu-previa {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--gris-oscuro);
+}
+
+.faq-nlu-dominio-accion {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.35);
+}
+
+.faq-nlu-accion-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--gris-claro);
+  margin-bottom: 0.25rem;
+}
+
+.faq-nlu-mini-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.faq-nlu-mini-lista li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--gris-borde);
+  line-height: 1.4;
+}
+
+.faq-nlu-mini-lista li:last-child {
+  border-bottom: none;
+}
+
+.faq-nlu-mini-titulo {
+  display: block;
+  color: var(--gris-oscuro);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.faq-nlu-mini-flecha {
+  color: var(--gris-claro);
+}
+
+/* busqueda y boton mas en barra faq. */
+.faq-toolbar-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.faq-toolbar-buscar {
+  min-width: 12rem;
+  flex: 1;
+  max-width: 20rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.faq-toolbar-buscar:focus {
+  outline: none;
+  border-color: var(--azul-principal);
+}
+
+.faq-boton-mas {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--blanco);
+  background: var(--azul-principal);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.faq-boton-mas:hover {
+  background: var(--azul-UV-oscuro);
+  transform: scale(1.04);
+}
+
+.faq-error-banner {
+  margin: 0;
+  padding: 0.75rem 2rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* acordeon de preguntas frecuentes en lista. */
+.faq-lista-acordeon {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 1rem;
+}
+
+.faq-item-acordeon {
+  border-bottom: 1px solid var(--gris-borde);
+}
+
+.faq-item-fila {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+.faq-item-toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1rem 1rem 1.5rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: var(--gris-oscuro);
+}
+
+.faq-item-toggle:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.faq-item-chevron {
+  flex-shrink: 0;
+  width: 1.25rem;
+  color: var(--gris-claro);
+  font-size: 0.85rem;
+}
+
+.faq-item-pregunta {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.faq-status-inline {
+  flex-shrink: 0;
+}
+
+.faq-item-menu-wrap {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 0.75rem;
+}
+
+.faq-menu-tres-puntos {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--gris-claro);
+  letter-spacing: -0.2em;
+}
+
+.faq-menu-tres-puntos:hover,
+.faq-menu-tres-puntos[aria-expanded="true"] {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--gris-oscuro);
+}
+
+.faq-menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0.5rem;
+  margin-top: 0.25rem;
+  min-width: 11rem;
+  padding: 0.35rem 0;
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 20;
+}
+
+.faq-menu-opcion {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  font: inherit;
+  color: var(--gris-oscuro);
+  cursor: pointer;
+}
+
+.faq-menu-opcion:hover {
+  background: var(--gris-fondo);
+}
+
+.faq-menu-opcion-peligro {
+  color: var(--rojo-peligro);
+}
+
+.faq-item-cuerpo {
+  padding: 0 1.5rem 1.25rem 3.25rem;
+  background: var(--gris-fondo);
+  border-top: 1px solid var(--gris-borde);
+}
+
+.faq-item-cuerpo-etiqueta {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gris-claro);
+}
+
+.faq-respuestas-bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-respuesta-bloque {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  background: var(--blanco);
+  border-radius: 8px;
+  border: 1px solid var(--gris-borde);
+}
+
+.faq-respuesta-num {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--azul-principal);
+  color: var(--blanco);
+  border-radius: 6px;
+}
+
+.faq-respuesta-texto {
+  margin: 0;
+  color: var(--gris-oscuro);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.faq-keywords-inline {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: var(--gris-claro);
+}
+
+.faq-lista-vacia {
+  padding: 2rem;
+  text-align: center;
+  color: var(--gris-claro);
+}
+
+.faq-lista-vacia .crear-faq-boton {
+  margin-top: 1rem;
+}
+
+/* panel lateral para crear o editar faq. */
+.faq-panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-menu);
+  z-index: 1000;
+  animation: faq-backdrop-in 0.2s ease;
+}
+
+@keyframes faq-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.faq-panel-lateral {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(100%, 26rem);
+  z-index: 1001;
+  background: var(--blanco);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  animation: faq-panel-in 0.25s ease;
+}
+
+@keyframes faq-panel-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.faq-panel-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--gris-borde);
+  background: var(--gris-fondo);
+}
+
+.faq-panel-cabecera h2 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--azul-principal);
+}
+
+.faq-panel-cerrar {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--gris-claro);
+  border-radius: 8px;
+}
+
+.faq-panel-cerrar:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--gris-oscuro);
+}
+
+.faq-panel-formulario {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1.25rem 2rem;
+}
+
+.crear-faq-boton {
+  background: var(--azul-principal);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.crear-faq-boton:hover {
+  background: var(--azul-UV-oscuro);
+  transform: translateY(-2px);
+}
+
+/* formulario de intencion o faq en el panel. */
+.faq-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faq-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: var(--gris-oscuro);
+  font-weight: 600;
+}
+
+.faq-form input,
+.faq-form textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--gris-borde);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.faq-form input:focus,
+.faq-form textarea:focus {
+  outline: none;
+  border-color: var(--azul-principal);
+}
+
+.faq-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.faq-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* boton guardar en formulario faq del panel. */
+.guardar-faq-boton {
+  background: var(--verde-principal);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.guardar-faq-boton:hover {
+  background: var(--verde-UV-hover);
+  transform: translateY(-2px);
+}
+
+/* boton secundario cancelar en formulario faq. */
+.cancelar-faq-boton {
+  background: transparent;
+  color: var(--gris-oscuro);
+  border: 2px solid var(--gris-borde);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover suave en cancelar. */
+.cancelar-faq-boton:hover {
+  background: var(--gris-fondo);
+}
+
+/* mensaje de error inline en faq. */
+.faq-error {
+  color: var(--rojo-peligro);
+  font-weight: 600;
+}
+
+/* estado de carga dentro de la seccion faq. */
+.faq-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--gris-claro);
+}
+
+/* pastilla de estado activo/inactivo. */
+.faq-status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* variante activo. */
+.faq-status.activo {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--verde-exito);
+}
+
+/* variante inactivo. */
+.faq-status.inactivo {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--rojo-peligro);
+}
+
+/* linea de keywords secundarias. */
+.faq-keywords {
+  color: var(--gris-claro);
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+}
+
+/* acciones del modal generico de confirmacion. */
+/* cancelar en modal generico. */
+.cancelar-modal-boton {
+  background: transparent;
+  color: var(--gris-claro);
+  border: 2px solid var(--gris-borde);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover cancelar modal. */
+.cancelar-modal-boton:hover {
+  background: var(--gris-fondo);
+  border-color: var(--gris-claro);
+  color: var(--gris-oscuro);
+}
+
+/* confirmar accion destructiva. */
+.eliminar-modal-boton {
+  background: var(--rojo-peligro);
+  color: var(--blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover rojo mas intenso. */
+.eliminar-modal-boton:hover {
+  background: var(--rojo-intenso);
+  transform: translateY(-2px);
+}
+
+/* carga en linea sin cubrir toda la pagina. */
+.admin-inline-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background: var(--blanco);
+  border-radius: 12px;
+  border: 1px dashed var(--gris-borde);
+  color: var(--gris-oscuro);
+  font-weight: 500;
+}
+
+.admin-inline-loading .spinner {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}
+
+/* ajustes de layout en pantallas estrechas. */
+@media (max-width: 768px) {
+  .admin-container {
+    padding: 1rem;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .usuarios-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+  
+  .usuarios-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .usuarios-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .crear-usuario-boton,
+  .actualizar-boton {
+    width: 100%;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .detail-value {
+    text-align: left;
+  }
+
+  .faq-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem 1rem;
+  }
+
+  .faq-toolbar-acciones {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .faq-toolbar-buscar {
+    max-width: none;
+  }
+
+  .faq-toolbar-acciones .actualizar-boton,
+  .faq-boton-mas {
+    width: 100%;
+  }
+
+  .faq-error-banner {
+    padding: 0.75rem 1rem;
+  }
+
+  .faq-item-toggle {
+    padding-left: 1rem;
+  }
+
+  .faq-item-cuerpo {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .faq-panel-lateral {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .faq-form {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .faq-rasa-tabs {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 0.75rem 0;
+  }
+
+  .faq-rasa-tab {
+    border-radius: 8px;
+    text-align: left;
+  }
+
+  .faq-rasa-tab--activo {
+    margin-bottom: 0;
+    border-bottom-color: var(--gris-borde);
+  }
+
+  .faq-nlu-grid-tres {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-nlu-columna {
+    border-right: none;
+    border-bottom: 1px solid var(--gris-borde);
+  }
+
+  .faq-nlu-columna:last-child {
+    border-bottom: none;
+  }
+
+}
+

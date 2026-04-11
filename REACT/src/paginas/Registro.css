@@ -1,0 +1,391 @@
+/* estilos de la pagina de registro de usuario. */
+/* reset basico y caja universal. */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+/* colores: src/estilos/colores.css */
+
+/* pagina con fondo suave y tarjeta centrada. */
+.pagina-registro {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, var(--registro-degradado-inicio) 0%, var(--registro-degradado-fin) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+/* limita el ancho del bloque de registro. */
+.contenedor-registro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* tarjeta con scroll si el formulario es alto. */
+.tarjeta-registro {
+  background: var(--blanco);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(24, 82, 157, 0.15);
+  padding: 2rem 2.5rem;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* cabecera del formulario: logo y textos. */
+.header-formulario {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* contenedor del logo bitbot. */
+.logo-contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.logo-bitbot {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* texto secundario bajo el titulo. */
+.subtitulo {
+  font-size: 1rem;
+  color: var(--gris-oscuro);
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+/* campos del alta de usuario. */
+.formulario-registro {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* grupo label mas control en columna. */
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.campo-formulario label {
+  font-weight: 500;
+  color: var(--gris-oscuro);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.campo-formulario input,
+.campo-formulario select {
+  padding: 10px 14px;
+  border: 1px solid var(--gris-borde-input);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: var(--blanco);
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus {
+  outline: none;
+  border-color: var(--azul-claro);
+  box-shadow: 0 0 0 3px rgba(24, 82, 157, 0.1);
+}
+
+.campo-formulario input::placeholder {
+  color: var(--gris-claro);
+  font-size: 0.9rem;
+}
+
+.campo-formulario select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+/* campos de solo lectura tras alta parcial. */
+.campo-readonly {
+  background-color: var(--gris-hover);
+  color: var(--gris-oscuro);
+  cursor: not-allowed;
+  font-weight: 500;
+}
+
+/* borde rojo cuando hay error de validacion. */
+.campo-error {
+  border-color: var(--rojo) !important;
+  background-color: var(--rojo-fondo-suave);
+}
+
+.campo-error:focus {
+  border-color: var(--rojo-intenso) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+/* texto de error bajo un campo. */
+.mensaje-error {
+  color: var(--rojo-intenso);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
+}
+
+/* aviso informativo bajo un campo. */
+.mensaje-info {
+  color: var(--azul-info);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+  font-weight: 500;
+}
+
+.campo-formulario input:disabled {
+  background-color: var(--gris-hover);
+  color: var(--gris-muted);
+  cursor: not-allowed;
+  border-color: var(--gris-borde-input);
+}
+
+/* input con boton de mostrar contraseña. */
+.input-contenedor {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-contenedor input {
+  width: 100%;
+  padding-right: 50px;
+}
+
+/* alterna visibilidad del texto de contraseña. */
+.boton-mostrar-contraseña {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--gris-claro);
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.boton-mostrar-contraseña:hover {
+  color: var(--gris-oscuro);
+  background-color: var(--gris-hover);
+}
+
+/* boton enviar registro. */
+.boton-registro {
+  background: linear-gradient(135deg, var(--azul-claro) 0%, var(--azul-oscuro) 100%);
+  color: var(--blanco);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+  box-shadow: 0 2px 8px rgba(24, 82, 157, 0.3);
+}
+
+.boton-registro:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(24, 82, 157, 0.4);
+}
+
+.boton-registro:active {
+  transform: translateY(0);
+}
+
+/* spinner y texto mientras se envia el formulario. */
+.indicador-carga {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--gris-fondo);
+  border-radius: 8px;
+  border: 1px solid var(--gris-borde);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--gris-borde);
+  border-top: 3px solid var(--azul-UV);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.indicador-carga p {
+  margin: 0;
+  color: var(--gris-slate-medio);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* enlace de vuelta al login. */
+.enlaces-ayuda {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+.enlace-ayuda {
+  color: var(--gris-oscuro);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: color 0.3s ease;
+  line-height: 1.4;
+}
+
+.enlace-ayuda:hover {
+  color: var(--azul-claro);
+  text-decoration: underline;
+}
+
+/* scrollbar personalizado en contenedores con scroll. */
+.tarjeta-registro::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tarjeta-registro::-webkit-scrollbar-track {
+  background: var(--gris-track-ui);
+  border-radius: 10px;
+}
+
+.tarjeta-registro::-webkit-scrollbar-thumb {
+  background: var(--azul-claro);
+  border-radius: 10px;
+}
+
+.tarjeta-registro::-webkit-scrollbar-thumb:hover {
+  background: var(--azul-oscuro);
+}
+
+/* tablet: menos padding en la tarjeta. */
+@media (max-width: 768px) {
+  .tarjeta-registro {
+    padding: 2rem;
+  }
+}
+
+/* movil: tarjeta mas compacta. */
+@media (max-width: 480px) {
+  .pagina-registro {
+    padding: 1rem;
+  }
+
+  .tarjeta-registro {
+    padding: 1.5rem;
+    max-height: 85vh;
+  }
+  
+  .subtitulo {
+    font-size: 1rem;
+  }
+  
+  .formulario-registro {
+    gap: 1rem;
+  }
+  
+  .campo-formulario input {
+    padding: 10px 14px;
+  }
+  
+  .boton-registro {
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* caja informativa sobre requisitos de contraseña. */
+.mensaje-info-contraseña {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+  border: 1px solid var(--verde-exito);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.mensaje-info-contraseña p {
+  margin: 0.25rem 0;
+  color: var(--gris-oscuro);
+  font-size: 0.9rem;
+}
+
+.mensaje-info-contraseña p:first-child {
+  font-weight: 600;
+  color: var(--verde-exito);
+}
+
+.mensaje-info-contraseña p:last-child {
+  color: var(--gris-claro);
+  font-size: 0.85rem;
+}
+
+/* pista de formato junto al campo fecha. */
+#fechaNacimiento::before {
+  content: "(mes/día/año)";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gris-claro);
+  font-size: 0.75rem;
+  pointer-events: none;
+  background: var(--blanco);
+  padding: 0 4px;
+  z-index: 1;
+}
+
+/* deja espacio a la derecha para la pista de fecha. */
+.campo-formulario:has(#fechaNacimiento) {
+  position: relative;
+}
+
+.campo-formulario:has(#fechaNacimiento) input {
+  padding-right: 100px;
+}
+
