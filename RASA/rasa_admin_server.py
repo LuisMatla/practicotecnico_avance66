@@ -1,15 +1,3 @@
-"""
-API HTTP para administrar training data de Rasa (nlu, domain, rules, stories).
-Despliegue: proxy /admin/api/ hacia este servicio (mismo host que el webhook, p. ej. rasa.bitbot.xyz).
-
-Variables de entorno:
-  RASA_API_KEY          — obligatoria en producción; header X-Rasa-Auth o Authorization: Bearer
-  RASA_PROJECT_ROOT     — carpeta del proyecto Rasa (contiene domain.yml y data/)
-  RASA_ADMIN_HOST       — default 0.0.0.0
-  RASA_ADMIN_PORT       — default 8765
-  RASA_ADMIN_NO_DELETE  — intenciones que no se pueden borrar (coma), default: nlu_fallback
-  RASA_ADMIN_AUTO_TRAIN  — si es "1", ejecuta `rasa train` en segundo plano tras cada cambio
-"""
 from __future__ import annotations
 
 import json
@@ -17,6 +5,9 @@ import os
 import re
 import subprocess
 import threading
+import traceback
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -199,7 +190,7 @@ def _check_auth(request: Request) -> bool:
 async def cors(_, resp):
     resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Rasa-Auth"
-    resp.headers["Access-Control-Allow-Methods"] = "GET, PUT, DELETE, OPTIONS"
+    resp.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
 
 
 @app.options("/admin/api/<path:_>")
@@ -238,7 +229,6 @@ def remove_intent_everywhere(intent: str) -> None:
     domain["responses"] = responses
 
     acciones = list(domain.get("actions") or [])
-    # quitar acción custom homónima si existiera
     cand = f"action_{intent}"
     if cand in acciones:
         acciones = [a for a in acciones if a != cand]
@@ -280,7 +270,6 @@ def _normalize_ejemplos(body: dict[str, Any]) -> list[str]:
 
 
 def update_intent_protected(intent: str, body: dict[str, Any]) -> tuple[bool, str]:
-    """Actualiza NLU (y utter en domain si existe) sin borrar reglas/historias — intenciones protegidas."""
     ejemplos = _normalize_ejemplos(body)
     if not ejemplos:
         return False, "Se requiere al menos un ejemplo NLU."
@@ -459,7 +448,7 @@ def maybe_train_async() -> None:
 
     def job():
         try:
-            subprocess.run(
+            result = subprocess.run(
                 ["rasa", "train"],
                 cwd=str(ROOT),
                 check=False,
@@ -467,10 +456,116 @@ def maybe_train_async() -> None:
                 text=True,
                 timeout=3600,
             )
+            if result.returncode == 0:
+                _apply_latest_model()
         except Exception:
             pass
 
     threading.Thread(target=job, daemon=True).start()
+
+
+def _rasa_runtime_url() -> str:
+    return os.environ.get(
+        "RASA_RUNTIME_URL",
+        os.environ.get("RASA_INTERNAL_URL", "http://127.0.0.1:5006"),
+    ).rstrip("/")
+
+
+def _latest_model_file() -> Path | None:
+    models_dir = ROOT / "models"
+    if not models_dir.is_dir():
+        return None
+    files = sorted(models_dir.glob("*.tar.gz"), key=lambda p: p.stat().st_mtime, reverse=True)
+    return files[0] if files else None
+
+
+def _apply_latest_model() -> tuple[bool, str]:
+    model_file = _latest_model_file()
+    if model_file is None:
+        return False, "No se encontró modelo entrenado en models/."
+
+    url = f"{_rasa_runtime_url()}/model"
+    headers = {"Content-Type": "application/json"}
+    key = _get_api_key()
+    if key:
+        headers["X-Rasa-Auth"] = key
+
+    payload = json.dumps({"model_file": str(model_file)}).encode("utf-8")
+    req = urllib.request.Request(url, data=payload, headers=headers, method="PUT")
+    try:
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            code = int(getattr(resp, "status", 200))
+            if 200 <= code < 300:
+                return True, f"Modelo cargado: {model_file.name}"
+            body = resp.read().decode("utf-8", errors="ignore")
+            return False, body[:1200] or f"HTTP {code}"
+    except urllib.error.HTTPError as e:
+        body = ""
+        try:
+            body = e.read().decode("utf-8", errors="ignore")
+        except Exception:
+            body = ""
+        return False, body[:1200] or f"HTTP {e.code}"
+    except Exception as exc:
+        return False, str(exc)[:1200]
+
+
+def _start_train_job() -> tuple[bool, str]:
+    if getattr(app.ctx, "train_running", False):
+        return False, "Ya hay un entrenamiento en curso."
+
+    app.ctx.train_running = True
+    app.ctx.train_last_started = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    app.ctx.train_last_finished = ""
+    app.ctx.train_last_status = "running"
+    app.ctx.train_last_error = ""
+    app.ctx.train_last_apply_status = ""
+    app.ctx.train_last_apply_detail = ""
+
+    def job():
+        try:
+            result = subprocess.run(
+                ["rasa", "train"],
+                cwd=str(ROOT),
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=3600,
+            )
+            if result.returncode == 0:
+                app.ctx.train_last_status = "ok"
+                app.ctx.train_last_error = ""
+                applied, detail = _apply_latest_model()
+                app.ctx.train_last_apply_status = "ok" if applied else "error"
+                app.ctx.train_last_apply_detail = detail
+            else:
+                app.ctx.train_last_status = "error"
+                err = (result.stderr or result.stdout or "").strip()
+                app.ctx.train_last_error = err[:1200]
+                app.ctx.train_last_apply_status = ""
+                app.ctx.train_last_apply_detail = ""
+        except Exception as exc:
+            app.ctx.train_last_status = "error"
+            app.ctx.train_last_error = str(exc)[:1200]
+            app.ctx.train_last_apply_status = ""
+            app.ctx.train_last_apply_detail = ""
+        finally:
+            app.ctx.train_running = False
+            app.ctx.train_last_finished = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+    threading.Thread(target=job, daemon=True).start()
+    return True, "Entrenamiento iniciado."
+
+
+def _probe_url(url: str, timeout: int = 4) -> dict[str, Any]:
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as resp:
+            code = int(getattr(resp, "status", 200))
+            return {"ok": 200 <= code < 300, "status": code}
+    except urllib.error.HTTPError as e:
+        return {"ok": False, "status": int(e.code)}
+    except Exception as exc:
+        return {"ok": False, "error": str(exc)}
 
 
 @app.get("/admin/api/intent/<intent>")
@@ -559,6 +654,170 @@ async def delete_intent(request: Request, intent: str):
 @app.get("/admin/api/health")
 async def health(_request: Request):
     return response.json({"ok": True, "root": str(ROOT)})
+
+
+@app.get("/admin/api/runtime/check")
+async def runtime_check(_request: Request):
+    runtime_base = _rasa_runtime_url()
+    internal_base = os.environ.get("RASA_INTERNAL_URL", "http://127.0.0.1:5006").rstrip("/")
+    return response.json(
+        {
+            "ok": True,
+            "runtimeUrl": runtime_base,
+            "internalUrl": internal_base,
+            "spawnInternal": os.environ.get("RASA_SPAWN_INTERNAL", ""),
+            "runtimeVersion": _probe_url(f"{runtime_base}/version"),
+            "internalVersion": _probe_url(f"{internal_base}/version"),
+        }
+    )
+
+
+@app.post("/admin/api/runtime/test-message")
+async def runtime_test_message(request: Request):
+    body = _parse_request_json(request)
+    sender = (body.get("sender") or "diag-admin").strip() or "diag-admin"
+    message = (body.get("message") or "hola").strip() or "hola"
+    target = f"{_rasa_runtime_url()}/webhooks/rest/webhook"
+    payload = json.dumps({"sender": sender, "message": message}).encode("utf-8")
+    req = urllib.request.Request(
+        target,
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            code = int(getattr(resp, "status", 200))
+            raw = resp.read().decode("utf-8", errors="ignore")
+            parsed: Any
+            try:
+                parsed = json.loads(raw) if raw else []
+            except Exception:
+                parsed = raw
+            return response.json(
+                {
+                    "ok": True,
+                    "status": code,
+                    "target": target,
+                    "request": {"sender": sender, "message": message},
+                    "response": parsed,
+                }
+            )
+    except urllib.error.HTTPError as e:
+        err_body = ""
+        try:
+            err_body = e.read().decode("utf-8", errors="ignore")
+        except Exception:
+            err_body = ""
+        return response.json(
+            {
+                "ok": False,
+                "status": int(e.code),
+                "target": target,
+                "request": {"sender": sender, "message": message},
+                "errorBody": err_body,
+            },
+            status=200,
+        )
+    except Exception as exc:
+        return response.json(
+            {
+                "ok": False,
+                "status": 0,
+                "target": target,
+                "request": {"sender": sender, "message": message},
+                "error": str(exc),
+                "trace": traceback.format_exc(limit=4),
+            },
+            status=200,
+        )
+
+
+@app.post("/admin/api/runtime/test-message-aiohttp")
+async def runtime_test_message_aiohttp(request: Request):
+    body = _parse_request_json(request)
+    sender = (body.get("sender") or "diag-admin").strip() or "diag-admin"
+    message = (body.get("message") or "hola").strip() or "hola"
+    target = f"{_rasa_runtime_url()}/webhooks/rest/webhook"
+    payload = {"sender": sender, "message": message}
+    session = getattr(app.ctx, "http", None)
+    if session is None:
+        return response.json({"ok": False, "error": "http_session_missing"}, status=200)
+    try:
+        async with session.post(
+            target,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=30,
+        ) as resp:
+            raw = await resp.read()
+            text = raw.decode("utf-8", errors="ignore")
+            parsed: Any
+            try:
+                parsed = json.loads(text) if text else []
+            except Exception:
+                parsed = text
+            return response.json(
+                {
+                    "ok": 200 <= resp.status < 300,
+                    "status": resp.status,
+                    "target": target,
+                    "request": payload,
+                    "response": parsed,
+                },
+                status=200,
+            )
+    except Exception as exc:
+        return response.json(
+            {
+                "ok": False,
+                "status": 0,
+                "target": target,
+                "request": payload,
+                "error": str(exc),
+                "trace": traceback.format_exc(limit=4),
+            },
+            status=200,
+        )
+
+
+@app.post("/admin/api/train")
+async def train_now(request: Request):
+    if not _check_auth(request):
+        return _forbidden()
+    started, msg = _start_train_job()
+    return response.json(
+        {
+            "ok": True,
+            "status": "started" if started else "already_running",
+            "message": msg,
+            "running": getattr(app.ctx, "train_running", False),
+            "lastStarted": getattr(app.ctx, "train_last_started", ""),
+            "lastFinished": getattr(app.ctx, "train_last_finished", ""),
+            "lastStatus": getattr(app.ctx, "train_last_status", ""),
+            "lastError": getattr(app.ctx, "train_last_error", ""),
+            "lastApplyStatus": getattr(app.ctx, "train_last_apply_status", ""),
+            "lastApplyDetail": getattr(app.ctx, "train_last_apply_detail", ""),
+        }
+    )
+
+
+@app.get("/admin/api/train/status")
+async def train_status(request: Request):
+    if not _check_auth(request):
+        return _forbidden()
+    return response.json(
+        {
+            "ok": True,
+            "running": getattr(app.ctx, "train_running", False),
+            "lastStarted": getattr(app.ctx, "train_last_started", ""),
+            "lastFinished": getattr(app.ctx, "train_last_finished", ""),
+            "lastStatus": getattr(app.ctx, "train_last_status", ""),
+            "lastError": getattr(app.ctx, "train_last_error", ""),
+            "lastApplyStatus": getattr(app.ctx, "train_last_apply_status", ""),
+            "lastApplyDetail": getattr(app.ctx, "train_last_apply_detail", ""),
+        }
+    )
 
 
 if __name__ == "__main__":

@@ -1,12 +1,12 @@
-// sesiones de chat, mensajes y consultas en supabase.
-import { supabase } from '../supabase/config' //cliente supabase.
 
-export const crearSesionChat = async (userId, matricula) => { //crea una sesion de chat para un usuario.
+import { supabase } from '../supabase/config'
+
+export const crearSesionChat = async (userId, matricula) => {
   try {
     console.log('Creando sesión de chat...')
-    
+
     const intentos = [
-      //variantes de payload por si el esquema de columnas difiere en despliegues viejos.
+
       {
         userId: userId,
         matricula: matricula,
@@ -32,33 +32,33 @@ export const crearSesionChat = async (userId, matricula) => { //crea una sesion 
         matricula: matricula
       }
     ];
-    
-    let ultimoError = null; //guarda el ultimo error de insert para el mensaje final.
-    
+
+    let ultimoError = null;
+
     for (let i = 0; i < intentos.length; i++) {
-      //prueba cada variante hasta que una inserte sin error.
+
       try {
         console.log(`Intento ${i + 1}/${intentos.length} de crear sesión...`);
         const { data, error } = await supabase
-          .from('chat_sesiones') //tabla de sesiones.
-          .insert(intentos[i]) //inserta el payload actual.
-          .select() //devuelve la fila creada.
-        
+          .from('chat_sesiones')
+          .insert(intentos[i])
+          .select()
+
         if (error) {
-          ultimoError = error; //memoriza error.
+          ultimoError = error;
           console.log(`Intento ${i + 1} falló:`, error.message);
-          continue; //pasa al siguiente intento.
+          continue;
         }
-        
+
         console.log('Sesión de chat creada:', data[0].id);
-        return data[0]; //sesion creada con exito.
+        return data[0];
       } catch (insertError) {
-        ultimoError = insertError; //captura excepciones de red o runtime.
+        ultimoError = insertError;
         console.log(`Intento ${i + 1} falló con excepción:`, insertError.message);
         continue;
       }
     }
-    
+
     console.error('Todos los intentos fallaron. Último error:', ultimoError);
     throw new Error(`No se pudo crear la sesión después de ${intentos.length} intentos. Error: ${ultimoError?.message || 'Desconocido'}`);
 
@@ -68,19 +68,19 @@ export const crearSesionChat = async (userId, matricula) => { //crea una sesion 
   }
 }
 
-export const obtenerSesionActiva = async (userId) => { //obtiene la sesion mas reciente (activa) del usuario.
+export const obtenerSesionActiva = async (userId) => {
   try {
     const { data, error } = await supabase
       .from('chat_sesiones')
       .select('*')
-      .eq('userId', userId) //filtra por usuario autenticado.
-      .order('fechaCreacion', { ascending: false }) //la mas nueva primero.
+      .eq('userId', userId)
+      .order('fechaCreacion', { ascending: false })
       .limit(1)
-      .single() //espera un solo registro.
+      .single()
 
     if (error) {
       if (error.code === 'PGRST116') {
-        return null //postgrest: sin filas no es error fatal aqui.
+        return null
       }
       console.error('Error obteniendo sesión:', error)
       throw new Error(error.message)
@@ -93,29 +93,29 @@ export const obtenerSesionActiva = async (userId) => { //obtiene la sesion mas r
   }
 }
 
-export const obtenerTodasSesiones = async (userId, limite = 50, offset = 0) => { //lista sesiones del usuario (paginadas).
+export const obtenerTodasSesiones = async (userId, limite = 50, offset = 0) => {
   try {
-    const limiteFinal = Math.min(limite, 500) //tapa el limite para no sobrecargar.
-    const hasta = offset + limiteFinal - 1 //indice final inclusivo para range.
-    
+    const limiteFinal = Math.min(limite, 500)
+    const hasta = offset + limiteFinal - 1
+
     const { count } = await supabase
       .from('chat_sesiones')
-      .select('*', { count: 'exact', head: true }) //solo cuenta sin traer filas.
+      .select('*', { count: 'exact', head: true })
       .eq('userId', userId)
 
     const { data, error } = await supabase
       .from('chat_sesiones')
       .select('*')
       .eq('userId', userId)
-      .order('ultimaActividad', { ascending: false }) //orden por actividad reciente.
-      .range(offset, hasta) //paginacion por rango.
+      .order('ultimaActividad', { ascending: false })
+      .range(offset, hasta)
 
     if (error) {
       console.error('Error obteniendo sesiones:', error)
       throw new Error(error.message)
     }
 
-    const tieneMas = count ? (offset + (data?.length || 0)) < count : false //true si quedan paginas.
+    const tieneMas = count ? (offset + (data?.length || 0)) < count : false
 
     return {
       sesiones: data || [],
@@ -132,12 +132,12 @@ export const obtenerTodasSesiones = async (userId, limite = 50, offset = 0) => {
   }
 }
 
-export const agregarMensaje = async (sesionId, userId, matricula, mensaje, tipo, categoria = 'general') => { //guarda un mensaje en una sesion.
+export const agregarMensaje = async (sesionId, userId, matricula, mensaje, tipo, categoria = 'general') => {
   try {
     console.log('Agregando mensaje a sesión:', sesionId)
-    
+
     const { data, error } = await supabase
-      .from('chat_mensajes') //tabla de mensajes por sesion.
+      .from('chat_mensajes')
       .insert({
         sesionId: sesionId,
         userId: userId,
@@ -159,7 +159,7 @@ export const agregarMensaje = async (sesionId, userId, matricula, mensaje, tipo,
     }
 
     const mensajeGuardado = {
-      //normaliza mayusculas/minusculas por compatibilidad con distintos drivers.
+
       id: data[0].id || data[0].Id,
       sesionId: data[0].sesionId || data[0].sesionid || sesionId,
       userId: data[0].userId || data[0].userid,
@@ -173,11 +173,11 @@ export const agregarMensaje = async (sesionId, userId, matricula, mensaje, tipo,
     try {
       const { data: sesionData } = await supabase
         .from('chat_sesiones')
-        .select('totalMensajes') //lee contador actual de la sesion.
+        .select('totalMensajes')
         .eq('id', sesionId)
         .single()
 
-      const nuevoTotal = (sesionData?.totalMensajes || 0) + 1 //incrementa en uno.
+      const nuevoTotal = (sesionData?.totalMensajes || 0) + 1
 
       await supabase
         .from('chat_sesiones')
@@ -185,9 +185,9 @@ export const agregarMensaje = async (sesionId, userId, matricula, mensaje, tipo,
           ultimaActividad: new Date().toISOString(),
           totalMensajes: nuevoTotal
         })
-        .eq('id', sesionId) //actualiza solo la sesion afectada.
+        .eq('id', sesionId)
     } catch (updateError) {
-      console.warn('Error actualizando contador de mensajes:', updateError) //no bloquea si falla el contador.
+      console.warn('Error actualizando contador de mensajes:', updateError)
     }
 
     console.log('Mensaje agregado:', mensajeGuardado.id)
@@ -199,13 +199,13 @@ export const agregarMensaje = async (sesionId, userId, matricula, mensaje, tipo,
   }
 }
 
-export const obtenerMensajes = async (sesionId, limite = 100, offset = 0) => { //obtiene mensajes de una sesion (paginados).
+export const obtenerMensajes = async (sesionId, limite = 100, offset = 0) => {
   try {
-    const limiteFinal = Math.min(limite, 1000) //tapa limite maximo.
+    const limiteFinal = Math.min(limite, 1000)
     const hasta = offset + limiteFinal - 1
-    
+
     console.log(`Obteniendo mensajes de sesión ${sesionId} (offset: ${offset}, límite: ${limiteFinal})...`)
-    
+
     const { count } = await supabase
       .from('chat_mensajes')
       .select('*', { count: 'exact', head: true })
@@ -215,7 +215,7 @@ export const obtenerMensajes = async (sesionId, limite = 100, offset = 0) => { /
       .from('chat_mensajes')
       .select('*')
       .eq('sesionId', sesionId)
-      .order('timestamp', { ascending: false }) //mas recientes primero.
+      .order('timestamp', { ascending: false })
       .range(offset, hasta)
 
     if (error) {
@@ -232,10 +232,10 @@ export const obtenerMensajes = async (sesionId, limite = 100, offset = 0) => { /
       }
     }
 
-    const mensajesOrdenados = data.reverse() //vuelve a orden cronologico ascendente en memoria.
+    const mensajesOrdenados = data.reverse()
 
     const mensajesNormalizados = mensajesOrdenados.map(msg => ({
-      //mapea filas a forma estable para el componente de chat.
+
       id: msg.id || msg.Id,
       sesionId: msg.sesionId || msg.sesionid || sesionId,
       userId: msg.userId || msg.userid,
@@ -265,11 +265,11 @@ export const obtenerMensajes = async (sesionId, limite = 100, offset = 0) => { /
   }
 }
 
-export const eliminarSesion = async (sesionId, userId) => { //elimina una sesion y sus mensajes (con verificacion de acceso).
+export const eliminarSesion = async (sesionId, userId) => {
   try {
     console.log('Eliminando sesión de chat:', sesionId)
-    
-    const tieneAcceso = await verificarAcceso(sesionId, userId) //comprueba propiedad de la sesion.
+
+    const tieneAcceso = await verificarAcceso(sesionId, userId)
     if (!tieneAcceso) {
       throw new Error('No tienes permiso para eliminar esta sesión')
     }
@@ -277,7 +277,7 @@ export const eliminarSesion = async (sesionId, userId) => { //elimina una sesion
     const { error: mensajesError } = await supabase
       .from('chat_mensajes')
       .delete()
-      .eq('sesionId', sesionId) //borra primero hijos por integridad.
+      .eq('sesionId', sesionId)
 
     if (mensajesError) {
       console.error('Error eliminando mensajes:', mensajesError)
@@ -287,7 +287,7 @@ export const eliminarSesion = async (sesionId, userId) => { //elimina una sesion
     const { error: sesionError } = await supabase
       .from('chat_sesiones')
       .delete()
-      .eq('id', sesionId) //luego borra la sesion.
+      .eq('id', sesionId)
 
     if (sesionError) {
       console.error('Error eliminando sesión:', sesionError)
@@ -307,7 +307,7 @@ export const eliminarSesion = async (sesionId, userId) => { //elimina una sesion
 }
 
 const verificarAcceso = async (sesionId, userId) => {
-  //comprueba que la sesion pertenezca al userId (anti borrado ajeno).
+
   try {
     const { data, error } = await supabase
       .from('chat_sesiones')
@@ -328,12 +328,12 @@ const verificarAcceso = async (sesionId, userId) => {
   }
 }
 
-export const guardarConsulta = async (userId, matricula, consulta, respuesta, categoria) => { //guarda consulta/respuesta en historial.
+export const guardarConsulta = async (userId, matricula, consulta, respuesta, categoria) => {
   try {
     console.log('Guardando consulta en historial...')
-    
+
     const { data, error } = await supabase
-      .from('historial_consultas') //tabla de historial del bot.
+      .from('historial_consultas')
       .insert({
         userId: userId,
         matricula: matricula,
@@ -341,7 +341,7 @@ export const guardarConsulta = async (userId, matricula, consulta, respuesta, ca
         respuesta: respuesta,
         categoria: categoria,
         fechaConsulta: new Date().toISOString(),
-        timestamp: new Date().toISOString() //campo extra por compatibilidad con payloads viejos.
+        timestamp: new Date().toISOString()
       })
       .select()
 

@@ -1,57 +1,52 @@
-// url de rasa: env, localhost/lan, o dominio publico (railway detras de cloudflare).
+
 export const obtenerRasaUrl = () => {
   if (process.env.REACT_APP_RASA_URL) {
-    return process.env.REACT_APP_RASA_URL; //prioridad absoluta si viene en build.
+    return process.env.REACT_APP_RASA_URL;
   }
 
   if (typeof window === 'undefined') {
-    return 'http://localhost:5005'; //entorno sin navegador (tests o ssr).
+    return 'http://localhost:5005';
   }
 
-  const h = window.location.hostname; //host actual del front.
+  const h = window.location.hostname;
   if (h === 'localhost' || h === '127.0.0.1') {
-    return 'http://localhost:5005'; //desarrollo local tipico.
+    return 'http://localhost:5005';
   }
-  if (
-    h.startsWith('192.168.') ||
-    h.startsWith('10.') ||
-    h.startsWith('172.')
-  ) {
-    return `http://${h}:5005`; //misma maquina en red lan accediendo por ip.
+  if (h.startsWith('192.168.') || h.startsWith('10.') || h.startsWith('172.')) {
+    return `http://${h}:5005`;
   }
 
-  return 'https://rasa.bitbot.xyz'; //produccion publica por defecto.
+  return '/api/rasa-proxy';
 };
 
-const RASA_URL = obtenerRasaUrl(); //url final resuelta segun entorno.
-export { RASA_URL }; //exporta url para uso/diagnostico.
+const RASA_URL = obtenerRasaUrl();
+export { RASA_URL };
 
-// envia un mensaje al webhook de rasa con tiempo maximo de espera.
 export const enviarMensajeRasa = async (mensaje, senderId = 'usuario') => {
-  const controller = new AbortController(); //permite abortar la peticion.
-  const timeoutId = setTimeout(() => controller.abort(), 30000); //timeout maximo de 30s.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
 
   try {
     if (!RASA_URL) {
       throw new Error('La URL de Rasa no está configurada');
     }
 
-    const headers = { //cabeceras base.
-      'Content-Type': 'application/json', //json.
+    const headers = {
+      'Content-Type': 'application/json',
     };
-    
+
     if (process.env.REACT_APP_RASA_API_KEY) {
-      headers['X-Rasa-Auth'] = process.env.REACT_APP_RASA_API_KEY; //api key opcional.
+      headers['X-Rasa-Auth'] = process.env.REACT_APP_RASA_API_KEY;
     }
 
-    const response = await fetch(`${RASA_URL}/webhooks/rest/webhook`, { //webhook REST de Rasa.
-      method: 'POST', //rasa espera post con json.
+    const response = await fetch(`${RASA_URL}/webhooks/rest/webhook`, {
+      method: 'POST',
       headers,
       body: JSON.stringify({
-        message: mensaje, //texto del usuario.
-        sender: senderId, //id de conversacion estable por usuario.
+        message: mensaje,
+        sender: senderId,
       }),
-      signal: controller.signal, //enlaza abort por timeout.
+      signal: controller.signal,
     });
 
     clearTimeout(timeoutId);
@@ -60,45 +55,45 @@ export const enviarMensajeRasa = async (mensaje, senderId = 'usuario') => {
       throw new Error(`Error HTTP: ${response.status} - ${response.statusText}`);
     }
 
-    const data = await response.json(); //respuesta del bot.
-    
-    if (Array.isArray(data) && data.length > 0) { //si llega arreglo de mensajes.
+    const data = await response.json();
+
+    if (Array.isArray(data) && data.length > 0) {
       return data.map(msg => msg.text || msg.message || '').filter(Boolean).join('\n');
     }
-    
+
     return 'Lo siento, no pude procesar tu mensaje. ¿Podrías reformularlo?';
-    
+
   } catch (error) {
     clearTimeout(timeoutId);
-    
+
     console.error('Error al comunicarse con Rasa:', error);
-    
+
     if (error.name === 'AbortError' || error.name === 'TimeoutError') {
       throw new Error('El servidor de Rasa tardó demasiado en responder. Por favor, intenta nuevamente.');
     }
-    
+
     if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError') || error.message.includes('fetch')) {
       throw new Error('No se pudo conectar con el servidor de Rasa. Verifica que el servidor esté ejecutándose en http://localhost:5005');
     }
-    
+
     throw new Error(`Error de Rasa: ${error.message || 'Error desconocido al comunicarse con Rasa'}`);
   }
 };
 
 export const verificarConexionRasa = async () => {
-  const controller = new AbortController(); //permite abortar la peticion.
-  const timeoutId = setTimeout(() => controller.abort(), 5000); //timeout corto (5s).
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
 
   try {
     if (!RASA_URL) {
       return false;
     }
-    
-    const response = await fetch(`${RASA_URL}/`, { //ping simple a raiz.
+
+    const response = await fetch(`${RASA_URL}/`, {
       method: 'GET',
       signal: controller.signal,
     });
-    
+
     clearTimeout(timeoutId);
     return response.ok;
   } catch (error) {
@@ -109,9 +104,9 @@ export const verificarConexionRasa = async () => {
 };
 
 export const obtenerEstadoRasa = async () => {
-  //prueba end to end enviando un mensaje de prueba (puede crear ruido en logs del bot).
+
   try {
-    const testResponse = await enviarMensajeRasa('test', 'status-check'); //sender distinto para no mezclar historial.
+    const testResponse = await enviarMensajeRasa('test', 'status-check');
     return {
       status: 'ok',
       message: 'Rasa está funcionando correctamente',

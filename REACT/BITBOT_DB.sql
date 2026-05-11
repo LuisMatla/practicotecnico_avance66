@@ -1,4 +1,4 @@
--- almacena el perfil academico y de contacto vinculado al uid de supabase auth.
+
 
 CREATE TABLE IF NOT EXISTS usuarios (
   id SERIAL PRIMARY KEY,
@@ -15,16 +15,12 @@ CREATE TABLE IF NOT EXISTS usuarios (
   activo BOOLEAN DEFAULT TRUE
 );
 
--- relaciona cada matricula unica con el uid del usuario para integridad referencial.
-
 CREATE TABLE IF NOT EXISTS usuarios_por_matricula (
   id SERIAL PRIMARY KEY,
   uid TEXT NOT NULL,
   matricula TEXT UNIQUE NOT NULL,
   CONSTRAINT fk_uid FOREIGN KEY (uid) REFERENCES usuarios(uid) ON DELETE CASCADE
 );
-
--- agrupa conversaciones del chat por usuario y matricula con metadatos de actividad.
 
 CREATE TABLE IF NOT EXISTS chat_sesiones (
   id SERIAL PRIMARY KEY,
@@ -36,8 +32,6 @@ CREATE TABLE IF NOT EXISTS chat_sesiones (
   "categoriaPrincipal" TEXT DEFAULT 'general',
   activa BOOLEAN DEFAULT TRUE
 );
-
--- guarda cada mensaje del usuario o del bot dentro de una sesion de chat.
 
 CREATE TABLE IF NOT EXISTS chat_mensajes (
   id SERIAL PRIMARY KEY,
@@ -51,8 +45,6 @@ CREATE TABLE IF NOT EXISTS chat_mensajes (
   CONSTRAINT fk_sesion FOREIGN KEY ("sesionId") REFERENCES chat_sesiones(id) ON DELETE CASCADE
 );
 
--- persiste pares consulta-respuesta del asistente con categoria y marca de tiempo.
-
 CREATE TABLE IF NOT EXISTS historial_consultas (
   id SERIAL PRIMARY KEY,
   "userId" TEXT NOT NULL,
@@ -63,8 +55,6 @@ CREATE TABLE IF NOT EXISTS historial_consultas (
   "fechaConsulta" TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- registra correos temporalmente bloqueados con tiempo de expiracion configurable.
-
 CREATE TABLE IF NOT EXISTS correos_bloqueados (
   id SERIAL PRIMARY KEY,
   correo TEXT UNIQUE NOT NULL,
@@ -72,8 +62,6 @@ CREATE TABLE IF NOT EXISTS correos_bloqueados (
   activo BOOLEAN DEFAULT TRUE,
   "tiempoExpiracion" INTEGER DEFAULT 300
 );
-
--- lista uids autorizados como administradores del panel y su informacion basica.
 
 CREATE TABLE IF NOT EXISTS admin_usuarios (
   id SERIAL PRIMARY KEY,
@@ -83,8 +71,6 @@ CREATE TABLE IF NOT EXISTS admin_usuarios (
   "fechaCreacion" TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
   activo BOOLEAN DEFAULT TRUE
 );
-
--- asegura columnas camelcase en chat_sesiones si la tabla ya existia con esquema antiguo.
 
 DO $$
 BEGIN
@@ -124,8 +110,6 @@ BEGIN
     END IF;
 END $$;
 
--- indices simples para filtros frecuentes por uid, matricula, sesion y correo bloqueado.
-
 CREATE INDEX IF NOT EXISTS idx_usuarios_uid ON usuarios(uid);
 CREATE INDEX IF NOT EXISTS idx_usuarios_matricula ON usuarios(matricula);
 CREATE INDEX IF NOT EXISTS idx_usuarios_correo ON usuarios(correo);
@@ -139,8 +123,6 @@ CREATE INDEX IF NOT EXISTS idx_historial_user ON historial_consultas("userId");
 CREATE INDEX IF NOT EXISTS idx_correos_bloqueados_correo ON correos_bloqueados(correo);
 CREATE INDEX IF NOT EXISTS idx_correos_bloqueados_activo ON correos_bloqueados(activo);
 CREATE INDEX IF NOT EXISTS idx_admin_usuarios_uid ON admin_usuarios(uid);
-
--- indices compuestos y orden temporal alineados con listados del cliente (sesiones, mensajes, historial).
 
 CREATE INDEX IF NOT EXISTS idx_usuarios_activo_fecharegistro
   ON usuarios(activo, fecharegistro DESC)
@@ -158,14 +140,10 @@ CREATE INDEX IF NOT EXISTS idx_historial_user_fecha
 CREATE INDEX IF NOT EXISTS idx_historial_user_categoria
   ON historial_consultas("userId", categoria);
 
--- reemplaza el indice global de matricula por uno parcial que ignora valores nulos.
-
 DROP INDEX IF EXISTS idx_usuarios_matricula;
 CREATE INDEX IF NOT EXISTS idx_usuarios_matricula
   ON usuarios(matricula)
   WHERE matricula IS NOT NULL;
-
--- ajusta autovacuum en tablas con muchos inserts para reducir bloat y estadisticas viejas.
 
 ALTER TABLE chat_mensajes SET (
   autovacuum_vacuum_scale_factor = 0.05,
@@ -182,8 +160,6 @@ ALTER TABLE chat_sesiones SET (
   autovacuum_analyze_scale_factor = 0.05
 );
 
--- borra bloqueos de correo cuyo tiempo desde fechaBloqueo supera tiempoExpiracion (llamada desde supabase.rpc).
-
 CREATE OR REPLACE FUNCTION limpiar_correos_expirados()
 RETURNS void AS $$
 BEGIN
@@ -192,8 +168,6 @@ BEGIN
     AND (EXTRACT(EPOCH FROM (NOW() - "fechaBloqueo"))::INTEGER) > "tiempoExpiracion";
 END;
 $$ LANGUAGE plpgsql;
-
--- expone el email del usuario autenticado desde auth.users para politicas de bloqueo.
 
 CREATE OR REPLACE FUNCTION auth_user_email()
 RETURNS TEXT AS $$
@@ -205,8 +179,6 @@ EXCEPTION
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- activa rls en todas las tablas de la app visibles desde el cliente supabase.
-
 ALTER TABLE usuarios ENABLE ROW LEVEL SECURITY;
 ALTER TABLE usuarios_por_matricula ENABLE ROW LEVEL SECURITY;
 ALTER TABLE chat_sesiones ENABLE ROW LEVEL SECURITY;
@@ -214,8 +186,6 @@ ALTER TABLE chat_mensajes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE historial_consultas ENABLE ROW LEVEL SECURITY;
 ALTER TABLE correos_bloqueados ENABLE ROW LEVEL SECURITY;
 ALTER TABLE admin_usuarios ENABLE ROW LEVEL SECURITY;
-
--- politicas de dueño: cada usuario solo lee y escribe su propia fila en usuarios.
 
 DROP POLICY IF EXISTS "Users can view their own data" ON usuarios;
 CREATE POLICY "Users can view their own data"
@@ -232,8 +202,6 @@ DROP POLICY IF EXISTS "Users can insert their own data" ON usuarios;
 CREATE POLICY "Users can insert their own data"
     ON usuarios FOR INSERT
     WITH CHECK (auth.uid()::text = uid);
-
--- politicas de dueño: la matricula enlazada al uid solo la ve y la edita ese usuario.
 
 DROP POLICY IF EXISTS "Users can view their own matricula" ON usuarios_por_matricula;
 CREATE POLICY "Users can view their own matricula"
@@ -256,8 +224,6 @@ CREATE POLICY "Users can delete their own matricula"
     ON usuarios_por_matricula FOR DELETE
     USING (auth.uid()::text = uid);
 
--- politicas de dueño: las sesiones de chat quedan acotadas al userId de auth.
-
 DROP POLICY IF EXISTS "Users can view their own chat sessions" ON chat_sesiones;
 CREATE POLICY "Users can view their own chat sessions"
     ON chat_sesiones FOR SELECT
@@ -278,8 +244,6 @@ DROP POLICY IF EXISTS "Users can delete their own chat sessions" ON chat_sesione
 CREATE POLICY "Users can delete their own chat sessions"
     ON chat_sesiones FOR DELETE
     USING (auth.uid()::text = "userId");
-
--- politicas de dueño: los mensajes solo son visibles para el mismo userId autenticado.
 
 DROP POLICY IF EXISTS "Users can view their own chat messages" ON chat_mensajes;
 CREATE POLICY "Users can view their own chat messages"
@@ -302,8 +266,6 @@ CREATE POLICY "Users can delete their own chat messages"
     ON chat_mensajes FOR DELETE
     USING (auth.uid()::text = "userId");
 
--- politicas de dueño: el historial de consultas solo aplica al userId de la sesion.
-
 DROP POLICY IF EXISTS "Users can view their own query history" ON historial_consultas;
 CREATE POLICY "Users can view their own query history"
     ON historial_consultas FOR SELECT
@@ -324,8 +286,6 @@ DROP POLICY IF EXISTS "Users can delete their own query history" ON historial_co
 CREATE POLICY "Users can delete their own query history"
     ON historial_consultas FOR DELETE
     USING (auth.uid()::text = "userId");
-
--- politicas de bloqueo: el correo coincide con auth o con el usuario ya registrado en usuarios.
 
 DROP POLICY IF EXISTS "Users can view their blocked email" ON correos_bloqueados;
 CREATE POLICY "Users can view their blocked email"
@@ -388,8 +348,6 @@ CREATE POLICY "Users can delete their own blocked email"
         )
     );
 
--- politicas de panel: solo un admin activo puede listar o mutar la tabla admin_usuarios.
-
 DROP POLICY IF EXISTS "Admins can view admin users" ON admin_usuarios;
 CREATE POLICY "Admins can view admin users"
     ON admin_usuarios FOR SELECT
@@ -437,8 +395,6 @@ CREATE POLICY "Admins can delete admin users"
         AND uid != auth.uid()::text
     );
 
--- limpia admins de prueba y reinserta el administrador por defecto (revisa uid en produccion).
-
 DELETE FROM admin_usuarios WHERE correo LIKE '%admin%' OR uid = 'ae9e80f1-4fff-41a4-bd34-0bf7cb1856e6';
 
 INSERT INTO admin_usuarios (uid, correo, nombre, activo)
@@ -452,8 +408,6 @@ ON CONFLICT (uid) DO UPDATE
 SET correo = EXCLUDED.correo,
     nombre = EXCLUDED.nombre,
     activo = EXCLUDED.activo;
-
--- concede a los admins listados permiso de lectura y escritura sobre todas las filas de usuarios.
 
 DROP POLICY IF EXISTS "Admins can view all users" ON usuarios;
 CREATE POLICY "Admins can view all users"
@@ -494,6 +448,36 @@ CREATE POLICY "Admins can insert users"
 DROP POLICY IF EXISTS "Admins can delete users" ON usuarios;
 CREATE POLICY "Admins can delete users"
     ON usuarios FOR DELETE
+    USING (
+        EXISTS (
+            SELECT 1 FROM admin_usuarios
+            WHERE uid = auth.uid()::text AND activo = true
+        )
+    );
+
+DROP POLICY IF EXISTS "Admins can view all chat sessions" ON chat_sesiones;
+CREATE POLICY "Admins can view all chat sessions"
+    ON chat_sesiones FOR SELECT
+    USING (
+        EXISTS (
+            SELECT 1 FROM admin_usuarios
+            WHERE uid = auth.uid()::text AND activo = true
+        )
+    );
+
+DROP POLICY IF EXISTS "Admins can view all chat messages" ON chat_mensajes;
+CREATE POLICY "Admins can view all chat messages"
+    ON chat_mensajes FOR SELECT
+    USING (
+        EXISTS (
+            SELECT 1 FROM admin_usuarios
+            WHERE uid = auth.uid()::text AND activo = true
+        )
+    );
+
+DROP POLICY IF EXISTS "Admins can view all query history" ON historial_consultas;
+CREATE POLICY "Admins can view all query history"
+    ON historial_consultas FOR SELECT
     USING (
         EXISTS (
             SELECT 1 FROM admin_usuarios

@@ -1,18 +1,17 @@
-// llamadas al api admin de rasa con cabeceras opcionales.
-import { obtenerRasaUrl } from './rasaService'; //resuelve base URL de Rasa (segun entorno).
+
+import { obtenerRasaUrl } from './rasaService';
 
 const authHeaders = (withJsonBody = false) => {
-  const headers = {}; //objeto mutable de cabeceras.
+  const headers = {};
   if (withJsonBody) {
-    headers['Content-Type'] = 'application/json'; //habilita body json.
+    headers['Content-Type'] = 'application/json';
   }
   if (process.env.REACT_APP_RASA_API_KEY) {
-    headers['X-Rasa-Auth'] = process.env.REACT_APP_RASA_API_KEY; //api key opcional.
+    headers['X-Rasa-Auth'] = process.env.REACT_APP_RASA_API_KEY;
   }
   return headers;
 };
 
-// acorta y normaliza mensajes de error de fetch/api para mostrarlos en la ui.
 export function resumirMensajeErrorAdmin(msg) {
   if (msg == null || msg === '') return 'Error desconocido';
   let s = String(msg).replace(/\s+/g, ' ').trim();
@@ -22,30 +21,19 @@ export function resumirMensajeErrorAdmin(msg) {
   return s;
 }
 
-// en produccion (no localhost/lan) usa proxy vercel /api/rasa-proxy: mismo origen, sin cors.
 const adminBaseUrl = () => {
+  if (process.env.REACT_APP_RASA_ADMIN_URL) {
+    return process.env.REACT_APP_RASA_ADMIN_URL.replace(/\/$/, '');
+  }
   if (process.env.REACT_APP_DISABLE_RASA_PROXY === '1') {
-    return obtenerRasaUrl().replace(/\/$/, ''); //usa URL directa (sin proxy).
+    return obtenerRasaUrl().replace(/\/$/, '');
   }
-  if (typeof window === 'undefined') {
-    return obtenerRasaUrl().replace(/\/$/, ''); //SSR: no hay window.
-  }
-  const h = window.location.hostname;
-  const esLocal =
-    h === 'localhost' ||
-    h === '127.0.0.1' ||
-    h.startsWith('192.168.') ||
-    h.startsWith('10.') ||
-    h.startsWith('172.');
-  if (esLocal) {
-    return obtenerRasaUrl().replace(/\/$/, ''); //en LAN/local usa URL directa.
-  }
-  return `${window.location.origin}/api/rasa-proxy`.replace(/\/$/, ''); //en prod usa proxy same-origin.
+  return obtenerRasaUrl().replace(/\/$/, '');
 };
 
 export async function fetchCatalogoRasa() {
-  //descarga el catalogo agregado (intents, responses, etc.) desde el api admin.
-  const res = await fetch(`${adminBaseUrl()}/admin/api/catalog`, { //endpoint de catalogo.
+
+  const res = await fetch(`${adminBaseUrl()}/admin/api/catalog`, {
     method: 'GET',
     headers: authHeaders(false),
   });
@@ -61,7 +49,7 @@ export async function fetchCatalogoRasa() {
 }
 
 export async function fetchIntentDetalle(intent) {
-  //obtiene yaml o estructura detallada de un intent concreto.
+
   const res = await fetch(
     `${adminBaseUrl()}/admin/api/intent/${encodeURIComponent(intent)}`,
     {
@@ -70,7 +58,7 @@ export async function fetchIntentDetalle(intent) {
     }
   );
   if (res.status === 404) {
-    return null; //no existe el intent en el servidor admin.
+    return null;
   }
   if (!res.ok) {
     const t = await res.text();
@@ -84,8 +72,8 @@ export async function fetchIntentDetalle(intent) {
 }
 
 export async function guardarIntentRasa(payload) {
-  //envia cuerpo json con intent, ejemplos y respuestas para persistir en disco del servidor.
-  const res = await fetch(`${adminBaseUrl()}/admin/api/intent`, { //crea/actualiza intent.
+
+  const res = await fetch(`${adminBaseUrl()}/admin/api/intent`, {
     method: 'PUT',
     headers: authHeaders(true),
     body: JSON.stringify(payload),
@@ -101,7 +89,7 @@ export async function guardarIntentRasa(payload) {
 }
 
 export async function eliminarIntentRasa(intent) {
-  //borra intent y archivos relacionados en el servidor admin de rasa.
+
   const res = await fetch(
     `${adminBaseUrl()}/admin/api/intent/${encodeURIComponent(intent)}`,
     {
@@ -115,6 +103,38 @@ export async function eliminarIntentRasa(intent) {
   }
   if (!data.ok) {
     throw new Error(data.error || 'No se pudo eliminar la intención');
+  }
+  return data;
+}
+
+export async function entrenarRasaAhora() {
+
+  const res = await fetch(`${adminBaseUrl()}/admin/api/train`, {
+    method: 'POST',
+    headers: authHeaders(false),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || `Error al entrenar (${res.status})`);
+  }
+  if (!data.ok) {
+    throw new Error(data.error || 'No se pudo iniciar el entrenamiento');
+  }
+  return data;
+}
+
+export async function fetchEstadoEntrenamientoRasa() {
+
+  const res = await fetch(`${adminBaseUrl()}/admin/api/train/status`, {
+    method: 'GET',
+    headers: authHeaders(false),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || `Error al consultar entrenamiento (${res.status})`);
+  }
+  if (!data.ok) {
+    throw new Error(data.error || 'No se pudo consultar el estado del entrenamiento');
   }
   return data;
 }

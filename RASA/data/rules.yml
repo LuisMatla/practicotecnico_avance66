@@ -265,4 +265,4 @@ rules:
 - rule: Buscar FAQ cuando no hay intent claro
   steps:
   - intent: nlu_fallback
-  - action: action_buscar_faq
+  - action: utter_fallback

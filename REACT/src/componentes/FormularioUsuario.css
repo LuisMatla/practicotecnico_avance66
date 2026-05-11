@@ -1,7 +1,4 @@
-/* modal de alta y edicion de usuarios en admin. */
-/* colores: src/estilos/colores.css */
 
-/* capa semitransparente a pantalla completa sobre el contenido. */
 .formulario-usuario-overlay {
   position: fixed;
   top: 0;
@@ -16,7 +13,6 @@
   padding: 2rem;
 }
 
-/* tarjeta modal con el formulario de usuario. */
 .formulario-usuario-container {
   background: var(--blanco);
   border-radius: 16px;
@@ -28,7 +24,6 @@
   animation: slideIn 0.3s ease;
 }
 
-/* animacion de entrada del modal. */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -40,7 +35,6 @@
   }
 }
 
-/* cabecera del modal con titulo y cerrar. */
 .formulario-usuario-header {
   display: flex;
   justify-content: space-between;
@@ -51,7 +45,6 @@
   border-radius: 16px 16px 0 0;
 }
 
-/* titulo del modal de usuario. */
 .formulario-usuario-header h2 {
   margin: 0;
   color: var(--azul-principal);
@@ -59,7 +52,6 @@
   font-weight: 700;
 }
 
-/* boton circular para cerrar el modal. */
 .cerrar-formulario-boton {
   background: var(--rojo-peligro);
   color: var(--blanco);
@@ -80,7 +72,6 @@
   transform: scale(1.1);
 }
 
-/* cuerpo del formulario y rejilla de campos. */
 .formulario-usuario-form {
   padding: 2rem;
 }
@@ -92,7 +83,6 @@
   margin-bottom: 2rem;
 }
 
-/* grupo de campo con etiqueta e input. */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -133,7 +123,6 @@
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
-/* mensaje de validacion bajo el campo. */
 .error-text {
   color: var(--rojo-peligro);
   font-size: 0.8rem;
@@ -141,7 +130,6 @@
   font-weight: 500;
 }
 
-/* fila de checkbox a ancho completo en la rejilla. */
 .checkbox-group {
   grid-column: 1 / -1;
 }
@@ -165,7 +153,6 @@
   font-weight: 500;
 }
 
-/* barra de botones cancelar y guardar. */
 .formulario-usuario-actions {
   display: flex;
   justify-content: flex-end;
@@ -217,7 +204,6 @@
   transform: none;
 }
 
-/* indicador de carga en el boton guardar. */
 .spinner {
   width: 16px;
   height: 16px;
@@ -227,39 +213,37 @@
   animation: spin 1s linear infinite;
 }
 
-/* rotacion del indicador de carga. */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* ajustes en pantallas estrechas. */
 @media (max-width: 768px) {
   .formulario-usuario-overlay {
     padding: 1rem;
   }
-  
+
   .formulario-usuario-container {
     max-height: 95vh;
   }
-  
+
   .formulario-usuario-header {
     padding: 1.5rem;
   }
-  
+
   .formulario-usuario-form {
     padding: 1.5rem;
   }
-  
+
   .formulario-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   .formulario-usuario-actions {
     flex-direction: column;
   }
-  
+
   .cancelar-boton,
   .guardar-boton {
     width: 100%;
@@ -271,11 +255,11 @@
   .formulario-usuario-overlay {
     padding: 0.5rem;
   }
-  
+
   .formulario-usuario-header h2 {
     font-size: 1.2rem;
   }
-  
+
   .formulario-usuario-form {
     padding: 1rem;
   }

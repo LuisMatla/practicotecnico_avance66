@@ -1,5 +1,4 @@
-/* estilos de la pagina de registro de usuario. */
-/* reset basico y caja universal. */
+
 * {
   margin: 0;
   padding: 0;
@@ -14,9 +13,6 @@ html, body {
   overflow-x: hidden;
 }
 
-/* colores: src/estilos/colores.css */
-
-/* pagina con fondo suave y tarjeta centrada. */
 .pagina-registro {
   min-height: 100vh;
   width: 100vw;
@@ -29,7 +25,6 @@ html, body {
   padding: 20px;
 }
 
-/* limita el ancho del bloque de registro. */
 .contenedor-registro {
   display: flex;
   align-items: center;
@@ -38,7 +33,6 @@ html, body {
   max-width: 500px;
 }
 
-/* tarjeta con scroll si el formulario es alto. */
 .tarjeta-registro {
   background: var(--blanco);
   border-radius: 16px;
@@ -49,13 +43,11 @@ html, body {
   overflow-y: auto;
 }
 
-/* cabecera del formulario: logo y textos. */
 .header-formulario {
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
-/* contenedor del logo bitbot. */
 .logo-contenedor {
   display: flex;
   justify-content: center;
@@ -69,7 +61,6 @@ html, body {
   object-fit: contain;
 }
 
-/* texto secundario bajo el titulo. */
 .subtitulo {
   font-size: 1rem;
   color: var(--gris-oscuro);
@@ -77,7 +68,6 @@ html, body {
   margin-bottom: 0;
 }
 
-/* campos del alta de usuario. */
 .formulario-registro {
   display: flex;
   flex-direction: column;
@@ -85,7 +75,6 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
-/* grupo label mas control en columna. */
 .campo-formulario {
   display: flex;
   flex-direction: column;
@@ -130,7 +119,6 @@ html, body {
   padding-right: 40px;
 }
 
-/* campos de solo lectura tras alta parcial. */
 .campo-readonly {
   background-color: var(--gris-hover);
   color: var(--gris-oscuro);
@@ -138,7 +126,6 @@ html, body {
   font-weight: 500;
 }
 
-/* borde rojo cuando hay error de validacion. */
 .campo-error {
   border-color: var(--rojo) !important;
   background-color: var(--rojo-fondo-suave);
@@ -149,7 +136,6 @@ html, body {
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
 }
 
-/* texto de error bajo un campo. */
 .mensaje-error {
   color: var(--rojo-intenso);
   font-size: 0.75rem;
@@ -158,7 +144,6 @@ html, body {
   font-weight: 500;
 }
 
-/* aviso informativo bajo un campo. */
 .mensaje-info {
   color: var(--azul-info);
   font-size: 0.75rem;
@@ -174,7 +159,6 @@ html, body {
   border-color: var(--gris-borde-input);
 }
 
-/* input con boton de mostrar contraseña. */
 .input-contenedor {
   position: relative;
   display: flex;
@@ -186,7 +170,6 @@ html, body {
   padding-right: 50px;
 }
 
-/* alterna visibilidad del texto de contraseña. */
 .boton-mostrar-contraseña {
   position: absolute;
   right: 12px;
@@ -205,7 +188,6 @@ html, body {
   background-color: var(--gris-hover);
 }
 
-/* boton enviar registro. */
 .boton-registro {
   background: linear-gradient(135deg, var(--azul-claro) 0%, var(--azul-oscuro) 100%);
   color: var(--blanco);
@@ -229,7 +211,6 @@ html, body {
   transform: translateY(0);
 }
 
-/* spinner y texto mientras se envia el formulario. */
 .indicador-carga {
   display: flex;
   flex-direction: column;
@@ -263,7 +244,6 @@ html, body {
   text-align: center;
 }
 
-/* enlace de vuelta al login. */
 .enlaces-ayuda {
   display: flex;
   flex-direction: column;
@@ -284,7 +264,6 @@ html, body {
   text-decoration: underline;
 }
 
-/* scrollbar personalizado en contenedores con scroll. */
 .tarjeta-registro::-webkit-scrollbar {
   width: 8px;
 }
@@ -303,14 +282,12 @@ html, body {
   background: var(--azul-oscuro);
 }
 
-/* tablet: menos padding en la tarjeta. */
 @media (max-width: 768px) {
   .tarjeta-registro {
     padding: 2rem;
   }
 }
 
-/* movil: tarjeta mas compacta. */
 @media (max-width: 480px) {
   .pagina-registro {
     padding: 1rem;
@@ -320,26 +297,25 @@ html, body {
     padding: 1.5rem;
     max-height: 85vh;
   }
-  
+
   .subtitulo {
     font-size: 1rem;
   }
-  
+
   .formulario-registro {
     gap: 1rem;
   }
-  
+
   .campo-formulario input {
     padding: 10px 14px;
   }
-  
+
   .boton-registro {
     padding: 12px 20px;
     font-size: 1rem;
   }
 }
 
-/* caja informativa sobre requisitos de contraseña. */
 .mensaje-info-contraseña {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
   border: 1px solid var(--verde-exito);
@@ -365,7 +341,6 @@ html, body {
   font-size: 0.85rem;
 }
 
-/* pista de formato junto al campo fecha. */
 #fechaNacimiento::before {
   content: "(mes/día/año)";
   position: absolute;
@@ -380,7 +355,6 @@ html, body {
   z-index: 1;
 }
 
-/* deja espacio a la derecha para la pista de fecha. */
 .campo-formulario:has(#fechaNacimiento) {
   position: relative;
 }

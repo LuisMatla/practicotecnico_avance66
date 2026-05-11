@@ -1,60 +1,60 @@
-// alta de usuario y validacion de campos del registro.
-import React, { useState } from 'react'; //react y estado.
-import { Link, useNavigate } from 'react-router-dom'; //links y navegacion.
-import { registrarUsuario } from '../servicios/supabase'; //servicio de registro.
-import './Registro.css'; //estilos del registro.
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { registrarUsuario } from '../servicios/supabase';
+import './Registro.css';
 
 const Registro = () => {
   const [formulario, setFormulario] = useState({
-    nombre: '', //campo nombre.
-    apellidos: '', //campo apellidos.
-    matricula: '', //campo matricula.
-    carrera: '', //campo carrera.
-    facultad: 'Facultad de Ingeniería Eléctrica y Electrónica', //valor fijo.
-    correo: '', //campo correo institucional.
-    fechaNacimiento: '', //campo fecha.
-    password: '', //password.
-    confirmarPassword: '' //confirmacion.
-  }); //estado del formulario.
+    nombre: '',
+    apellidos: '',
+    matricula: '',
+    carrera: '',
+    facultad: 'Facultad de Ingeniería Eléctrica y Electrónica',
+    correo: '',
+    fechaNacimiento: '',
+    password: '',
+    confirmarPassword: ''
+  });
 
   const [errores, setErrores] = useState({
-    matricula: '', //error de matricula.
-    correo: '' //error de correo.
-  }); //estado de errores.
- 
-  const [cargando, setCargando] = useState(false); //bloquea boton mientras registra.
-  const [mensajeCarga, setMensajeCarga] = useState(''); //texto de progreso.
-  const navigate = useNavigate(); //funcion para navegar rutas.
+    matricula: '',
+    correo: ''
+  });
+
+  const [cargando, setCargando] = useState(false);
+  const [mensajeCarga, setMensajeCarga] = useState('');
+  const navigate = useNavigate();
 
   const validarMatricula = (matricula) => {
-    const regex = /^S2\d{7}$/; //S2 + 7 digitos.
-    return regex.test(matricula); //true si cumple.
+    const regex = /^S2\d{7}$/;
+    return regex.test(matricula);
   };
 
   const validarCorreo = (correo, matricula) => {
     if (!matricula) {
-      return { valido: false, mensaje: 'Primero ingresa tu matrícula' }; //requiere matricula primero.
+      return { valido: false, mensaje: 'Primero ingresa tu matrícula' };
     }
-    
-    const correoEsperado = `z${matricula}@estudiantes.uv.mx`; //correo institucional esperado.
-    
+
+    const correoEsperado = `z${matricula}@estudiantes.uv.mx`;
+
     if (correo !== correoEsperado) {
-      return { 
-        valido: false, 
-        mensaje: `El correo debe ser: z${matricula}@estudiantes.uv.mx` 
+      return {
+        valido: false,
+        mensaje: `El correo debe ser: z${matricula}@estudiantes.uv.mx`
       };
     }
-    
-    return { valido: true, mensaje: '' }; //correo valido.
+
+    return { valido: true, mensaje: '' };
   };
 
   const manejarCambio = (e) => {
-    const { name, value } = e.target; //lee campo modificado.
-    
+    const { name, value } = e.target;
+
     setFormulario({
       ...formulario,
-      [name]: value //actualiza campo dinamico.
-    }); //actualiza estado.
+      [name]: value
+    });
 
     if (name === 'matricula') {
       if (value && !validarMatricula(value)) {
@@ -71,7 +71,7 @@ const Registro = () => {
     }
 
     if (name === 'correo') {
-      const resultadoValidacion = validarCorreo(value, formulario.matricula); //valida contra matricula actual.
+      const resultadoValidacion = validarCorreo(value, formulario.matricula);
       if (value && !resultadoValidacion.valido) {
         setErrores({
           ...errores,
@@ -87,52 +87,52 @@ const Registro = () => {
   };
 
   const manejarEnvio = async (e) => {
-    e.preventDefault(); //evita submit nativo.
-    
+    e.preventDefault();
+
     if (!validarMatricula(formulario.matricula)) {
-      return; //corta si matricula invalida.
+      return;
     }
 
-    const resultadoCorreo = validarCorreo(formulario.correo, formulario.matricula); //valida correo institucional.
+    const resultadoCorreo = validarCorreo(formulario.correo, formulario.matricula);
     if (!resultadoCorreo.valido) {
-      return; //corta si correo invalido.
+      return;
     }
 
     if (!formulario.password || formulario.password.length < 8) {
-      return; //corta si password corta.
+      return;
     }
 
     if (formulario.password !== formulario.confirmarPassword) {
-      return; //corta si no coincide.
+      return;
     }
-    
-    setCargando(true); //activa carga.
-    setMensajeCarga('Registrando...'); //mensaje UI.
-    
+
+    setCargando(true);
+    setMensajeCarga('Registrando...');
+
     try {
       const response = await registrarUsuario({
         ...formulario,
-        password: formulario.password //envia password final.
-      }); //registra usuario en supabase.
-      
+        password: formulario.password
+      });
+
       if (response && response.success) {
-        setMensajeCarga('¡Listo!'); //mensaje UI.
-        await new Promise(resolve => setTimeout(resolve, 1000)); //pausa corta para feedback.
-        navigate('/'); //vuelve al login.
+        setMensajeCarga('¡Listo!');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        navigate('/');
       } else {
-        setMensajeCarga('¡Listo!'); //mensaje UI (misma salida).
-        await new Promise(resolve => setTimeout(resolve, 1000)); //pausa corta.
-        navigate('/'); //vuelve al login.
+        setMensajeCarga('¡Listo!');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        navigate('/');
       }
     } catch (error) {
-      console.error('Error en registro:', error); //log tecnico.
-      
+      console.error('Error en registro:', error);
+
       if (error.message.includes('bloqueado')) {
       } else {
       }
     } finally {
-      setCargando(false); //libera UI.
-      setMensajeCarga(''); //limpia mensaje.
+      setCargando(false);
+      setMensajeCarga('');
     }
   };
 
@@ -142,9 +142,9 @@ const Registro = () => {
         <div className="tarjeta-registro">
           <div className="header-formulario">
             <div className="logo-contenedor">
-              <img 
-                src={process.env.PUBLIC_URL + '/bitbot-logo.png'} 
-                alt="BiTBoT Logo" 
+              <img
+                src={process.env.PUBLIC_URL + '/bitbot-logo.png'}
+                alt="BiTBoT Logo"
                 className="logo-bitbot"
               />
             </div>
@@ -282,7 +282,7 @@ const Registro = () => {
                 required
               />
             </div>
- 
+
             <button type="submit" className="boton-registro" disabled={cargando}>
               {cargando ? (mensajeCarga || 'Registrando...') : 'Registrarse'}
             </button>
@@ -301,6 +301,4 @@ const Registro = () => {
 };
 
 export default Registro;
-
-
 

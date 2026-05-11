@@ -1,7 +1,4 @@
-/* hoja de estilos del panel de administracion, usuarios y faq rasa. */
-/* colores: src/estilos/colores.css (import global en index.css). */
 
-/* contenedor de pagina con fondo en degradado. */
 .admin-container {
   min-height: 100vh;
   background: linear-gradient(135deg, var(--gris-fondo) 0%, var(--azul-claro-fondo) 100%);
@@ -9,7 +6,6 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* cabecera de la vista de administrador. */
 .admin-header {
   display: flex;
   justify-content: space-between;
@@ -22,7 +18,6 @@
   margin-bottom: 2rem;
 }
 
-/* bloque izquierdo de cabecera: menu hamburguesa y titulo. */
 .admin-header-izquierda {
   display: flex;
   align-items: center;
@@ -30,7 +25,6 @@
   min-width: 0;
 }
 
-/* disparador del menu lateral y panel off-canvas. */
 .admin-menu-trigger {
   flex-shrink: 0;
   display: inline-flex;
@@ -67,7 +61,6 @@
   background: var(--gris-oscuro);
 }
 
-/* fondo semitransparente al abrir menu lateral. */
 .admin-menu-backdrop {
   position: fixed;
   inset: 0;
@@ -169,9 +162,10 @@
   color: var(--blanco);
 }
 
-/* seccion principal: bienvenida e incrustacion del chatbot. */
 .admin-seccion-principal {
   margin-bottom: 2rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .admin-bienvenida {
@@ -186,6 +180,283 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
+.admin-dashboard-error {
+  margin: 0 0 1rem 0;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--rojo-peligro);
+  background: var(--rojo-fondo-borde);
+  color: var(--rojo-peligro);
+  font-weight: 600;
+}
+
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.admin-kpi-card {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 94px;
+}
+
+.admin-kpi-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.admin-kpi-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.admin-kpi-icon--consultas {
+  background: #e9f4ff;
+}
+
+.admin-kpi-icon--usuarios {
+  background: #ebf2ff;
+}
+
+.admin-kpi-icon--exito {
+  background: #e8f8ec;
+}
+
+.admin-kpi-icon--fallback {
+  background: #ffecec;
+}
+
+.admin-kpi-body {
+  min-width: 0;
+}
+
+.admin-kpi-title {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--gris-oscuro);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.admin-kpi-value {
+  margin: 0.15rem 0 0;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--azul-principal);
+}
+
+.admin-kpi-sub {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--gris-claro);
+}
+
+.admin-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: 1.25rem;
+  margin-bottom: 0;
+  align-items: stretch;
+}
+
+.admin-dashboard-card {
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  min-height: 270px;
+}
+
+.admin-dashboard-card h3 {
+  margin: 0 0 0.8rem 0;
+  color: var(--azul-principal);
+  font-size: 1rem;
+}
+
+.admin-dashboard-vacio {
+  margin: 0.25rem 0 0;
+  color: var(--gris-claro);
+}
+
+.admin-dashboard-card--temas .admin-pastel-contenedor {
+  flex: 1;
+  align-items: center;
+}
+
+.admin-dashboard-card--temas .admin-dashboard-nota,
+.admin-dashboard-card--preguntas .admin-dashboard-nota {
+  margin-top: auto;
+}
+
+.admin-dashboard-tabla-wrap {
+  overflow-x: auto;
+}
+
+.admin-dashboard-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.admin-dashboard-tabla th,
+.admin-dashboard-tabla td {
+  text-align: left;
+  padding: 0.5rem 0.4rem;
+  border-bottom: 1px solid var(--gris-borde);
+  vertical-align: top;
+}
+
+.admin-dashboard-tabla th {
+  color: var(--azul-principal);
+  font-weight: 700;
+}
+
+.admin-estado {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.admin-estado-exito {
+  background: #e6f7ee;
+  color: #137a3c;
+}
+
+.admin-estado-fallback {
+  background: #fdeaea;
+  color: #b22626;
+}
+
+.admin-dashboard-nota {
+  margin: 0.8rem 0 0;
+  color: var(--gris-claro);
+  font-size: 0.8rem;
+}
+
+.admin-pastel-contenedor {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.admin-pastel-grafica {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-pastel-centro {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: var(--blanco);
+  border: 1px solid var(--gris-borde);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--gris-oscuro);
+}
+
+.admin-pastel-centro strong {
+  font-size: 1.05rem;
+  line-height: 1;
+  color: var(--azul-principal);
+}
+
+.admin-pastel-centro span {
+  font-size: 0.74rem;
+}
+
+.admin-pastel-leyenda {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.admin-pastel-leyenda li {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.84rem;
+}
+
+.admin-pastel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.admin-pastel-pregunta {
+  color: var(--gris-oscuro);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-pastel-valor {
+  color: var(--gris-claro);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+  .admin-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-pastel-contenedor {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-pastel-grafica {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .admin-chatbot-embed {
   margin-bottom: 2rem;
 }
@@ -198,7 +469,6 @@
   max-width: 720px;
 }
 
-/* marco con sombra donde se incrusta el chat. */
 .admin-chatbot-embed-inner {
   border-radius: 12px;
   overflow: hidden;
@@ -209,13 +479,11 @@
   background: var(--blanco);
 }
 
-/* el chat ocupa el alto disponible dentro del embed. */
 .admin-chatbot-embed-inner .chat-usuario {
   min-height: min(70vh, 720px);
   height: 100%;
 }
 
-/* titulo y subtitulo de la cabecera admin. */
 .admin-titulo h1 {
   margin: 0;
   color: var(--azul-principal);
@@ -229,7 +497,6 @@
   font-size: 1rem;
 }
 
-/* boton para cerrar sesion desde la cabecera. */
 .cerrar-sesion-boton {
   background: var(--rojo-peligro);
   color: var(--blanco);
@@ -250,7 +517,6 @@
   transform: translateY(-1px);
 }
 
-/* tarjetas de estadisticas resumidas. */
 .admin-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -258,7 +524,6 @@
   margin-bottom: 2rem;
 }
 
-/* tarjeta individual de estadistica. */
 .stat-card {
   background: var(--blanco);
   padding: 1.5rem;
@@ -268,12 +533,10 @@
   transition: transform 0.3s ease;
 }
 
-/* leve elevacion al pasar el mouse. */
 .stat-card:hover {
   transform: translateY(-4px);
 }
 
-/* titulo de la metrica. */
 .stat-card h3 {
   margin: 0 0 1rem 0;
   color: var(--gris-oscuro);
@@ -281,14 +544,12 @@
   font-weight: 600;
 }
 
-/* valor numerico destacado. */
 .stat-number {
   font-size: 2rem;
   font-weight: 700;
   color: var(--azul-principal);
 }
 
-/* panel de filtros de usuarios. */
 .admin-filters {
   background: var(--blanco);
   padding: 2rem;
@@ -303,12 +564,10 @@
   font-size: 1.2rem;
 }
 
-/* grupo label + control dentro de filtros. */
 .filter-group {
   margin-bottom: 1rem;
 }
 
-/* etiqueta del filtro. */
 .filter-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -316,7 +575,6 @@
   font-weight: 600;
 }
 
-/* select o input de filtro a ancho completo. */
 .filter-group select,
 .filter-group input {
   width: 100%;
@@ -327,14 +585,12 @@
   transition: border-color 0.3s ease;
 }
 
-/* foco con acento UV. */
 .filter-group select:focus,
 .filter-group input:focus {
   outline: none;
   border-color: var(--azul-principal);
 }
 
-/* resetea filtros aplicados. */
 .limpiar-filtros-boton {
   background: var(--amarillo-advertencia);
   color: var(--blanco);
@@ -346,13 +602,11 @@
   transition: all 0.3s ease;
 }
 
-/* hover mas oscuro y leve lift. */
 .limpiar-filtros-boton:hover {
   background: var(--naranja-acento);
   transform: translateY(-2px);
 }
 
-/* area blanca con listado de usuarios. */
 .admin-content {
   background: var(--blanco);
   border-radius: 12px;
@@ -360,7 +614,6 @@
   overflow: hidden;
 }
 
-/* barra superior del listado de usuarios. */
 .usuarios-header {
   display: flex;
   justify-content: space-between;
@@ -370,20 +623,17 @@
   border-bottom: 1px solid var(--gris-borde);
 }
 
-/* titulo de la seccion usuarios. */
 .usuarios-header h2 {
   margin: 0;
   color: var(--azul-principal);
   font-size: 1.5rem;
 }
 
-/* grupo de botones crear/actualizar. */
 .usuarios-actions {
   display: flex;
   gap: 1rem;
 }
 
-/* boton crear usuario nuevo. */
 .crear-usuario-boton {
   background: var(--azul-principal);
   color: var(--blanco);
@@ -400,7 +650,6 @@
   transform: translateY(-2px);
 }
 
-/* refresca datos desde servidor. */
 .actualizar-boton {
   background: var(--verde-principal);
   color: var(--blanco);
@@ -412,13 +661,11 @@
   transition: all 0.3s ease;
 }
 
-/* hover verde mas oscuro. */
 .actualizar-boton:hover {
   background: var(--verde-UV-hover);
   transform: translateY(-2px);
 }
 
-/* rejilla de tarjetas de usuario. */
 .usuarios-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -426,7 +673,6 @@
   padding: 2rem;
 }
 
-/* tarjeta de usuario en la rejilla. */
 .usuario-card {
   background: var(--blanco);
   border: 2px solid var(--gris-borde);
@@ -436,7 +682,6 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* resalta tarjeta al hover. */
 .usuario-card:hover {
   border-color: var(--azul-principal);
   transform: translateY(-2px);
@@ -523,7 +768,6 @@
   border-top: 1px solid var(--gris-borde);
 }
 
-/* boton editar en tarjeta de usuario. */
 .editar-boton {
   background: var(--amarillo-advertencia);
   color: var(--blanco);
@@ -542,7 +786,6 @@
   transform: translateY(-1px);
 }
 
-/* boton eliminar en tarjeta de usuario. */
 .eliminar-boton {
   background: var(--rojo-peligro);
   color: var(--blanco);
@@ -572,7 +815,6 @@
   margin: 0;
 }
 
-/* estado de carga a pantalla completa en admin. */
 .admin-loading {
   display: flex;
   flex-direction: column;
@@ -597,7 +839,6 @@
   100% { transform: rotate(360deg); }
 }
 
-/* modal de confirmacion sobre el contenido. */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -634,12 +875,10 @@
   font-size: 1.2rem;
 }
 
-/* cuerpo del modal de confirmacion. */
 .modal-body {
   padding: 1.5rem;
 }
 
-/* resumen del usuario en el modal. */
 .usuario-info-modal {
   background: var(--gris-fondo);
   padding: 1rem;
@@ -648,7 +887,6 @@
   border-left: 4px solid var(--azul-principal);
 }
 
-/* texto de advertencia antes de eliminar. */
 .warning-text {
   color: var(--rojo-peligro);
   font-weight: 600;
@@ -656,7 +894,6 @@
   margin: 1rem 0 0 0;
 }
 
-/* botones cancelar / confirmar en el modal. */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -667,7 +904,6 @@
   border-radius: 0 0 12px 12px;
 }
 
-/* seccion faq y catalogo rasa. */
 .faq-section {
   background: var(--blanco);
   border-radius: 12px;
@@ -677,7 +913,6 @@
   overflow: visible;
 }
 
-/* barra superior de titulos y acciones faq. */
 .faq-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -710,7 +945,6 @@
   opacity: 0.95;
 }
 
-/* pestañas de la vista rasa: tabla, nlu, etc. */
 .faq-rasa-tabs {
   display: flex;
   flex-wrap: wrap;
@@ -822,23 +1056,20 @@
   color: var(--gris-claro);
 }
 
-/* lista acordeon de intents nlu. */
 .faq-nlu-lista {
   list-style: none;
   margin: 0;
   padding: 0 1rem 1rem;
 }
 
-/* fila de un intent en la lista NLU. */
 .faq-nlu-item {
   border: 1px solid var(--gris-borde);
   border-radius: 10px;
   margin-bottom: 0.5rem;
-  overflow: hidden;
+  overflow: visible;
   background: var(--blanco);
 }
 
-/* boton cabecera del acordeon por intent. */
 .faq-nlu-cabecera {
   width: 100%;
   display: flex;
@@ -902,7 +1133,6 @@
   background: rgba(0, 0, 0, 0.06);
 }
 
-/* menu contextual flotante por intent. */
 .faq-nlu-menu-dropdown {
   position: absolute;
   right: 0;
@@ -918,7 +1148,6 @@
   z-index: 30;
 }
 
-/* opcion dentro del menu de tres puntos. */
 .faq-nlu-menu-item {
   display: block;
   width: 100%;
@@ -953,6 +1182,13 @@
   margin: 0.35rem 0 0;
   font-size: 0.85rem;
   color: var(--amarillo-peligro-texto);
+  line-height: 1.4;
+}
+
+.faq-catalogo-ok {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: var(--verde-exito-texto);
   line-height: 1.4;
 }
 
@@ -1145,7 +1381,6 @@
   color: var(--gris-claro);
 }
 
-/* busqueda y boton mas en barra faq. */
 .faq-toolbar-acciones {
   display: flex;
   flex-wrap: wrap;
@@ -1198,7 +1433,6 @@
   border-bottom: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-/* acordeon de preguntas frecuentes en lista. */
 .faq-lista-acordeon {
   list-style: none;
   margin: 0;
@@ -1385,7 +1619,6 @@
   margin-top: 1rem;
 }
 
-/* panel lateral para crear o editar faq. */
 .faq-panel-backdrop {
   position: fixed;
   inset: 0;
@@ -1442,6 +1675,49 @@
   color: var(--azul-principal);
 }
 
+.faq-panel-cabecera-izquierda {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.faq-intent-navegacion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.faq-intent-nav-boton {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--gris-borde);
+  border-radius: 8px;
+  background: var(--blanco);
+  color: var(--azul-principal);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.faq-intent-nav-boton:hover:not(:disabled) {
+  background: var(--azul-claro-fondo);
+}
+
+.faq-intent-nav-boton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.faq-intent-nav-indice {
+  min-width: 4.75rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gris-oscuro);
+}
+
 .faq-panel-cerrar {
   width: 2.75rem;
   height: 2.75rem;
@@ -1482,7 +1758,6 @@
   transform: translateY(-2px);
 }
 
-/* formulario de intencion o faq en el panel. */
 .faq-form {
   display: flex;
   flex-direction: column;
@@ -1526,7 +1801,6 @@
   margin-top: 0.5rem;
 }
 
-/* boton guardar en formulario faq del panel. */
 .guardar-faq-boton {
   background: var(--verde-principal);
   color: var(--blanco);
@@ -1543,7 +1817,6 @@
   transform: translateY(-2px);
 }
 
-/* boton secundario cancelar en formulario faq. */
 .cancelar-faq-boton {
   background: transparent;
   color: var(--gris-oscuro);
@@ -1555,25 +1828,21 @@
   transition: all 0.3s ease;
 }
 
-/* hover suave en cancelar. */
 .cancelar-faq-boton:hover {
   background: var(--gris-fondo);
 }
 
-/* mensaje de error inline en faq. */
 .faq-error {
   color: var(--rojo-peligro);
   font-weight: 600;
 }
 
-/* estado de carga dentro de la seccion faq. */
 .faq-loading {
   padding: 2rem;
   text-align: center;
   color: var(--gris-claro);
 }
 
-/* pastilla de estado activo/inactivo. */
 .faq-status {
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
@@ -1581,27 +1850,22 @@
   font-weight: 700;
 }
 
-/* variante activo. */
 .faq-status.activo {
   background: rgba(16, 185, 129, 0.15);
   color: var(--verde-exito);
 }
 
-/* variante inactivo. */
 .faq-status.inactivo {
   background: rgba(239, 68, 68, 0.15);
   color: var(--rojo-peligro);
 }
 
-/* linea de keywords secundarias. */
 .faq-keywords {
   color: var(--gris-claro);
   margin: 0 0 1rem 0;
   font-size: 0.9rem;
 }
 
-/* acciones del modal generico de confirmacion. */
-/* cancelar en modal generico. */
 .cancelar-modal-boton {
   background: transparent;
   color: var(--gris-claro);
@@ -1613,14 +1877,12 @@
   transition: all 0.3s ease;
 }
 
-/* hover cancelar modal. */
 .cancelar-modal-boton:hover {
   background: var(--gris-fondo);
   border-color: var(--gris-claro);
   color: var(--gris-oscuro);
 }
 
-/* confirmar accion destructiva. */
 .eliminar-modal-boton {
   background: var(--rojo-peligro);
   color: var(--blanco);
@@ -1632,13 +1894,11 @@
   transition: all 0.3s ease;
 }
 
-/* hover rojo mas intenso. */
 .eliminar-modal-boton:hover {
   background: var(--rojo-intenso);
   transform: translateY(-2px);
 }
 
-/* carga en linea sin cubrir toda la pagina. */
 .admin-inline-loading {
   display: flex;
   align-items: center;
@@ -1659,45 +1919,44 @@
   border-width: 3px;
 }
 
-/* ajustes de layout en pantallas estrechas. */
 @media (max-width: 768px) {
   .admin-container {
     padding: 1rem;
   }
-  
+
   .admin-header {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-  
+
   .usuarios-grid {
     grid-template-columns: 1fr;
     padding: 1rem;
   }
-  
+
   .usuarios-header {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
-  
+
   .usuarios-actions {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .crear-usuario-boton,
   .actualizar-boton {
     width: 100%;
   }
-  
+
   .detail-item {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
   }
-  
+
   .detail-value {
     text-align: left;
   }

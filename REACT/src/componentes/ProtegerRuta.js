@@ -1,77 +1,77 @@
-// envoltorio que exige usuario autenticado en rutas privadas.
-import React, { useEffect, useState, useCallback } from 'react'; //react y hooks.
-import { useNavigate } from 'react-router-dom'; //navegacion para redireccionar.
-import { obtenerUsuarioActual } from '../servicios/supabase'; //obtiene usuario autenticado actual.
-import { supabase } from '../supabase/config'; //cliente supabase para validar estado en BD.
+
+import React, { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { obtenerUsuarioActual } from '../servicios/supabase';
+import { supabase } from '../supabase/config';
 
 const ProtegerRuta = ({ children }) => {
-  const [cargando, setCargando] = useState(true); //bandera de carga inicial.
-  const [autenticado, setAutenticado] = useState(false); //bandera de acceso permitido.
-  const navigate = useNavigate(); //funcion para navegar rutas.
+  const [cargando, setCargando] = useState(true);
+  const [autenticado, setAutenticado] = useState(false);
+  const navigate = useNavigate();
 
   const verificarAutenticacion = useCallback(async () => {
-    const inicioCarga = Date.now(); //marca inicio para mantener animacion minima.
+    const inicioCarga = Date.now();
     try {
-      const user = await obtenerUsuarioActual(); //obtiene sesion (auth).
-      
-      if (!user) { //si no hay usuario autenticado.
-        navigate('/'); //redirige a login.
-        return; //corta la verificacion.
+      const user = await obtenerUsuarioActual();
+
+      if (!user) {
+        navigate('/');
+        return;
       }
 
-      const { data: usuarioEnBD, error } = await supabase //valida que exista en tabla usuarios y este activo.
-        .from('usuarios') //tabla de usuarios.
-        .select('uid, activo') //campos necesarios.
-        .eq('uid', user.id) //filtra por uid.
-        .single(); //espera un registro.
+      const { data: usuarioEnBD, error } = await supabase
+        .from('usuarios')
+        .select('uid, activo')
+        .eq('uid', user.id)
+        .single();
 
-      if (!usuarioEnBD || error?.code === 'PGRST116') { //si no existe en BD (o no hay fila).
-        await supabase.auth.signOut(); //cierra sesion para limpiar estado.
-        navigate('/'); //redirige a login.
-        return; //corta la verificacion.
+      if (!usuarioEnBD || error?.code === 'PGRST116') {
+        await supabase.auth.signOut();
+        navigate('/');
+        return;
       }
 
-      if (usuarioEnBD.activo === false) { //si el usuario esta desactivado.
-        await supabase.auth.signOut(); //cierra sesion.
-        navigate('/'); //redirige a login.
-        return; //corta la verificacion.
+      if (usuarioEnBD.activo === false) {
+        await supabase.auth.signOut();
+        navigate('/');
+        return;
       }
 
-      setAutenticado(true); //permite renderizar la ruta privada.
+      setAutenticado(true);
     } catch (error) {
-      console.error('Error verificando autenticación:', error); //log del error.
-      navigate('/'); //redirige por seguridad.
+      console.error('Error verificando autenticación:', error);
+      navigate('/');
     } finally {
-      const tiempoTranscurrido = Date.now() - inicioCarga; //duracion real.
-      const tiempoRestante = Math.max(0, 2800 - tiempoTranscurrido); //asegura minimo 2.8s de carga.
+      const tiempoTranscurrido = Date.now() - inicioCarga;
+      const tiempoRestante = Math.max(0, 2800 - tiempoTranscurrido);
       setTimeout(() => {
-        setCargando(false); //quita pantalla de carga.
+        setCargando(false);
       }, tiempoRestante);
     }
   }, [navigate]);
 
   useEffect(() => {
-    verificarAutenticacion(); //dispara verificacion al montar.
+    verificarAutenticacion();
   }, [verificarAutenticacion]);
 
   if (cargando) {
     return (
       <div style={{
-        display: 'flex', //centra contenido.
-        justifyContent: 'center', //centra horizontal.
-        alignItems: 'center', //centra vertical.
-        height: '100vh', //alto completo.
-        width: '100vw', //ancho completo.
-        background: 'var(--blanco-UV)', //fondo blanco.
-        overflow: 'hidden' //evita scroll.
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        width: '100vw',
+        background: 'var(--blanco-UV)',
+        overflow: 'hidden'
       }}>
-        <img 
-          src={process.env.PUBLIC_URL + '/bitbotv.gif'}  //gif local en /public.
-          alt="Cargando..." //texto alternativo.
+        <img
+          src={process.env.PUBLIC_URL + '/bitbotv.gif'}
+          alt="Cargando..."
           style={{
-            width: '300px', //tamano fijo.
-            height: '300px', //tamano fijo.
-            objectFit: 'contain' //ajuste sin recorte.
+            width: '300px',
+            height: '300px',
+            objectFit: 'contain'
           }}
         />
       </div>
@@ -79,10 +79,10 @@ const ProtegerRuta = ({ children }) => {
   }
 
   if (!autenticado) {
-    return null; //si no paso validacion, no renderiza nada.
+    return null;
   }
 
-  return children; //renderiza contenido protegido.
+  return children;
 };
 
 export default ProtegerRuta;

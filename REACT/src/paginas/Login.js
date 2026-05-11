@@ -1,79 +1,79 @@
-// formulario de inicio de sesion con supabase.
-import React, { useState } from 'react'; //react y estado.
-import { Link, useNavigate } from 'react-router-dom'; //links y navegacion.
-import { iniciarSesion } from '../servicios/supabase'; //login de usuario (matricula/password).
-import { supabase } from '../supabase/config'; //auth directo para admin.
-import './Login.css'; //estilos del login principal.
+
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { iniciarSesion } from '../servicios/supabase';
+import { supabase } from '../supabase/config';
+import './Login.css';
 
 const Login = () => {
   const [formulario, setFormulario] = useState({
-    usuario: '', //matricula o usuario.
-    contraseña: '' //password.
-  }); //estado del formulario.
+    usuario: '',
+    contraseña: ''
+  });
 
-  const [mostrarContraseña, setMostrarContraseña] = useState(false); //toggle de input type.
-  const [cargando, setCargando] = useState(false); //bloquea boton mientras autentica.
-  const navigate = useNavigate(); //funcion para navegar rutas.
+  const [mostrarContraseña, setMostrarContraseña] = useState(false);
+  const [cargando, setCargando] = useState(false);
+  const navigate = useNavigate();
 
   const manejarCambio = (e) => {
     setFormulario({
       ...formulario,
-      [e.target.name]: e.target.value //actualiza campo dinamico.
-    }); //actualiza estado de formulario.
+      [e.target.name]: e.target.value
+    });
   };
 
   const manejarEnvio = async (e) => {
-    e.preventDefault(); //evita submit nativo.
-    setCargando(true); //activa estado de carga.
-    
+    e.preventDefault();
+    setCargando(true);
+
     try {
       if (formulario.usuario.toLowerCase() === 'admin' && formulario.contraseña === 'superdemian') {
-        const { data: authData, error: authError } = await supabase.auth.signInWithPassword({ //login admin via supabase auth.
-          email: 'admin@bitbotfiee.xyz', //correo fijo del admin.
-          password: 'superdemian' //password fija del admin.
+        const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+          email: 'admin@bitbotfiee.xyz',
+          password: 'superdemian'
         });
 
         if (authError) {
-          console.error('Error autenticando admin:', authError); //log tecnico.
-          return; //corta flujo.
+          console.error('Error autenticando admin:', authError);
+          return;
         }
 
         if (!authData.user) {
-          return; //corta si no hay user.
+          return;
         }
 
-        localStorage.setItem('adminSession', 'true'); //marca sesion admin local.
-        localStorage.setItem('adminUser', 'admin'); //marca usuario admin local.
-        
-        console.log('Admin autenticado con Supabase Auth:', authData.user.id); //log de auditoria.
-        navigate('/admin'); //redirige al panel admin.
-        return; //evita caer al login normal.
+        localStorage.setItem('adminSession', 'true');
+        localStorage.setItem('adminUser', 'admin');
+
+        console.log('Admin autenticado con Supabase Auth:', authData.user.id);
+        navigate('/admin');
+        return;
       }
-      
+
       const response = await iniciarSesion(
-        formulario.usuario, //matricula.
-        formulario.contraseña //password.
-      ); //login normal del usuario.
-      
+        formulario.usuario,
+        formulario.contraseña
+      );
+
       if (response.success) {
-        navigate('/chat'); //redirige al chat.
+        navigate('/chat');
       }
     } catch (error) {
     } finally {
-      setCargando(false); //libera UI.
+      setCargando(false);
     }
   };
 
   const toggleMostrarContraseña = () => {
-    setMostrarContraseña(!mostrarContraseña); //invierte visibilidad.
+    setMostrarContraseña(!mostrarContraseña);
   };
 
   return (
     <div className="pagina-login">
       <div className="gif-contenedor">
-        <img 
-          src={process.env.PUBLIC_URL + '/bot.gif'} 
-          alt="Bot GIF" 
+        <img
+          src={process.env.PUBLIC_URL + '/bot.gif'}
+          alt="Bot GIF"
           className="gif-bot"
         />
       </div>
@@ -81,9 +81,9 @@ const Login = () => {
         <div className="tarjeta-login">
           <div className="header-formulario">
             <div className="logo-contenedor">
-              <img 
-                src={process.env.PUBLIC_URL + '/bitbot-logo.png'} 
-                alt="BiTBoT Logo" 
+              <img
+                src={process.env.PUBLIC_URL + '/bitbot-logo.png'}
+                alt="BiTBoT Logo"
                 className="logo-bitbot"
               />
             </div>

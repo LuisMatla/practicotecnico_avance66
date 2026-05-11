@@ -1,14 +1,14 @@
-// autenticacion, perfiles y operaciones crud sobre tablas supabase.
-import { supabase } from '../supabase/config' //cliente supabase.
 
-export const verificarCorreoBloqueado = async (correo) => { //verifica bloqueo temporal por correo.
+import { supabase } from '../supabase/config'
+
+export const verificarCorreoBloqueado = async (correo) => {
   try {
     console.log('Verificando si el correo está bloqueado:', correo)
-    
-    await supabase.rpc('limpiar_correos_expirados') //limpia bloqueos expirados antes de consultar.
-    
+
+    await supabase.rpc('limpiar_correos_expirados')
+
     const { data, error } = await supabase
-      .from('correos_bloqueados') //tabla de bloqueos temporales.
+      .from('correos_bloqueados')
       .select('*')
       .eq('correo', correo)
       .eq('activo', true)
@@ -20,9 +20,9 @@ export const verificarCorreoBloqueado = async (correo) => { //verifica bloqueo t
     }
 
     if (data) {
-      const tiempoTranscurrido = Date.now() - new Date(data.fechaBloqueo).getTime() //ms desde el bloqueo.
-      const minutosTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60)) //ventana de 5 minutos de bloqueo.
-      
+      const tiempoTranscurrido = Date.now() - new Date(data.fechaBloqueo).getTime()
+      const minutosTranscurridos = Math.floor(tiempoTranscurrido / (1000 * 60))
+
       if (minutosTranscurridos < 5) {
         const minutosRestantes = 5 - minutosTranscurridos
         return {
@@ -35,7 +35,7 @@ export const verificarCorreoBloqueado = async (correo) => { //verifica bloqueo t
           .from('correos_bloqueados')
           .delete()
           .eq('correo', correo)
-        
+
         return { bloqueado: false }
       }
     }
@@ -48,10 +48,10 @@ export const verificarCorreoBloqueado = async (correo) => { //verifica bloqueo t
   }
 }
 
-export const bloquearCorreo = async (correo) => { //bloquea un correo temporalmente.
+export const bloquearCorreo = async (correo) => {
   try {
     console.log('Bloqueando correo temporalmente:', correo)
-    
+
     const { error } = await supabase
       .from('correos_bloqueados')
       .upsert({
@@ -59,7 +59,7 @@ export const bloquearCorreo = async (correo) => { //bloquea un correo temporalme
         fechaBloqueo: new Date().toISOString(),
         activo: true
       }, {
-        onConflict: 'correo', //actualiza si ya existia el correo bloqueado.
+        onConflict: 'correo',
         ignoreDuplicates: false
       })
 
@@ -80,10 +80,10 @@ export const bloquearCorreo = async (correo) => { //bloquea un correo temporalme
   }
 }
 
-export const desbloquearCorreo = async (correo) => { //elimina bloqueo temporal de un correo.
+export const desbloquearCorreo = async (correo) => {
   try {
     console.log('Desbloqueando correo:', correo)
-    
+
     const { error } = await supabase
       .from('correos_bloqueados')
       .delete()
@@ -106,10 +106,10 @@ export const desbloquearCorreo = async (correo) => { //elimina bloqueo temporal 
   }
 }
 
-export const limpiarUsuarioNoVerificado = async (uid, correo) => { //limpia registros si el usuario no verifico email.
+export const limpiarUsuarioNoVerificado = async (uid, correo) => {
   try {
     console.log(' Limpiando usuario no verificado:', correo)
-    
+
     const { data: usuarioEnBD, error: bdError } = await supabase
       .from('usuarios')
       .select('uid')
@@ -118,14 +118,14 @@ export const limpiarUsuarioNoVerificado = async (uid, correo) => { //limpia regi
 
     if (!usuarioEnBD || bdError?.code === 'PGRST116') {
       console.log(' Usuario no verificado encontrado, limpiando...')
-      
+
       await desbloquearCorreo(correo)
-      
+
       await supabase
         .from('usuarios_por_matricula')
         .delete()
         .eq('uid', uid)
-      
+
       console.log(' Usuario no verificado limpiado, correo desbloqueado')
       return {
         success: true,
@@ -145,10 +145,10 @@ export const limpiarUsuarioNoVerificado = async (uid, correo) => { //limpia regi
   }
 }
 
-export const crearUsuarioDespuesVerificacion = async (uid, usuarioData) => { //crea/actualiza el perfil tras verificacion.
+export const crearUsuarioDespuesVerificacion = async (uid, usuarioData) => {
   try {
     console.log(' Creando usuario en BD después de verificación:', uid)
-    
+
     const { error: dbError } = await supabase
       .from('usuarios')
       .upsert({
@@ -195,11 +195,11 @@ export const crearUsuarioDespuesVerificacion = async (uid, usuarioData) => { //c
   }
 }
 
-export const registrarUsuario = async (usuarioData) => { //registra usuario en supabase auth y prepara perfil.
+export const registrarUsuario = async (usuarioData) => {
   try {
     console.log(' Iniciando registro con Supabase...')
-    
-    const estadoCorreo = await verificarCorreoBloqueado(usuarioData.correo) //evita spam si correo en bloqueo.
+
+    const estadoCorreo = await verificarCorreoBloqueado(usuarioData.correo)
     if (estadoCorreo.bloqueado) {
       throw new Error(estadoCorreo.mensaje)
     }
@@ -216,7 +216,7 @@ export const registrarUsuario = async (usuarioData) => { //registra usuario en s
           facultad: usuarioData.facultad,
           fechanacimiento: usuarioData.fechaNacimiento
         },
-        emailRedirectTo: `${window.location.origin}/` //vuelve al sitio tras confirmar correo.
+        emailRedirectTo: `${window.location.origin}/`
       }
     })
 
@@ -230,14 +230,14 @@ export const registrarUsuario = async (usuarioData) => { //registra usuario en s
     }
 
     console.log(' Usuario creado en Auth:', authData.user.id)
-    
+
     try {
       await bloquearCorreo(usuarioData.correo)
       console.log(' Correo bloqueado temporalmente')
     } catch (bloqueoError) {
       console.warn(' No se pudo bloquear el correo, pero continuamos:', bloqueoError.message)
     }
-    
+
     console.log(' Correo de verificación enviado (si está configurado en Supabase)')
 
     try {
@@ -272,7 +272,7 @@ export const registrarUsuario = async (usuarioData) => { //registra usuario en s
       } catch (error) {
         console.error(' Error en limpieza automática:', error)
       }
-    }, 5 * 60 * 1000) //tras 5 min limpia usuario no verificado si sigue sin fila util.
+    }, 5 * 60 * 1000)
 
     console.log(' Usuario registrado, esperando verificación de correo')
     return {
@@ -287,17 +287,17 @@ export const registrarUsuario = async (usuarioData) => { //registra usuario en s
   }
 }
 
-export const iniciarSesion = async (matricula, password) => { //login de usuario (matricula + password).
+export const iniciarSesion = async (matricula, password) => {
   try {
     console.log(' Iniciando sesión con Supabase...')
-    
+
     if (String(matricula).includes('@')) {
       throw new Error('Inicia sesión usando tu matrícula')
     }
 
     const matriculaNorm = String(matricula).trim()
-    
-    const emailEsperado = `z${matriculaNorm}@estudiantes.uv.mx` //correo institucional derivado de matricula.
+
+    const emailEsperado = `z${matriculaNorm}@estudiantes.uv.mx`
 
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email: emailEsperado,
@@ -316,10 +316,10 @@ export const iniciarSesion = async (matricula, password) => { //login de usuario
       throw new Error('No se pudo iniciar sesión')
     }
 
-    let usuarioEnBD = null //fila de perfil en tabla usuarios si existe.
-    
+    let usuarioEnBD = null
+
     const { data: idxRow } = await supabase
-      .from('usuarios_por_matricula') //indice rapido matricula -> uid.
+      .from('usuarios_por_matricula')
       .select('uid, matricula')
       .eq('matricula', matriculaNorm)
       .single()
@@ -330,7 +330,7 @@ export const iniciarSesion = async (matricula, password) => { //login de usuario
         .select('correo, activo, uid')
         .eq('matricula', matriculaNorm)
         .single()
-      
+
       if (uRow) {
         usuarioEnBD = uRow
       }
@@ -340,7 +340,7 @@ export const iniciarSesion = async (matricula, password) => { //login de usuario
         .select('correo, activo, uid')
         .eq('matricula', matriculaNorm)
         .single()
-      
+
       if (usuarioPorMatricula) {
         usuarioEnBD = usuarioPorMatricula
       }
@@ -348,10 +348,10 @@ export const iniciarSesion = async (matricula, password) => { //login de usuario
 
     if (!usuarioEnBD) {
       console.log(' Usuario autenticado pero no encontrado en BD, creando desde user_metadata...')
-      
+
       const metadata = authData.user.user_metadata || {}
       const matriculaFromMetadata = metadata.matricula || matriculaNorm
-      
+
       try {
         const { error: createError } = await supabase
           .from('usuarios')
@@ -368,22 +368,22 @@ export const iniciarSesion = async (matricula, password) => { //login de usuario
             ultimoacceso: new Date().toISOString(),
             activo: true
           }, { onConflict: 'uid' })
-        
+
         if (createError) {
           console.error(' Error creando usuario:', createError)
         } else {
           await supabase
             .from('usuarios_por_matricula')
             .upsert({ uid: authData.user.id, matricula: matriculaFromMetadata }, { onConflict: 'matricula' })
-          
+
           console.log(' Usuario creado exitosamente en BD')
-          
+
           const { data: nuevoUsuario } = await supabase
             .from('usuarios')
             .select('correo, activo, uid')
             .eq('uid', authData.user.id)
             .single()
-          
+
           if (nuevoUsuario) {
             usuarioEnBD = nuevoUsuario
           }
@@ -427,10 +427,10 @@ export const iniciarSesion = async (matricula, password) => { //login de usuario
   }
 }
 
-export const cerrarSesion = async () => { //logout del usuario actual.
+export const cerrarSesion = async () => {
   try {
     const { error } = await supabase.auth.signOut()
-    
+
     if (error) {
       throw new Error(error.message)
     }
@@ -445,10 +445,10 @@ export const cerrarSesion = async () => { //logout del usuario actual.
   }
 }
 
-export const obtenerUsuarioActual = async () => { //obtiene el usuario autenticado actual.
+export const obtenerUsuarioActual = async () => {
   try {
     const { data: { user }, error } = await supabase.auth.getUser()
-    
+
     if (error || !user) {
       console.error(' Error obteniendo usuario:', error)
       return null
@@ -479,23 +479,23 @@ export const obtenerUsuarioActual = async () => { //obtiene el usuario autentica
   }
 }
 
-export const obtenerTodosUsuarios = async (pagina = 1, limite = 50, busqueda = '') => { //lista usuarios (admin) con busqueda.
+export const obtenerTodosUsuarios = async (pagina = 1, limite = 50, busqueda = '') => {
   try {
     const limiteFinal = Math.min(limite, 1000)
     const desde = (pagina - 1) * limiteFinal
     const hasta = desde + limiteFinal - 1
-    
+
     console.log(` Obteniendo usuarios (página ${pagina}, límite: ${limiteFinal})...`)
-    
+
     let query = supabase
       .from('usuarios')
-      .select('*', { count: 'exact' }) //pide total para paginar en admin.
+      .select('*', { count: 'exact' })
       .order('fecharegistro', { ascending: false })
       .range(desde, hasta)
 
     if (busqueda && busqueda.trim()) {
       const busquedaTrim = busqueda.trim()
-      query = query.or(`nombre.ilike.%${busquedaTrim}%,apellidos.ilike.%${busquedaTrim}%,matricula.ilike.%${busquedaTrim}%,correo.ilike.%${busquedaTrim}%`) //filtro texto en varios campos.
+      query = query.or(`nombre.ilike.%${busquedaTrim}%,apellidos.ilike.%${busquedaTrim}%,matricula.ilike.%${busquedaTrim}%,correo.ilike.%${busquedaTrim}%`)
     }
 
     const { data, error, count } = await query
@@ -526,10 +526,10 @@ export const obtenerTodosUsuarios = async (pagina = 1, limite = 50, busqueda = '
   }
 }
 
-export const crearUsuarioAdmin = async (usuarioData) => { //crea usuario en tabla usuarios (admin).
+export const crearUsuarioAdmin = async (usuarioData) => {
   try {
     console.log(' Creando usuario desde admin...')
-    
+
     const { data, error } = await supabase
       .from('usuarios')
       .insert({
@@ -571,10 +571,10 @@ export const crearUsuarioAdmin = async (usuarioData) => { //crea usuario en tabl
   }
 }
 
-export const actualizarUsuarioAdmin = async (uid, usuarioData) => { //actualiza datos del usuario (admin).
+export const actualizarUsuarioAdmin = async (uid, usuarioData) => {
   try {
     console.log(' Actualizando usuario:', uid)
-    
+
     const { data, error } = await supabase
       .from('usuarios')
       .update({
@@ -613,10 +613,10 @@ export const actualizarUsuarioAdmin = async (uid, usuarioData) => { //actualiza 
   }
 }
 
-export const eliminarUsuarioAdmin = async (uid) => { //elimina usuario (admin).
+export const eliminarUsuarioAdmin = async (uid) => {
   try {
     console.log(' Eliminando usuario:', uid)
-    
+
     await supabase
       .from('usuarios_por_matricula')
       .delete()
@@ -644,7 +644,7 @@ export const eliminarUsuarioAdmin = async (uid) => { //elimina usuario (admin).
   }
 }
 
-export const obtenerUsuarioPorUID = async (uid) => { //obtiene perfil por uid.
+export const obtenerUsuarioPorUID = async (uid) => {
   try {
     const { data, error } = await supabase
       .from('usuarios')

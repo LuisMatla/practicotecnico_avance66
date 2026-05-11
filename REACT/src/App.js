@@ -1,18 +1,18 @@
-// enrutador principal y carga diferida (lazy) de paginas pesadas.
-import React, { Suspense, lazy } from 'react'; //react con suspense para lazy.
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; //enrutador del navegador.
-import './estilos/App.css'; //estilos del contenedor app.
-import ProtegerRuta from './componentes/ProtegerRuta'; //exige sesion de usuario normal.
-import ProtegerAdmin from './componentes/ProtegerAdmin'; //exige sesion de administrador.
 
-const Login = lazy(() => import('./paginas/Login')); //pagina de inicio de sesion alumnado.
-const Registro = lazy(() => import('./paginas/Registro')); //pagina de registro.
-const Chat = lazy(() => import('./paginas/Chat')); //chat protegido para usuario.
-const AdminLogin = lazy(() => import('./paginas/AdminLogin')); //login del panel admin.
-const Admin = lazy(() => import('./paginas/Admin')); //panel admin (usuarios y preguntas).
+import React, { Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './estilos/App.css';
+import ProtegerRuta from './componentes/ProtegerRuta';
+import ProtegerAdmin from './componentes/ProtegerAdmin';
+
+const Login = lazy(() => import('./paginas/Login'));
+const Registro = lazy(() => import('./paginas/Registro'));
+const Chat = lazy(() => import('./paginas/Chat'));
+const AdminLogin = lazy(() => import('./paginas/AdminLogin'));
+const Admin = lazy(() => import('./paginas/Admin'));
 
 const LoadingFallback = () => (
-  //pantalla de espera mientras se descarga el chunk de la ruta.
+
   <div style={{
     display: 'flex',
     justifyContent: 'center',

@@ -1,9 +1,4 @@
-/* luis fernando contreras matla - s21020225. */
 
-/* estilos del chat privado con sidebar. */
-/* colores: src/estilos/colores.css (variables CSS globales). */
-
-/* contenedor raiz: sidebar + chat en fila, ocupa toda la ventana. */
 .chat-usuario {
   display: flex;
   height: 100vh;
@@ -12,7 +7,6 @@
   overflow: hidden;
 }
 
-/* sidebar izquierdo: columna fija con lista de conversaciones y accesos. */
 .chat-sidebar {
   width: 380px;
   background: var(--blanco-UV);
@@ -24,7 +18,6 @@
   overflow: hidden;
 }
 
-/* franja superior del sidebar: logo y titulo de la app. */
 .sidebar-logo {
   display: flex;
   align-items: center;
@@ -35,14 +28,12 @@
   flex-shrink: 0;
 }
 
-/* logo del sidebar (.logo-imgagen). */
 .logo-imgagen {
   width: 48px;
   height: 48px;
   object-fit: contain;
 }
 
-/* nombre de la app junto al logo. */
 .logo-nombre {
   font-size: 1.5rem;
   font-weight: 700;
@@ -50,7 +41,6 @@
   letter-spacing: 0.5px;
 }
 
-/* contenedor de los botones del menu lateral. */
 .sidebar-menu {
   display: flex;
   flex-direction: column;
@@ -60,7 +50,6 @@
   border-bottom: 1px solid var(--gris-borde-suave);
 }
 
-/* boton o fila del menu lateral (inicio, etc.). */
 .sidebar-boton {
   display: flex;
   align-items: center;
@@ -76,17 +65,14 @@
   transition: background-color 0.2s;
 }
 
-/* hover de los items del menu lateral. */
 .sidebar-boton:hover {
   background: var(--gris-hover);
 }
 
-/* icono tipografico (emoji o caracter) en el menu. */
 .sidebar-icono {
   font-size: 1.125rem;
 }
 
-/* icono como imagen en el menu lateral. */
 .sidebar-imagen {
   width: 36px;
   height: 36px;
@@ -94,7 +80,6 @@
   flex-shrink: 0;
 }
 
-/* zona flexible: titulo de chats y lista con scroll. */
 .sidebar-zona {
   flex: 1;
   display: flex;
@@ -104,7 +89,6 @@
   padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
-/* encabezado de seccion sobre la lista (por ejemplo chats). */
 .sidebar-header {
   font-weight: 600;
   color: var(--texto-principal);
@@ -116,7 +100,6 @@
   flex-shrink: 0;
 }
 
-/* lista con scroll de conversaciones. */
 .chats-lista {
   flex: 1;
   overflow-y: auto;
@@ -124,37 +107,32 @@
   min-height: 0;
   max-height: 100%;
   padding-right: 0.5rem;
-  /* scrollbar fina cuando hay contenido. */
+
   scrollbar-width: thin;
   scrollbar-color: var(--gris-scrollbar-thumb) var(--gris-scrollbar-track);
 }
 
-/* mensaje cuando no hay conversaciones. */
 .chats-vacio {
   padding: 2rem 1.5rem;
   text-align: center;
   color: var(--gris-claro);
 }
 
-/* parrafos dentro del estado vacio. */
 .chats-vacio p {
   margin: 0.5rem 0;
   font-size: 1rem;
 }
 
-/* texto secundario de ayuda mas pequeno. */
 .chats-vacio-ayuda {
   font-size: 0.875rem !important;
   opacity: 0.7;
 }
 
-/* envuelve cada fila de chat y posiciona el menu de tres puntos. */
 .chat-item-container {
   position: relative;
   margin-bottom: 0.75rem;
 }
 
-/* fila clicable de una conversacion en la lista. */
 .chat-item {
   width: 100%;
   display: flex;
@@ -170,24 +148,20 @@
   color: var(--texto-principal);
 }
 
-/* hover sobre una conversacion de la lista. */
 .chat-item:hover {
   background: var(--gris-hover);
 }
 
-/* conversacion seleccionada actualmente. */
 .chat-item-actual {
   background: var(--azul-claro-fondo);
   border-left: 3px solid var(--verde-UV);
 }
 
-/* icono a la izquierda del titulo del chat. */
 .chat-item-icono {
   font-size: 1.5rem;
   flex-shrink: 0;
 }
 
-/* titulo y fecha en columna flexible con ellipsis. */
 .chat-item-etiqueta {
   flex: 1;
   min-width: 0;
@@ -196,7 +170,6 @@
   gap: 0.25rem;
 }
 
-/* nombre o tema del chat en una linea con puntos suspensivos. */
 .chat-item-titulo {
   font-size: 1rem;
   font-weight: 500;
@@ -206,25 +179,21 @@
   text-overflow: ellipsis;
 }
 
-/* titulo mas destacado cuando el chat esta activo. */
 .chat-item-actual .chat-item-titulo {
   font-weight: 600;
   color: var(--verde-oscuro-texto);
 }
 
-/* fecha o subtitulo bajo el nombre del chat. */
 .chat-item-fecha {
   font-size: 0.875rem;
   color: var(--gris-claro);
   text-transform: capitalize;
 }
 
-/* fecha con color de acento en chat activo. */
 .chat-item-actual .chat-item-fecha {
   color: var(--verde-enlace);
 }
 
-/* contenedor del menu contextual oculto hasta hover. */
 .chat-item-menu {
   position: absolute;
   right: 0.5rem;
@@ -236,13 +205,11 @@
   z-index: 10;
 }
 
-/* muestra el menu al pasar sobre la fila del chat. */
 .chat-item-container:hover .chat-item-menu {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* boton que abre el menu de opciones del chat. */
 .chat-item-menu-boton {
   background: transparent;
   border: none;
@@ -256,19 +223,16 @@
   transition: all 0.2s;
 }
 
-/* hover del boton de menu contextual. */
 .chat-item-menu-boton:hover {
   background: rgba(0, 0, 0, 0.05);
   color: var(--texto-principal);
 }
 
-/* tamano del icono del boton de menu. */
 .chat-item-menu-boton svg {
   width: 16px;
   height: 16px;
 }
 
-/* panel flotante con acciones (por ejemplo eliminar chat). */
 .chat-item-menu-panel {
   position: absolute;
   right: 0;
@@ -282,7 +246,6 @@
   overflow: hidden;
 }
 
-/* cada opcion del menu desplegable del chat. */
 .chat-item-menu-opcion {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -298,18 +261,15 @@
   gap: 0.5rem;
 }
 
-/* hover en opcion del menu si no esta deshabilitada. */
 .chat-item-menu-opcion:hover:not(:disabled) {
   background: var(--rojo-fondo-suave);
 }
 
-/* opcion deshabilitada del menu contextual. */
 .chat-item-menu-opcion:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* menu contextual del item de chat en tema oscuro. */
 .chat-usuario.tema-oscuro .chat-item-menu-boton {
   color: var(--gris-muted);
 }
@@ -333,7 +293,6 @@
   background: var(--chat-oscuro-panel);
 }
 
-/* area principal: columna con cabecera, mensajes y barra de envio. */
 .chat-main {
   flex: 1;
   display: flex;
@@ -343,7 +302,6 @@
   position: relative;
 }
 
-/* barra superior del chat: logo uv, titulo y ajustes. */
 .chat-main-header {
   display: flex;
   align-items: center;
@@ -354,13 +312,11 @@
   position: relative;
 }
 
-/* agrupa el boton de ajustes y el panel desplegable. */
 .header-ajustes-container {
   margin-left: auto;
   position: relative;
 }
 
-/* icono de engrane o ajustes en la cabecera. */
 .ajustes-boton {
   background: transparent;
   border: none;
@@ -374,19 +330,16 @@
   justify-content: center;
 }
 
-/* hover del boton de ajustes. */
 .ajustes-boton:hover {
   background: var(--gris-hover);
   color: var(--texto-principal);
 }
 
-/* tamano del svg del boton de ajustes. */
 .ajustes-boton svg {
   width: 24px;
   height: 24px;
 }
 
-/* caja del logo institucional uv en la cabecera. */
 .header-icon {
   width: 48px;
   height: 48px;
@@ -396,19 +349,16 @@
   flex-shrink: 0;
 }
 
-/* imagen del logo uv dentro de .header-icon. */
 .header-logo-uv {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-/* bloque de texto con titulo y subtitulo del chat. */
 .header-info {
   flex: 1;
 }
 
-/* nombre del asistente o del chat activo. */
 .header-titulo {
   font-size: 1.25rem;
   font-weight: 700;
@@ -416,14 +366,12 @@
   margin: 0 0 0.25rem 0;
 }
 
-/* linea descriptiva bajo el titulo. */
 .header-subtitulo {
   font-size: 0.9375rem;
   color: var(--texto-principal);
   margin: 0;
 }
 
-/* zona central con scroll donde se apilan los mensajes. */
 .mensajes-contenedor {
   flex: 1;
   overflow-y: auto;
@@ -434,37 +382,31 @@
   gap: 1rem;
 }
 
-/* fila flex que alinea la burbuja a izquierda o derecha. */
 .mensaje {
   display: flex;
   margin-bottom: 1rem;
 }
 
-/* mensaje del usuario alineado a la derecha. */
 .mensaje-usuario {
   justify-content: flex-end;
 }
 
-/* mensaje del bot o asistente alineado a la izquierda. */
 .mensaje-bot {
   justify-content: flex-start;
 }
 
-/* burbuja con ancho maximo y esquinas redondeadas. */
 .mensaje-contenido {
   max-width: 70%;
   padding: 0.875rem 1.125rem;
   border-radius: 18px;
 }
 
-/* estilo visual del mensaje del usuario. */
 .mensaje-usuario .mensaje-contenido {
   background: linear-gradient(135deg, var(--avatar-morado-inicio) 0%, var(--avatar-morado-fin) 100%);
   color: white;
   border-bottom-right-radius: 4px;
 }
 
-/* estilo visual del mensaje del bot. */
 .mensaje-bot .mensaje-contenido {
   background: var(--gris-fondo-alt);
   color: var(--texto-principal);
@@ -473,7 +415,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-/* cuerpo del texto dentro de la burbuja. */
 .mensaje-texto {
   margin: 0 0 0.25rem 0;
   line-height: 1.5;
@@ -481,21 +422,18 @@
   white-space: pre-line;
 }
 
-/* hora o marca temporal bajo el mensaje. */
 .mensaje-timestamp {
   font-size: 0.75rem;
   opacity: 0.7;
   margin-top: 0.25rem;
 }
 
-/* indicador de escribiendo con tres puntos animados. */
 .typing-indicator {
   display: flex;
   gap: 4px;
   padding: 0.5rem 0;
 }
 
-/* cada punto del indicador. */
 .typing-indicator span {
   width: 8px;
   height: 8px;
@@ -504,17 +442,14 @@
   animation: typing 1.4s infinite;
 }
 
-/* retraso de animacion del segundo punto. */
 .typing-indicator span:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-/* retraso de animacion del tercer punto. */
 .typing-indicator span:nth-child(3) {
   animation-delay: 0.4s;
 }
 
-/* animacion de rebote vertical de los puntos. */
 @keyframes typing {
   0%, 60%, 100% {
     transform: translateY(0);
@@ -526,8 +461,6 @@
   }
 }
 
-
-/* barra inferior con campo de texto y boton enviar. */
 .chat-formulario {
   display: flex;
   align-items: center;
@@ -537,7 +470,6 @@
   border-top: 1px solid var(--gris-borde-suave);
 }
 
-/* campo de redaccion del mensaje. */
 .mensaje-input {
   flex: 1;
   padding: 0.875rem 1.25rem;
@@ -548,19 +480,16 @@
   transition: border-color 0.2s;
 }
 
-/* borde verde al enfocar el input. */
 .mensaje-input:focus {
   border-color: var(--verde-UV);
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
 }
 
-/* input bloqueado cuando no se puede escribir. */
 .mensaje-input:disabled {
   background: var(--gris-hover);
   cursor: not-allowed;
 }
 
-/* boton circular para enviar mensaje. */
 .enviar-boton {
   width: 44px;
   height: 44px;
@@ -576,19 +505,16 @@
   flex-shrink: 0;
 }
 
-/* hover del enviar solo si esta habilitado. */
 .enviar-boton:hover:not(:disabled) {
   background: var(--verde-UV-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
-/* estado activo del boton enviar. */
 .enviar-boton:active {
   transform: translateY(0);
 }
 
-/* enviar deshabilitado sin texto o mientras carga. */
 .enviar-boton:disabled {
   background: var(--gris-muted);
   cursor: not-allowed;
@@ -596,13 +522,11 @@
   box-shadow: none;
 }
 
-/* icono de enviar dentro del boton. */
 .enviar-boton svg {
   width: 20px;
   height: 20px;
 }
 
-/* pantalla completa mientras carga el chat (video o similar). */
 .chat-cargando {
   display: flex;
   flex-direction: column;
@@ -614,32 +538,27 @@
   overflow: hidden;
 }
 
-/* recurso visual de la carga inicial. */
 .video-carga {
   width: 300px;
   height: 300px;
   object-fit: contain;
 }
 
-/* carga con tema oscuro: el fondo de esta pantalla sigue blanco. */
 .chat-usuario.tema-oscuro .chat-cargando {
   background: var(--blanco-UV);
 }
 
-/* scrollbars delgados en webkit para lista y mensajes. */
 .mensajes-contenedor::-webkit-scrollbar,
 .chats-lista::-webkit-scrollbar {
   width: 8px;
 }
 
-/* carril del scrollbar. */
 .mensajes-contenedor::-webkit-scrollbar-track,
 .chats-lista::-webkit-scrollbar-track {
   background: var(--gris-scrollbar-track);
   border-radius: 4px;
 }
 
-/* manija del scrollbar. */
 .mensajes-contenedor::-webkit-scrollbar-thumb,
 .chats-lista::-webkit-scrollbar-thumb {
   background: var(--gris-scrollbar-thumb);
@@ -647,13 +566,11 @@
   border: 2px solid var(--gris-scrollbar-track);
 }
 
-/* manija del scrollbar al pasar el mouse. */
 .mensajes-contenedor::-webkit-scrollbar-thumb:hover,
 .chats-lista::-webkit-scrollbar-thumb:hover {
   background: var(--gris-500);
 }
 
-/* panel de ajustes desplegable bajo el icono de engrane. */
 .panel-ajustes {
   position: absolute;
   top: calc(100% + 0.5rem);
@@ -673,7 +590,6 @@
   max-height: 0;
 }
 
-/* panel visible cuando react anade esta clase. */
 .panel-ajustes-abierto {
   opacity: 1;
   transform: translateY(0);
@@ -681,7 +597,6 @@
   max-height: 500px;
 }
 
-/* cabecera del panel con titulo y boton cerrar. */
 .panel-ajustes-header {
   display: flex;
   justify-content: space-between;
@@ -690,7 +605,6 @@
   border-bottom: 1px solid var(--gris-borde-suave);
 }
 
-/* titulo del panel de ajustes. */
 .panel-ajustes-header h3 {
   margin: 0;
   font-size: 1.125rem;
@@ -698,7 +612,6 @@
   color: var(--texto-principal);
 }
 
-/* boton para cerrar el panel. */
 .cerrar-ajustes-boton {
   background: transparent;
   border: none;
@@ -710,36 +623,30 @@
   transition: all 0.2s;
 }
 
-/* hover del boton cerrar panel. */
 .cerrar-ajustes-boton:hover {
   background: var(--gris-hover);
   color: var(--texto-principal);
 }
 
-/* cuerpo con scroll del panel (toggles y botones). */
 .panel-ajustes-contenido {
   overflow-y: auto;
   padding: 1.5rem;
 }
 
-/* bloque de un ajuste (por ejemplo fila del toggle). */
 .ajuste-item {
   margin-bottom: 1.5rem;
 }
 
-/* sin margen inferior en el ultimo item del panel. */
 .ajuste-item:last-child {
   margin-bottom: 0;
 }
 
-/* linea horizontal entre grupos de opciones. */
 .ajuste-item-separador {
   padding-top: 1.5rem;
   border-top: 1px solid var(--gris-borde-suave);
   margin-top: 1.5rem;
 }
 
-/* etiqueta clicable alineada con el toggle. */
 .ajuste-label {
   display: flex;
   justify-content: space-between;
@@ -751,14 +658,12 @@
   cursor: pointer;
 }
 
-/* texto de ayuda bajo la etiqueta. */
 .ajuste-descripcion {
   margin: 0;
   font-size: 0.875rem;
   color: var(--gris-claro);
 }
 
-/* interruptor on/off con checkbox oculto y slider. */
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -766,14 +671,12 @@
   height: 28px;
 }
 
-/* input real invisible y accesible para lectores de pantalla. */
 .toggle-switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* fondo del interruptor apagado en gris. */
 .toggle-slider {
   position: absolute;
   cursor: pointer;
@@ -786,7 +689,6 @@
   border-radius: 28px;
 }
 
-/* circulo blanco que se desliza en el toggle. */
 .toggle-slider:before {
   position: absolute;
   content: "";
@@ -799,17 +701,14 @@
   border-radius: 50%;
 }
 
-/* fondo verde cuando el toggle esta activado. */
 .toggle-switch input:checked + .toggle-slider {
   background-color: var(--verde-UV);
 }
 
-/* posicion del circulo a la derecha cuando esta encendido. */
 .toggle-switch input:checked + .toggle-slider:before {
   transform: translateX(24px);
 }
 
-/* boton de cerrar sesion del usuario. */
 .cerrar-sesion-boton {
   width: 100%;
   display: flex;
@@ -827,276 +726,225 @@
   transition: all 0.2s;
 }
 
-/* hover del boton cerrar sesion. */
 .cerrar-sesion-boton:hover:not(:disabled) {
   background: var(--rojo-hover);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
-/* estado activo del boton cerrar sesion. */
 .cerrar-sesion-boton:active:not(:disabled) {
   transform: translateY(0);
 }
 
-/* cerrar sesion deshabilitado mientras se procesa. */
 .cerrar-sesion-boton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* icono dentro del boton cerrar sesion. */
 .cerrar-sesion-boton svg {
   width: 20px;
   height: 20px;
 }
 
-/* tema oscuro: react anade .tema-oscuro en .chat-usuario; misma jerarquia con paleta oscura. */
-
-/* fondo general y color de texto por defecto. */
 .chat-usuario.tema-oscuro {
   background: var(--chat-oscuro-fondo);
   color: var(--pagina-fondo);
 }
 
-/* sidebar: fondo y borde derecho. */
 .chat-usuario.tema-oscuro .chat-sidebar {
   background: var(--chat-oscuro-fondo);
   border-right-color: var(--chat-oscuro-panel);
 }
 
-/* cabecera del sidebar con logo. */
 .chat-usuario.tema-oscuro .sidebar-logo {
   background: var(--chat-oscuro-fondo);
   border-bottom-color: var(--chat-oscuro-panel);
 }
 
-/* nombre de la app en verde de marca. */
 .chat-usuario.tema-oscuro .logo-nombre {
   color: var(--verde-UV);
 }
 
-/* items del menu lateral. */
 .chat-usuario.tema-oscuro .sidebar-boton {
   color: var(--pagina-fondo);
 }
 
-/* hover del menu lateral. */
 .chat-usuario.tema-oscuro .sidebar-boton:hover {
   background: var(--chat-oscuro-panel);
 }
 
-/* titulo de seccion de chats. */
 .chat-usuario.tema-oscuro .sidebar-header {
   color: var(--pagina-fondo);
 }
 
-/* filas de la lista de conversaciones. */
 .chat-usuario.tema-oscuro .chat-item {
   color: var(--pagina-fondo);
 }
 
-/* hover sobre una conversacion en la lista. */
 .chat-usuario.tema-oscuro .chat-item:hover {
   background: var(--chat-oscuro-panel);
 }
 
-/* conversacion seleccionada en la lista. */
 .chat-usuario.tema-oscuro .chat-item-actual {
   background: var(--chat-oscuro-panel);
   border-left-color: var(--verde-UV);
 }
 
-/* titulo de la conversacion. */
 .chat-usuario.tema-oscuro .chat-item-titulo {
   color: var(--pagina-fondo);
 }
 
-/* titulo cuando la conversacion esta activa. */
 .chat-usuario.tema-oscuro .chat-item-actual .chat-item-titulo {
   color: var(--verde-UV);
 }
 
-/* fecha en la lista. */
 .chat-usuario.tema-oscuro .chat-item-fecha {
   color: var(--gris-muted);
 }
 
-/* fecha en conversacion activa. */
 .chat-usuario.tema-oscuro .chat-item-actual .chat-item-fecha {
   color: var(--verde-accent);
 }
 
-/* estado vacio sin chats. */
 .chat-usuario.tema-oscuro .chats-vacio {
   color: var(--gris-muted);
 }
 
-/* scrollbar de la lista de chats en modo oscuro. */
 .chat-usuario.tema-oscuro .chats-lista::-webkit-scrollbar-track {
   background: var(--chat-oscuro-panel);
 }
 
-/* manija del scrollbar de la lista de chats. */
 .chat-usuario.tema-oscuro .chats-lista::-webkit-scrollbar-thumb {
   background: var(--gris-600);
   border-color: var(--chat-oscuro-panel);
 }
 
-/* manija del scrollbar al hover en lista oscura. */
 .chat-usuario.tema-oscuro .chats-lista::-webkit-scrollbar-thumb:hover {
   background: var(--gris-claro);
 }
 
-/* color del scrollbar en firefox para la lista. */
 .chat-usuario.tema-oscuro .chats-lista {
   scrollbar-color: var(--gris-600) var(--chat-oscuro-panel);
 }
 
-/* area principal del chat. */
 .chat-usuario.tema-oscuro .chat-main {
   background: var(--chat-oscuro-fondo);
 }
 
-/* cabecera del chat. */
 .chat-usuario.tema-oscuro .chat-main-header {
   background: var(--chat-oscuro-fondo);
   border-bottom-color: var(--chat-oscuro-panel);
 }
 
-/* titulo del asistente en azul claro sobre fondo oscuro. */
 .chat-usuario.tema-oscuro .header-titulo {
   color: var(--azul-cielo);
 }
 
-/* subtitulo bajo el titulo. */
 .chat-usuario.tema-oscuro .header-subtitulo {
   color: var(--gris-borde-input);
 }
 
-/* icono de ajustes en la cabecera. */
 .chat-usuario.tema-oscuro .ajustes-boton {
   color: var(--gris-muted);
 }
 
-/* hover del boton de ajustes. */
 .chat-usuario.tema-oscuro .ajustes-boton:hover {
   background: var(--chat-oscuro-panel);
   color: var(--pagina-fondo);
 }
 
-/* fondo del area de mensajes. */
 .chat-usuario.tema-oscuro .mensajes-contenedor {
   background: var(--chat-oscuro-fondo);
 }
 
-/* burbuja del bot en modo oscuro. */
 .chat-usuario.tema-oscuro .mensaje-bot .mensaje-contenido {
   background: var(--chat-oscuro-panel);
   color: var(--pagina-fondo);
   border-color: var(--gris-oscuro);
 }
 
-/* hora bajo cada mensaje. */
 .chat-usuario.tema-oscuro .mensaje-timestamp {
   color: var(--gris-muted);
 }
 
-/* titulo de seccion de consultas rapidas. */
 .chat-usuario.tema-oscuro .consultas-titulo {
   color: var(--pagina-fondo);
 }
 
-/* botones de consulta sugerida. */
 .chat-usuario.tema-oscuro .consulta-boton {
   background: var(--chat-oscuro-panel);
   border-color: var(--verde-UV);
   color: var(--verde-UV);
 }
 
-/* hover en boton de consulta sugerida. */
 .chat-usuario.tema-oscuro .consulta-boton:hover {
   background: var(--chat-oscuro-input);
   border-color: var(--verde-UV-hover);
   color: var(--verde-UV-hover);
 }
 
-/* barra inferior de envio. */
 .chat-usuario.tema-oscuro .chat-formulario {
   background: var(--chat-oscuro-fondo);
   border-top-color: var(--chat-oscuro-panel);
 }
 
-/* campo de texto en modo oscuro. */
 .chat-usuario.tema-oscuro .mensaje-input {
   background: var(--chat-oscuro-panel);
   border-color: var(--gris-oscuro);
   color: var(--pagina-fondo);
 }
 
-/* foco del input con acento verde. */
 .chat-usuario.tema-oscuro .mensaje-input:focus {
   border-color: var(--verde-UV);
   background: var(--chat-oscuro-panel);
 }
 
-/* panel flotante de ajustes en modo oscuro. */
 .chat-usuario.tema-oscuro .panel-ajustes {
   background: var(--chat-oscuro-fondo);
   border: 1px solid var(--chat-oscuro-panel);
 }
 
-/* borde inferior de la cabecera del panel en oscuro. */
 .chat-usuario.tema-oscuro .panel-ajustes-header {
   border-bottom-color: var(--chat-oscuro-panel);
 }
 
-/* titulo del panel de ajustes en oscuro. */
 .chat-usuario.tema-oscuro .panel-ajustes-header h3 {
   color: var(--pagina-fondo);
 }
 
-/* boton cerrar del panel. */
 .chat-usuario.tema-oscuro .cerrar-ajustes-boton {
   color: var(--gris-muted);
 }
 
-/* hover del boton cerrar en panel oscuro. */
 .chat-usuario.tema-oscuro .cerrar-ajustes-boton:hover {
   background: var(--chat-oscuro-panel);
   color: var(--pagina-fondo);
 }
 
-/* linea entre bloques del panel. */
 .chat-usuario.tema-oscuro .ajuste-item-separador {
   border-top-color: var(--gris-oscuro);
 }
 
-/* cerrar sesion. */
 .chat-usuario.tema-oscuro .cerrar-sesion-boton {
   background: var(--rojo-intenso);
   color: var(--blanco-UV);
 }
 
-/* hover de cerrar sesion en tema oscuro. */
 .chat-usuario.tema-oscuro .cerrar-sesion-boton:hover:not(:disabled) {
   background: var(--rojo-hover);
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
 }
 
-/* etiquetas de opciones en el panel. */
 .chat-usuario.tema-oscuro .ajuste-label {
   color: var(--pagina-fondo);
 }
 
-/* texto secundario bajo cada opcion. */
 .chat-usuario.tema-oscuro .ajuste-descripcion {
   color: var(--gris-muted);
 }
 
-/* vista tablet: ancho maximo 768px. */
 @media (max-width: 768px) {
-  /* sidebar un poco mas estrecha. */
+
   .chat-sidebar {
     width: 320px;
     padding: 1.5rem 1.25rem;
@@ -1118,21 +966,20 @@
     grid-template-columns: 1fr;
     max-width: 100%;
   }
-  
+
   .mensaje-contenido {
     max-width: 85%;
   }
-  
+
   .chat-formulario {
     padding: 1rem 1rem;
   }
-  
+
   .mensaje-input {
-    font-size: 16px; /* evita zoom automatico en ios. */
+    font-size: 16px;
   }
 }
 
-/* vista movil: sidebar oculto y chat a pantalla completa. */
 @media (max-width: 640px) {
   .chat-sidebar {
     display: none !important;
@@ -1198,7 +1045,7 @@
   }
 
   .mensaje-input {
-    font-size: 16px; /* evita zoom automatico en ios. */
+    font-size: 16px;
     padding: 0.75rem 1rem;
   }
 
@@ -1224,7 +1071,6 @@
     font-size: 0.875rem;
   }
 
-  /* controles de escritorio ocultos en movil. */
   .boton-triangulo {
     display: none;
   }
@@ -1234,14 +1080,12 @@
   }
 }
 
-/* sidebar oculto por js al colapsar la barra en escritorio. */
 .chat-sidebar.sidebar-oculto {
   display: none !important;
   width: 0 !important;
   overflow: hidden;
 }
 
-/* chat a ancho completo dejando 80px para la franja del logo. */
 .chat-main-expandido {
   width: 100% !important;
   flex: 1 1 100% !important;
@@ -1250,14 +1094,12 @@
   position: relative;
 }
 
-/* en movil no se usa franja lateral. */
 @media (max-width: 640px) {
   .chat-main-expandido {
     padding-left: 0 !important;
   }
 }
 
-/* control fijo entre sidebar y chat para plegar o desplegar. */
 .boton-triangulo {
   position: fixed;
   left: 380px;
@@ -1279,7 +1121,6 @@
   height: 80px;
 }
 
-/* resalta el control al pasar el mouse. */
 .boton-triangulo:hover {
   background: linear-gradient(135deg, var(--verde-UV) 0%, var(--verde-UV-hover) 100%);
   border-color: var(--verde-UV);
@@ -1287,12 +1128,10 @@
   transform: translateY(-50%) translateX(-4px);
 }
 
-/* estado activo del control lateral. */
 .boton-triangulo:active {
   transform: translateY(-50%) translateX(-2px);
 }
 
-/* icono del boton lateral. */
 .boton-triangulo svg {
   color: var(--gris-600);
   transition: color 0.2s;
@@ -1300,12 +1139,10 @@
   height: 28px;
 }
 
-/* icono en blanco cuando el boton esta resaltado. */
 .boton-triangulo:hover svg {
   color: var(--blanco-UV);
 }
 
-/* franja estrecha a la izquierda con logo sin sidebar. */
 .linea-divisoria {
   position: absolute;
   left: 0;
@@ -1326,7 +1163,6 @@
   pointer-events: none;
 }
 
-/* animacion de entrada de la franja lateral. */
 @keyframes aparecerLinea {
   from {
     opacity: 0;
@@ -1338,14 +1174,12 @@
   }
 }
 
-/* hover de la franja sin cambio de fondo. */
 .linea-divisoria:hover {
   background: linear-gradient(180deg, var(--pagina-fondo) 0%, var(--blanco-UV) 20%, var(--blanco-UV) 80%, var(--pagina-fondo) 100%);
   border-right-color: var(--gris-borde-suave);
   box-shadow: none;
 }
 
-/* columna interna de la franja con el logo arriba. */
 .linea-divisoria-contenido {
   position: relative;
   width: 100%;
@@ -1356,7 +1190,6 @@
   pointer-events: none;
 }
 
-/* boton con logo: unico elemento clicable en la franja. */
 .linea-divisoria-logo {
   display: flex;
   align-items: center;
@@ -1374,7 +1207,6 @@
   pointer-events: auto;
 }
 
-/* hover del contenedor del logo sin caja destacada. */
 .linea-divisoria-logo:hover {
   background: transparent !important;
   border: none !important;
@@ -1382,7 +1214,6 @@
   transform: none;
 }
 
-/* imagen del logo en la franja. */
 .logo-img-divisoria {
   width: 48px;
   height: 48px;
@@ -1393,13 +1224,11 @@
   filter: brightness(1);
 }
 
-/* brillo al pasar el mouse sobre el logo. */
 .linea-divisoria-logo:hover .logo-img-divisoria {
   filter: brightness(1.2) drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
   transform: scale(1.05);
 }
 
-/* barra decorativa bajo la franja de 80px con pseudo-elemento. */
 .chat-main-expandido::after {
   content: '';
   position: absolute;
@@ -1412,74 +1241,62 @@
   transition: all 0.3s ease;
 }
 
-/* al hover la barra inferior crece y pasa a verde. */
 .chat-main-expandido:hover::after {
   height: 6px;
   background: linear-gradient(90deg, var(--verde-UV) 0%, var(--verde-UV-hover) 50%, var(--verde-UV) 100%);
   box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
 }
 
-/* tema oscuro: boton lateral, franja y barra inferior. */
 .chat-usuario.tema-oscuro .boton-triangulo {
   background: linear-gradient(135deg, var(--chat-oscuro-fondo) 0%, var(--chat-oscuro-panel) 100%);
   border-color: var(--gris-600);
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* mismo acento verde al hover que en tema claro. */
 .chat-usuario.tema-oscuro .boton-triangulo:hover {
   background: linear-gradient(135deg, var(--verde-UV) 0%, var(--verde-UV-hover) 100%);
   border-color: var(--verde-UV);
   box-shadow: 4px 0 16px rgba(34, 197, 94, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
-/* color del icono del boton lateral en oscuro. */
 .chat-usuario.tema-oscuro .boton-triangulo svg {
   color: var(--gris-muted);
 }
 
-/* icono del boton lateral en blanco al hover. */
 .chat-usuario.tema-oscuro .boton-triangulo:hover svg {
   color: var(--blanco-UV);
 }
 
-/* franja del logo en colores oscuros. */
 .chat-usuario.tema-oscuro .linea-divisoria {
   background: linear-gradient(180deg, var(--chat-oscuro-fondo) 0%, var(--chat-oscuro-panel) 20%, var(--chat-oscuro-panel) 80%, var(--chat-oscuro-fondo) 100%);
   border-right-color: var(--gris-oscuro);
 }
 
-/* hover de la franja sin sombra extra. */
 .chat-usuario.tema-oscuro .linea-divisoria:hover {
   background: linear-gradient(180deg, var(--chat-oscuro-fondo) 0%, var(--chat-oscuro-panel) 20%, var(--chat-oscuro-panel) 80%, var(--chat-oscuro-fondo) 100%);
   border-right-color: var(--gris-oscuro);
   box-shadow: none;
 }
 
-/* contenedor del logo sin caja visible. */
 .chat-usuario.tema-oscuro .linea-divisoria-logo {
   background: transparent !important;
   border: none !important;
 }
 
-/* hover del area del logo sin caja. */
 .chat-usuario.tema-oscuro .linea-divisoria-logo:hover {
   background: transparent !important;
   border: none !important;
 }
 
-/* brillo del logo en tema oscuro. */
 .chat-usuario.tema-oscuro .linea-divisoria-logo:hover .logo-img-divisoria {
   filter: brightness(1.3) drop-shadow(0 0 10px rgba(34, 197, 94, 0.7));
   transform: scale(1.05);
 }
 
-/* barra inferior decorativa en reposo. */
 .chat-usuario.tema-oscuro .chat-main-expandido::after {
   background: linear-gradient(90deg, var(--gris-oscuro) 0%, var(--gris-600) 50%, var(--gris-oscuro) 100%);
 }
 
-/* barra inferior en hover con verde. */
 .chat-usuario.tema-oscuro .chat-main-expandido:hover::after {
   background: linear-gradient(90deg, var(--verde-UV) 0%, var(--verde-UV-hover) 50%, var(--verde-UV) 100%);
 }

@@ -669,8 +669,8 @@ responses:
   - text: "El Dr. Adrián Sánchez Vidal es el Secretario Académico actual de la FIEE. ¿En qué más puedo asistirte?"
   - text: "El Dr. Adrián Sánchez Vidal es el Secretario Académico de la Facultad de Ingeniería Eléctrica y Electrónica. ¿Tienes alguna otra pregunta?"
 
-actions:
-  - action_buscar_faq
+  utter_fallback:
+  - text: "No encontré una respuesta exacta en este momento. ¿Podrías darme más detalles de tu consulta?"
 
 session_config:
   session_expiration_time: 60

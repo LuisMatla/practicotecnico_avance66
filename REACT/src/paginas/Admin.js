@@ -1,59 +1,80 @@
-// panel de administracion: usuarios, faq y vista rasa.
-import React, { useState, useEffect, useCallback } from 'react'; //react y hooks.
-import { useNavigate } from 'react-router-dom'; //navegacion para redireccionar.
-import ChatUsuario from '../componentes/ChatUsuario'; //chat embebido en vista admin.
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ChatUsuario from '../componentes/ChatUsuario';
 import { 
-  obtenerTodosUsuarios, //lista usuarios para admin.
-  eliminarUsuarioAdmin, //elimina usuario (admin).
-  cerrarSesion as cerrarSesionSupabase, //logout supabase.
-} from '../servicios/supabase'; //servicios supabase (admin/auth).
-import FormularioUsuario from '../componentes/FormularioUsuario'; //modal alta/edicion usuario.
-import catalogoRasaEstatico from '../datos/catalogoRasa.json'; //fallback local del catalogo de Rasa.
+  obtenerTodosUsuarios,
+  eliminarUsuarioAdmin,
+  cerrarSesion as cerrarSesionSupabase,
+} from '../servicios/supabase';
+import FormularioUsuario from '../componentes/FormularioUsuario';
+import catalogoRasaEstatico from '../datos/catalogoRasa.json';
 import {
-  fetchCatalogoRasa, //trae catalogo remoto.
-  fetchIntentDetalle, //trae detalle por intent.
-  guardarIntentRasa, //crea/actualiza intent.
-  eliminarIntentRasa, //elimina intent.
-  resumirMensajeErrorAdmin, //normaliza mensaje de error.
-} from '../servicios/rasaAdminService'; //servicio admin Rasa (via proxy/URL).
-import './Admin.css'; //estilos del panel admin.
+  fetchCatalogoRasa,
+  fetchIntentDetalle,
+  guardarIntentRasa,
+  eliminarIntentRasa,
+  entrenarRasaAhora,
+  fetchEstadoEntrenamientoRasa,
+  resumirMensajeErrorAdmin,
+} from '../servicios/rasaAdminService';
+import { supabase } from '../supabase/config';
+import './Admin.css';
 
-const INTENT_NO_ELIMINAR = new Set(['nlu_fallback']); //intents protegidos (no eliminar).
+const INTENT_NO_ELIMINAR = new Set(['nlu_fallback']);
+const crearIntentVacio = () => ({
+  intent: '',
+  ejemplos: '',
+  respuesta: '',
+  reglaTitulo: '',
+  historiaTitulo: '',
+  accionCustom: '',
+  previousIntent: ''
+});
 
 const Admin = () => {
-  const [usuarios, setUsuarios] = useState([]); //lista de usuarios para tabla.
-  const [cargando, setCargando] = useState(true); //carga de usuarios.
-  const [carreraSeleccionada, setCarreraSeleccionada] = useState(null); //filtro por carrera.
-  const [generacionSeleccionada, setGeneracionSeleccionada] = useState(null); //filtro por generacion.
-  const [filtroTexto, setFiltroTexto] = useState(''); //busqueda por texto.
-  const [mostrarFormulario, setMostrarFormulario] = useState(false); //abre/cierra modal usuario.
-  const [usuarioEditando, setUsuarioEditando] = useState(null); //usuario actual a editar.
-  const [usuarioEliminando, setUsuarioEliminando] = useState(null); //usuario seleccionado para eliminar.
-  const [pagina] = useState(1); //pagina actual (constante en esta vista).
-  const [faqError, setFaqError] = useState(''); //errores del panel NLU.
-  const [seccionAdmin, setSeccionAdmin] = useState('principal'); //seccion activa: principal/usuarios/faq.
-  const [menuAdminAbierto, setMenuAdminAbierto] = useState(false); //control del menu lateral.
-  const [panelFaqAbierto, setPanelFaqAbierto] = useState(false); //control del panel FAQ/NLU.
-  const [subVistaPreguntas, setSubVistaPreguntas] = useState('nlu'); //subvista dentro de preguntas.
-  const [filtroCatalogoRasa, setFiltroCatalogoRasa] = useState(''); //filtro de intents.
-  const [nluExpandidoIntent, setNluExpandidoIntent] = useState(null); //intent expandido en lista.
-  const [catalogoRasa, setCatalogoRasa] = useState(catalogoRasaEstatico); //catalogo actual (remoto o local).
-  const [catalogoCargando, setCatalogoCargando] = useState(false); //carga del catalogo.
-  const [catalogoError, setCatalogoError] = useState(''); //error al cargar catalogo remoto.
-  const [catalogoRemoto, setCatalogoRemoto] = useState(false); //marca si el catalogo viene del servidor.
-  const [nluMenuAbiertoIntent, setNluMenuAbiertoIntent] = useState(null); //menu contextual por intent.
-  const [intentPanelModo, setIntentPanelModo] = useState('crear'); //modo del panel: crear/editar.
-  const [guardandoIntent, setGuardandoIntent] = useState(false); //bloquea UI al guardar intent.
-  const [intentForm, setIntentForm] = useState({ //estado del formulario de intent.
-    intent: '', //nombre del intent.
-    ejemplos: '', //ejemplos NLU (texto).
-    respuesta: '', //respuesta del bot.
-    reglaTitulo: '', //titulo de regla.
-    historiaTitulo: '', //titulo de historia.
-    accionCustom: '', //accion custom opcional.
-    previousIntent: '' //intent previo (para renombre).
+  const [dashboardCargando, setDashboardCargando] = useState(true);
+  const [dashboardError, setDashboardError] = useState('');
+  const [dashboardStats, setDashboardStats] = useState({
+    consultasTotalesHoy: 0,
+    usuariosActivos7d: 0,
+    tasaExito: 0,
+    tasaFallback: 0,
+    totalAnalizado: 0,
+    ultimasInteracciones: [],
+    topPreguntas: [],
+    totalConsultasDesdeOctubre: 0,
+    periodoInicioLabel: '',
+    periodoFinLabel: ''
   });
-  const navigate = useNavigate(); //funcion para navegar rutas.
+  const [usuarios, setUsuarios] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [carreraSeleccionada, setCarreraSeleccionada] = useState(null);
+  const [generacionSeleccionada, setGeneracionSeleccionada] = useState(null);
+  const [filtroTexto, setFiltroTexto] = useState('');
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [usuarioEditando, setUsuarioEditando] = useState(null);
+  const [usuarioEliminando, setUsuarioEliminando] = useState(null);
+  const [pagina] = useState(1);
+  const [faqError, setFaqError] = useState('');
+  const [seccionAdmin, setSeccionAdmin] = useState('principal');
+  const [menuAdminAbierto, setMenuAdminAbierto] = useState(false);
+  const [panelFaqAbierto, setPanelFaqAbierto] = useState(false);
+  const [subVistaPreguntas, setSubVistaPreguntas] = useState('nlu');
+  const [filtroCatalogoRasa, setFiltroCatalogoRasa] = useState('');
+  const [nluExpandidoIntent, setNluExpandidoIntent] = useState(null);
+  const [catalogoRasa, setCatalogoRasa] = useState(catalogoRasaEstatico);
+  const [catalogoCargando, setCatalogoCargando] = useState(false);
+  const [catalogoError, setCatalogoError] = useState('');
+  const [catalogoAviso, setCatalogoAviso] = useState('');
+  const [catalogoRemoto, setCatalogoRemoto] = useState(false);
+  const [entrenandoRasa, setEntrenandoRasa] = useState(false);
+  const [nluMenuAbiertoIntent, setNluMenuAbiertoIntent] = useState(null);
+  const [intentPanelModo, setIntentPanelModo] = useState('crear');
+  const [guardandoIntent, setGuardandoIntent] = useState(false);
+  const [intentForms, setIntentForms] = useState([crearIntentVacio()]);
+  const [intentFormIndex, setIntentFormIndex] = useState(0);
+  const intentForm = intentForms[intentFormIndex] || crearIntentVacio();
+  const navigate = useNavigate();
 
   const carreras = [
     'Ingeniería Informática',
@@ -65,17 +86,324 @@ const Admin = () => {
 
   const cargarUsuarios = useCallback(async () => {
     try {
-      setCargando(true); //activa loading.
-      const resultado = await obtenerTodosUsuarios(pagina, 50, filtroTexto); //consulta usuarios.
-      setUsuarios(resultado.usuarios || []); //guarda usuarios o arreglo vacio.
+      setCargando(true);
+      const resultado = await obtenerTodosUsuarios(pagina, 50, filtroTexto);
+      setUsuarios(resultado.usuarios || []);
     } catch (error) {
     } finally {
-      setCargando(false); //desactiva loading.
+      setCargando(false);
     }
   }, [pagina, filtroTexto]);
 
+  const esFallbackRespuesta = useCallback((texto) => {
+    const t = String(texto || '').toLowerCase();
+    return (
+      t.includes('no encontré una respuesta exacta') ||
+      t.includes('no encontre una respuesta exacta') ||
+      t.includes('podrías darme más detalles') ||
+      t.includes('podrias darme mas detalles') ||
+      t.includes('no pude consultar la base de conocimientos') ||
+      t.includes('no tengo respuestas registradas')
+    );
+  }, []);
+
+  const normalizarTextoIntent = useCallback((texto) => {
+    return String(texto || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9ñ\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }, []);
+
+  const scoreCoincidenciaTexto = useCallback((a, b) => {
+    if (!a || !b) return 0;
+    if (a === b) return 1;
+    if (a.includes(b) || b.includes(a)) return 0.92;
+    const tokensA = new Set(a.split(' '));
+    const tokensB = new Set(b.split(' '));
+    if (!tokensA.size || !tokensB.size) return 0;
+    const inter = [...tokensA].filter((x) => tokensB.has(x)).length;
+    const union = new Set([...tokensA, ...tokensB]).size;
+    return union > 0 ? inter / union : 0;
+  }, []);
+
+  const inferirIntentDesdeNlu = useCallback((texto, nluData) => {
+    const textoNorm = normalizarTextoIntent(texto);
+    if (!textoNorm) return 'nlu_fallback';
+
+    let mejorIntent = 'nlu_fallback';
+    let mejorScore = 0;
+    (nluData || []).forEach((bloque) => {
+      const intent = bloque.intent;
+      const samples = Array.isArray(bloque.samples) ? bloque.samples : [];
+      samples.forEach((sample) => {
+        const sNorm = normalizarTextoIntent(sample);
+        const score = scoreCoincidenciaTexto(textoNorm, sNorm);
+        if (score > mejorScore) {
+          mejorScore = score;
+          mejorIntent = intent;
+        }
+      });
+    });
+
+    return mejorScore >= 0.45 ? mejorIntent : 'nlu_fallback';
+  }, [normalizarTextoIntent, scoreCoincidenciaTexto]);
+
+  const formatearIntentParaGrafica = useCallback((intent) => {
+    const raw = String(intent || '').trim();
+    if (!raw) return 'nlu_fallback';
+    const sinPrefijo = raw.replace(/^ask_for_/i, '');
+    const base = sinPrefijo.replace(/_/g, ' ').trim();
+    if (/^IL$/i.test(base)) return 'IL';
+    return base.toLowerCase();
+  }, []);
+
+  const obtenerInicioPeriodoOctubre = useCallback(() => {
+    const hoy = new Date();
+    const anioInicio = hoy.getMonth() >= 9 ? hoy.getFullYear() : hoy.getFullYear() - 1;
+    return new Date(anioInicio, 9, 1, 0, 0, 0, 0);
+  }, []);
+
+  const cargarDashboard = useCallback(async () => {
+    setDashboardCargando(true);
+    setDashboardError('');
+    try {
+      const inicioHoy = new Date();
+      inicioHoy.setHours(0, 0, 0, 0);
+      const hace7Dias = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+      const inicioOctubre = obtenerInicioPeriodoOctubre();
+      const inicioOctubreIso = inicioOctubre.toISOString();
+
+      const [
+        { count: consultasHoy, error: errConsultasHoy },
+        { count: consultasHoyMensajes, error: errConsultasHoyMensajes },
+        { count: activos7d, error: errActivos7d },
+        { data: usuariosMensajes7dRaw, error: errUsuariosMensajes7d },
+        { data: historialRaw, error: errHistorial },
+        { data: botMensajesRaw, error: errBotMensajes },
+        { data: mensajesRecientesRaw, error: errMensajesRecientes },
+        { data: preguntasOctubreRaw, error: errPreguntasOctubre }
+      ] = await Promise.all([
+        supabase
+          .from('historial_consultas')
+          .select('*', { count: 'exact', head: true })
+          .gte('fechaConsulta', inicioHoy.toISOString()),
+        supabase
+          .from('chat_mensajes')
+          .select('*', { count: 'exact', head: true })
+          .eq('tipo', 'usuario')
+          .gte('timestamp', inicioHoy.toISOString()),
+        supabase
+          .from('usuarios')
+          .select('*', { count: 'exact', head: true })
+          .eq('activo', true)
+          .gte('ultimoacceso', hace7Dias),
+        supabase
+          .from('chat_mensajes')
+          .select('userId')
+          .eq('tipo', 'usuario')
+          .gte('timestamp', hace7Dias),
+        supabase
+          .from('historial_consultas')
+          .select('consulta,respuesta,categoria,matricula,fechaConsulta')
+          .order('fechaConsulta', { ascending: false })
+          .limit(1000),
+        supabase
+          .from('chat_mensajes')
+          .select('mensaje,categoria,timestamp,tipo')
+          .eq('tipo', 'bot')
+          .gte('timestamp', inicioOctubreIso)
+          .order('timestamp', { ascending: false })
+          .limit(2000),
+        supabase
+          .from('chat_mensajes')
+          .select('sesionId,matricula,mensaje,tipo,timestamp')
+          .order('timestamp', { ascending: false })
+          .limit(500),
+        supabase
+          .from('chat_mensajes')
+          .select('mensaje,timestamp,tipo')
+          .eq('tipo', 'usuario')
+          .gte('timestamp', inicioOctubreIso)
+          .order('timestamp', { ascending: false })
+          .limit(5000)
+      ]);
+
+      const falloConsultas =
+        Boolean(errConsultasHoy) && Boolean(errConsultasHoyMensajes);
+      const falloActivos = Boolean(errActivos7d) && Boolean(errUsuariosMensajes7d);
+      const falloTasas = Boolean(errHistorial) && Boolean(errBotMensajes);
+      const falloInteracciones = Boolean(errHistorial) && Boolean(errMensajesRecientes);
+      const falloTopPreguntas = Boolean(errPreguntasOctubre);
+      const primerError =
+        (falloConsultas && (errConsultasHoy || errConsultasHoyMensajes)) ||
+        (falloActivos && (errActivos7d || errUsuariosMensajes7d)) ||
+        (falloTasas && (errHistorial || errBotMensajes)) ||
+        (falloInteracciones && (errHistorial || errMensajesRecientes)) ||
+        (falloTopPreguntas && errPreguntasOctubre);
+      if (primerError) {
+        throw new Error(primerError.message || 'No se pudieron cargar las métricas.');
+      }
+
+      const historial = historialRaw || [];
+      const botMensajes = botMensajesRaw || [];
+      const fuenteTasas =
+        historial.length > 0
+          ? historial.map((h) => ({
+              respuesta: h.respuesta,
+              categoria: h.categoria
+            }))
+          : botMensajes.map((m) => ({
+              respuesta: m.mensaje,
+              categoria: m.categoria
+            }));
+      const totalAnalizado = fuenteTasas.length;
+      const fallbacks = fuenteTasas.filter((h) => esFallbackRespuesta(h.respuesta)).length;
+      const exitos = Math.max(0, totalAnalizado - fallbacks);
+      const tasaExito = totalAnalizado > 0 ? (exitos / totalAnalizado) * 100 : 0;
+      const tasaFallback = totalAnalizado > 0 ? (fallbacks / totalAnalizado) * 100 : 0;
+
+      const usuariosActivosPorMensajes = new Set(
+        (usuariosMensajes7dRaw || []).map((row) => row.userId).filter(Boolean)
+      ).size;
+      const usuariosActivosFinal =
+        (activos7d && activos7d > 0 ? activos7d : usuariosActivosPorMensajes) || 0;
+
+      const preguntasOctubre = (preguntasOctubreRaw || [])
+        .map((row) => String(row.mensaje || '').trim())
+        .filter(Boolean);
+      const mapaPreguntasUnicas = new Map();
+      preguntasOctubre.forEach((pregunta) => {
+        const clave = pregunta.toLowerCase().replace(/\s+/g, ' ');
+        mapaPreguntasUnicas.set(clave, (mapaPreguntasUnicas.get(clave) || 0) + 1);
+      });
+      const mapaIntents = new Map();
+      mapaPreguntasUnicas.forEach((total, pregunta) => {
+        const intentInferido = inferirIntentDesdeNlu(pregunta, catalogoRasaEstatico.nlu || []);
+        if (intentInferido === 'saludo' || intentInferido === 'goodbye') return;
+        const etiqueta = formatearIntentParaGrafica(intentInferido);
+        const previo = mapaIntents.get(etiqueta);
+        if (previo) {
+          previo.total += total;
+        } else {
+          mapaIntents.set(etiqueta, { pregunta: etiqueta, total });
+        }
+      });
+      const totalConsultasDesdeOctubre = preguntasOctubre.length;
+      const topPreguntasBase = Array.from(mapaIntents.values())
+        .sort((a, b) => b.total - a.total)
+        .slice(0, 6);
+      const totalTop6 = topPreguntasBase.reduce((acc, item) => acc + item.total, 0);
+      const topPreguntas = topPreguntasBase.map((item) => ({
+        ...item,
+        porcentaje: totalTop6 > 0 ? (item.total / totalTop6) * 100 : 0
+      }));
+
+      let ultimasInteracciones = [];
+      if (historial.length > 0) {
+        ultimasInteracciones = historial.slice(0, 6).map((item) => ({
+          fecha: item.fechaConsulta,
+          matricula: item.matricula || '—',
+          pregunta: item.consulta || '—',
+          estado: esFallbackRespuesta(item.respuesta) ? 'fallback' : 'éxito'
+        }));
+      } else {
+        const mensajesRecientes = mensajesRecientesRaw || [];
+        const candidatosUsuario = mensajesRecientes.filter((m) => m.tipo === 'usuario');
+        ultimasInteracciones = candidatosUsuario.slice(0, 6).map((u) => {
+          const tsUsuario = new Date(u.timestamp).getTime();
+          const botRelacion = mensajesRecientes.find(
+            (m) =>
+              m.tipo === 'bot' &&
+              m.sesionId === u.sesionId &&
+              Math.abs(new Date(m.timestamp).getTime() - tsUsuario) <= 2 * 60 * 1000
+          );
+          const estado = !botRelacion
+            ? '—'
+            : esFallbackRespuesta(botRelacion.mensaje)
+              ? 'fallback'
+              : 'éxito';
+          return {
+            fecha: u.timestamp,
+            matricula: u.matricula || '—',
+            pregunta: u.mensaje || '—',
+            estado
+          };
+        });
+      }
+
+      const matriculasInteracciones = [
+        ...new Set(
+          ultimasInteracciones
+            .map((item) => String(item.matricula || '').trim())
+            .filter((m) => m && m !== '—')
+        )
+      ];
+      let mapaNombresPorMatricula = {};
+      if (matriculasInteracciones.length > 0) {
+        const { data: usuariosPorMatricula, error: errUsuariosPorMatricula } = await supabase
+          .from('usuarios')
+          .select('matricula,nombre,apellidos')
+          .in('matricula', matriculasInteracciones);
+        if (!errUsuariosPorMatricula) {
+          mapaNombresPorMatricula = (usuariosPorMatricula || []).reduce((acc, row) => {
+            const mat = String(row.matricula || '').trim();
+            if (!mat) return acc;
+            const nombreCompleto = `${String(row.nombre || '').trim()} ${String(
+              row.apellidos || ''
+            ).trim()}`.trim();
+            acc[mat] = nombreCompleto || `@${mat}`;
+            return acc;
+          }, {});
+        }
+      }
+      ultimasInteracciones = ultimasInteracciones.map((item) => {
+        const mat = String(item.matricula || '').trim();
+        const alumno =
+          (mat && mapaNombresPorMatricula[mat]) || (mat && mat !== '—' ? `@${mat}` : '—');
+        return { ...item, alumno };
+      });
+
+      setDashboardStats({
+        consultasTotalesHoy:
+          (consultasHoy && consultasHoy > 0 ? consultasHoy : consultasHoyMensajes) || 0,
+        usuariosActivos7d: usuariosActivosFinal,
+        tasaExito,
+        tasaFallback,
+        totalAnalizado,
+        ultimasInteracciones,
+        topPreguntas,
+        totalConsultasDesdeOctubre,
+        periodoInicioLabel: inicioOctubre.toLocaleDateString(),
+        periodoFinLabel: new Date().toLocaleDateString()
+      });
+    } catch (error) {
+      setDashboardError(
+        resumirMensajeErrorAdmin(
+          error?.message || 'No se pudieron cargar las métricas del panel principal.'
+        )
+      );
+      setDashboardStats({
+        consultasTotalesHoy: 0,
+        usuariosActivos7d: 0,
+        tasaExito: 0,
+        tasaFallback: 0,
+        totalAnalizado: 0,
+        ultimasInteracciones: [],
+        topPreguntas: [],
+        totalConsultasDesdeOctubre: 0,
+        periodoInicioLabel: '',
+        periodoFinLabel: ''
+      });
+    } finally {
+      setDashboardCargando(false);
+    }
+  }, [esFallbackRespuesta]);
+
   useEffect(() => {
-    cargarUsuarios(); //carga usuarios al montar o cambiar filtro.
+    cargarUsuarios();
   }, [cargarUsuarios]);
 
   useEffect(() => {
@@ -88,9 +416,9 @@ const Admin = () => {
   }, [menuAdminAbierto]);
 
   const cerrarPanelFaq = useCallback(() => {
-    setPanelFaqAbierto(false); //cierra panel.
-    setNluMenuAbiertoIntent(null); //cierra menu contextual.
-    setFaqError(''); //limpia error visible.
+    setPanelFaqAbierto(false);
+    setNluMenuAbiertoIntent(null);
+    setFaqError('');
   }, []);
 
   useEffect(() => {
@@ -103,12 +431,12 @@ const Admin = () => {
   }, [panelFaqAbierto, cerrarPanelFaq]);
 
   const cargarCatalogoRemoto = useCallback(async () => {
-    setCatalogoCargando(true); //activa loading del catalogo.
-    setCatalogoError(''); //limpia error previo.
+    setCatalogoCargando(true);
+    setCatalogoError('');
     try {
-      const cat = await fetchCatalogoRasa(); //trae catalogo remoto.
-      setCatalogoRasa(cat); //actualiza catalogo en estado.
-      setCatalogoRemoto(true); //marca fuente remota.
+      const cat = await fetchCatalogoRasa();
+      setCatalogoRasa(cat);
+      setCatalogoRemoto(true);
     } catch (e) {
       const detalle = resumirMensajeErrorAdmin(
         e?.message ? String(e.message) : 'Error desconocido'
@@ -116,10 +444,10 @@ const Admin = () => {
       setCatalogoError(
         `No se pudo cargar el catálogo desde el servidor Rasa (se muestran datos locales). Motivo: ${detalle}`
       );
-      setCatalogoRasa(catalogoRasaEstatico); //fallback local.
-      setCatalogoRemoto(false); //marca fuente local.
+      setCatalogoRasa(catalogoRasaEstatico);
+      setCatalogoRemoto(false);
     } finally {
-      setCatalogoCargando(false); //desactiva loading.
+      setCatalogoCargando(false);
     }
   }, []);
 
@@ -127,6 +455,12 @@ const Admin = () => {
     if (seccionAdmin !== 'faq') return undefined;
     cargarCatalogoRemoto();
   }, [seccionAdmin, cargarCatalogoRemoto]);
+
+  useEffect(() => {
+    if (seccionAdmin !== 'principal') return undefined;
+    cargarDashboard();
+    return undefined;
+  }, [seccionAdmin, cargarDashboard]);
 
   useEffect(() => {
     if (nluMenuAbiertoIntent === null) return undefined;
@@ -137,6 +471,51 @@ const Admin = () => {
     document.addEventListener('mousedown', cerrar);
     return () => document.removeEventListener('mousedown', cerrar);
   }, [nluMenuAbiertoIntent]);
+
+  const entrenarModeloRasa = async () => {
+    setFaqError('');
+    setCatalogoError('');
+    setCatalogoAviso('');
+    try {
+      setEntrenandoRasa(true);
+      const data = await entrenarRasaAhora();
+      if (data.status === 'already_running') {
+        setCatalogoAviso('Ya hay un entrenamiento en curso en el servidor.');
+      } else {
+        setCatalogoAviso('Entrenamiento iniciado en segundo plano. Esperando resultado...');
+      }
+      for (let intento = 0; intento < 120; intento += 1) {
+        const estado = await fetchEstadoEntrenamientoRasa();
+        if (estado.running) {
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          continue;
+        }
+        if (estado.lastStatus !== 'ok') {
+          const detalle = resumirMensajeErrorAdmin(estado.lastError || 'Error desconocido');
+          setCatalogoError(`Entrenamiento finalizado con error: ${detalle}`);
+          return;
+        }
+        if (estado.lastApplyStatus === 'ok') {
+          setCatalogoAviso(
+            `Entrenamiento completado y modelo aplicado: ${estado.lastApplyDetail || 'ok'}.`
+          );
+        } else {
+          const detalle = resumirMensajeErrorAdmin(
+            estado.lastApplyDetail || 'No se pudo aplicar el nuevo modelo automáticamente.'
+          );
+          setCatalogoError(`Entrenamiento completado, pero no se aplicó el modelo: ${detalle}`);
+        }
+        return;
+      }
+      setCatalogoError('El entrenamiento sigue en curso. Revisa de nuevo en unos minutos.');
+    } catch (error) {
+      setCatalogoError(
+        resumirMensajeErrorAdmin(error.message || 'No se pudo iniciar el entrenamiento de Rasa.')
+      );
+    } finally {
+      setEntrenandoRasa(false);
+    }
+  };
 
   const filtrarUsuarios = () => {
     let usuariosFiltrados = usuarios;
@@ -239,6 +618,22 @@ const Admin = () => {
 
   const estadisticas = obtenerEstadisticas();
   const usuariosFiltrados = filtrarUsuarios();
+  const preguntasPie = dashboardStats.topPreguntas || [];
+  const coloresPreguntasPie = ['#0b63ce', '#1fb66f', '#f2ad00', '#a148f0', '#ef4f5f', '#22a6b3'];
+  const gradientePreguntasPie =
+    preguntasPie.length === 0
+      ? '#e5e7eb'
+      : (() => {
+          let inicio = 0;
+          const segmentos = preguntasPie.map((item, idx) => {
+            const fin = inicio + item.porcentaje;
+            const color = coloresPreguntasPie[idx % coloresPreguntasPie.length];
+            const tramo = `${color} ${inicio.toFixed(2)}% ${fin.toFixed(2)}%`;
+            inicio = fin;
+            return tramo;
+          });
+          return `conic-gradient(${segmentos.join(', ')})`;
+        })();
 
   const filtroRasaCoincide = (s) => {
     const q = filtroCatalogoRasa.trim().toLowerCase();
@@ -282,15 +677,8 @@ const Admin = () => {
     setFaqError('');
     setIntentPanelModo('crear');
     setPanelFaqAbierto(true);
-    setIntentForm({
-      intent: '',
-      ejemplos: '',
-      respuesta: '',
-      reglaTitulo: '',
-      historiaTitulo: '',
-      accionCustom: '',
-      previousIntent: ''
-    });
+    setIntentForms([crearIntentVacio()]);
+    setIntentFormIndex(0);
   };
 
   const abrirModificarIntent = async (row) => {
@@ -301,7 +689,7 @@ const Admin = () => {
     try {
       const det = await fetchIntentDetalle(row.intent);
       if (!det) {
-        setIntentForm({
+        setIntentForms([{
           intent: row.intent,
           ejemplos: (row.samples || []).join('\n'),
           respuesta: '',
@@ -309,12 +697,12 @@ const Admin = () => {
           historiaTitulo: '',
           accionCustom: '',
           previousIntent: row.intent
-        });
+        }]);
         setFaqError(
           'No se obtuvo detalle del servidor; revisa la API o los datos mostrados pueden estar incompletos.'
         );
       } else {
-        setIntentForm({
+        setIntentForms([{
           intent: det.intent,
           ejemplos: (det.ejemplos || []).join('\n'),
           respuesta: det.respuesta || '',
@@ -322,8 +710,9 @@ const Admin = () => {
           historiaTitulo: det.historiaTitulo || '',
           accionCustom: det.accionCustom || '',
           previousIntent: det.intent
-        });
+        }]);
       }
+      setIntentFormIndex(0);
       setPanelFaqAbierto(true);
     } catch (error) {
       setFaqError(
@@ -365,53 +754,123 @@ const Admin = () => {
     }
   };
 
+  const actualizarIntentFormActual = (field, value) => {
+    setIntentForms((prev) => {
+      const next = [...prev];
+      if (!next[intentFormIndex]) next[intentFormIndex] = crearIntentVacio();
+      next[intentFormIndex] = { ...next[intentFormIndex], [field]: value };
+      return next;
+    });
+  };
+
+  const irIntentAnterior = () => {
+    setFaqError('');
+    setIntentFormIndex((prev) => Math.max(prev - 1, 0));
+  };
+
+  const irIntentSiguiente = () => {
+    setFaqError('');
+    setIntentForms((prev) => {
+      if (intentFormIndex < prev.length - 1) return prev;
+      return [...prev, crearIntentVacio()];
+    });
+    setIntentFormIndex((prev) => prev + 1);
+  };
+
   const guardarIntentRasaHandler = async (event) => {
     event.preventDefault();
-    const intent = intentForm.intent.trim();
-    const ejemplos = intentForm.ejemplos
-      .split('\n')
-      .map((x) => x.trim())
-      .filter(Boolean);
-    const respuesta = intentForm.respuesta.trim();
-
-    if (!intent) {
-      setFaqError('El nombre de intent es obligatorio.');
-      return;
-    }
-    if (ejemplos.length === 0) {
-      setFaqError('Añade al menos un ejemplo NLU.');
-      return;
-    }
-    if (!respuesta && intentPanelModo === 'crear') {
-      setFaqError('La respuesta (domain) es obligatoria al crear una intención.');
-      return;
-    }
-
-    const payload = {
-      intent,
-      ejemplos,
-      respuesta,
-      reglaTitulo: intentForm.reglaTitulo.trim(),
-      historiaTitulo: intentForm.historiaTitulo.trim(),
-      accionCustom: intentForm.accionCustom.trim()
+    const normalizarFormulario = (form) => {
+      const intent = (form.intent || '').trim();
+      const ejemplos = (form.ejemplos || '')
+        .split('\n')
+        .map((x) => x.trim())
+        .filter(Boolean);
+      const respuesta = (form.respuesta || '').trim();
+      const reglaTitulo = (form.reglaTitulo || '').trim();
+      const historiaTitulo = (form.historiaTitulo || '').trim();
+      const accionCustom = (form.accionCustom || '').trim();
+      const previousIntent = (form.previousIntent || '').trim();
+      const tieneContenido = Boolean(
+        intent || ejemplos.length || respuesta || reglaTitulo || historiaTitulo || accionCustom
+      );
+      return {
+        intent,
+        ejemplos,
+        respuesta,
+        reglaTitulo,
+        historiaTitulo,
+        accionCustom,
+        previousIntent,
+        tieneContenido
+      };
     };
+
+    let lotes = [];
     if (intentPanelModo === 'editar') {
-      payload.previousIntent = intentForm.previousIntent.trim() || intent;
+      lotes = [normalizarFormulario(intentForm)];
+    } else {
+      lotes = intentForms
+        .map((form) => normalizarFormulario(form))
+        .filter((form) => form.tieneContenido);
+    }
+
+    if (lotes.length === 0) {
+      setFaqError('Añade al menos una intención para guardar.');
+      return;
+    }
+
+    const vistos = new Set();
+    for (let idx = 0; idx < lotes.length; idx += 1) {
+      const form = lotes[idx];
+      const numero = idx + 1;
+      if (!form.intent) {
+        setFaqError(`Bloque ${numero}: el nombre de intent es obligatorio.`);
+        return;
+      }
+      if (vistos.has(form.intent)) {
+        setFaqError(`Bloque ${numero}: el intent "${form.intent}" está repetido en esta carga.`);
+        return;
+      }
+      vistos.add(form.intent);
+      if (form.ejemplos.length === 0) {
+        setFaqError(`Bloque ${numero}: añade al menos un ejemplo NLU.`);
+        return;
+      }
+      if (!form.respuesta && intentPanelModo === 'crear') {
+        setFaqError(`Bloque ${numero}: la respuesta (domain) es obligatoria.`);
+        return;
+      }
     }
 
     setFaqError('');
     try {
       setGuardandoIntent(true);
-      const data = await guardarIntentRasa(payload);
-      if (data.catalog) {
-        setCatalogoRasa(data.catalog);
+      let catalogFinal = null;
+      for (let idx = 0; idx < lotes.length; idx += 1) {
+        const form = lotes[idx];
+        const payload = {
+          intent: form.intent,
+          ejemplos: form.ejemplos,
+          respuesta: form.respuesta,
+          reglaTitulo: form.reglaTitulo,
+          historiaTitulo: form.historiaTitulo,
+          accionCustom: form.accionCustom
+        };
+        if (intentPanelModo === 'editar') {
+          payload.previousIntent = form.previousIntent || form.intent;
+        }
+        const data = await guardarIntentRasa(payload);
+        if (data.catalog) catalogFinal = data.catalog;
+      }
+      if (catalogFinal) {
+        setCatalogoRasa(catalogFinal);
         setCatalogoRemoto(true);
       } else {
         const cat = await fetchCatalogoRasa();
         setCatalogoRasa(cat);
         setCatalogoRemoto(true);
       }
-      setNluExpandidoIntent(intent);
+      setNluExpandidoIntent(lotes[lotes.length - 1].intent);
       setPanelFaqAbierto(false);
     } catch (error) {
       setFaqError(resumirMensajeErrorAdmin(error.message || 'No se pudo guardar.'));
@@ -498,10 +957,150 @@ const Admin = () => {
 
       {seccionAdmin === 'principal' && (
         <div className="admin-seccion-principal">
-          <p className="admin-bienvenida">
-            Resumen rápido del sistema. Usa el menú (⋮) para ir a <strong>Usuarios</strong>,{' '}
-            <strong>Preguntas</strong> o probar el <strong>Chatbot</strong> igual que un alumno.
-          </p>
+          {dashboardError && <p className="admin-dashboard-error">{dashboardError}</p>}
+          {dashboardCargando ? (
+            <div className="admin-inline-loading" role="status">
+              <div className="spinner" />
+              <span>Cargando métricas del panel…</span>
+            </div>
+          ) : (
+            <>
+              <div className="admin-kpi-grid">
+                <article className="admin-kpi-card">
+                  <span className="admin-kpi-icon admin-kpi-icon--consultas" aria-hidden>
+                    <img
+                      src={process.env.PUBLIC_URL + '/icons/icon-consultas.png'}
+                      alt=""
+                      className="admin-kpi-icon-img"
+                    />
+                  </span>
+                  <div className="admin-kpi-body">
+                    <p className="admin-kpi-title">Consultas totales (hoy)</p>
+                    <p className="admin-kpi-value">{dashboardStats.consultasTotalesHoy}</p>
+                  </div>
+                </article>
+                <article className="admin-kpi-card">
+                  <span className="admin-kpi-icon admin-kpi-icon--usuarios" aria-hidden>
+                    <img
+                      src={process.env.PUBLIC_URL + '/icons/icon-usuarios.png'}
+                      alt=""
+                      className="admin-kpi-icon-img"
+                    />
+                  </span>
+                  <div className="admin-kpi-body">
+                    <p className="admin-kpi-title">Usuarios activos (últimos 7 días)</p>
+                    <p className="admin-kpi-value">{dashboardStats.usuariosActivos7d}</p>
+                  </div>
+                </article>
+                <article className="admin-kpi-card">
+                  <span className="admin-kpi-icon admin-kpi-icon--exito" aria-hidden>
+                    <img
+                      src={process.env.PUBLIC_URL + '/icons/icon-exito.png'}
+                      alt=""
+                      className="admin-kpi-icon-img"
+                    />
+                  </span>
+                  <div className="admin-kpi-body">
+                    <p className="admin-kpi-title">Tasa de éxito de respuestas</p>
+                    <p className="admin-kpi-value">{dashboardStats.tasaExito.toFixed(1)}%</p>
+                  </div>
+                </article>
+                <article className="admin-kpi-card">
+                  <span className="admin-kpi-icon admin-kpi-icon--fallback" aria-hidden>
+                    <img
+                      src={process.env.PUBLIC_URL + '/icons/icon-fallback.png'}
+                      alt=""
+                      className="admin-kpi-icon-img"
+                    />
+                  </span>
+                  <div className="admin-kpi-body">
+                    <p className="admin-kpi-title">Tasa de Fallbacks</p>
+                    <p className="admin-kpi-value">{dashboardStats.tasaFallback.toFixed(1)}%</p>
+                  </div>
+                </article>
+              </div>
+
+              <div className="admin-dashboard-grid">
+                <section className="admin-dashboard-card admin-dashboard-card--temas">
+                  <h3>Distribución de consultas por pregunta</h3>
+                  {preguntasPie.length === 0 ? (
+                    <p className="admin-dashboard-vacio">Aún no hay consultas para mostrar.</p>
+                  ) : (
+                    <div className="admin-pastel-contenedor">
+                      <div
+                        className="admin-pastel-grafica"
+                        style={{ background: gradientePreguntasPie }}
+                        aria-label="Gráfica de pastel top 6 preguntas"
+                      >
+                        <div className="admin-pastel-centro">
+                          <strong>{dashboardStats.totalConsultasDesdeOctubre}</strong>
+                          <span>consultas</span>
+                        </div>
+                      </div>
+                      <ul className="admin-pastel-leyenda">
+                        {preguntasPie.map((item, idx) => (
+                          <li key={`${item.pregunta}-${idx}`}>
+                            <span
+                              className="admin-pastel-dot"
+                              style={{ backgroundColor: coloresPreguntasPie[idx % coloresPreguntasPie.length] }}
+                            />
+                            <span className="admin-pastel-pregunta" title={item.pregunta}>
+                              {item.pregunta}
+                            </span>
+                            <span className="admin-pastel-valor">
+                              {item.total} ({item.porcentaje.toFixed(1)}%)
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </section>
+
+                <section className="admin-dashboard-card admin-dashboard-card--preguntas">
+                  <h3>Registro de últimas Interacciones del chatbot</h3>
+                  {dashboardStats.ultimasInteracciones.length === 0 ? (
+                    <p className="admin-dashboard-vacio">Aún no hay interacciones para mostrar.</p>
+                  ) : (
+                    <div className="admin-dashboard-tabla-wrap">
+                      <table className="admin-dashboard-tabla">
+                        <thead>
+                          <tr>
+                            <th>Fecha/Hora</th>
+                            <th>Alumno</th>
+                            <th>Pregunta</th>
+                            <th>Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {dashboardStats.ultimasInteracciones.map((item, idx) => (
+                            <tr key={`${item.fecha}-${idx}`}>
+                              <td>{item.fecha ? new Date(item.fecha).toLocaleString() : '—'}</td>
+                              <td>{item.alumno || `@${item.matricula}`}</td>
+                              <td>{item.pregunta}</td>
+                              <td>
+                                <span
+                                  className={
+                                    item.estado === 'éxito'
+                                      ? 'admin-estado admin-estado-exito'
+                                      : item.estado === 'fallback'
+                                        ? 'admin-estado admin-estado-fallback'
+                                        : 'admin-estado'
+                                  }
+                                >
+                                  {item.estado}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </section>
+              </div>
+            </>
+          )}
         </div>
       )}
 
@@ -668,7 +1267,7 @@ const Admin = () => {
           <div className="faq-toolbar-texto">
             <h2>Conocimiento del chatbot (Rasa)</h2>
             <p className="faq-toolbar-subtitulo">
-              Diccionario de intenciones (nlu.yml): elige una intención para ver ejemplos de lo que dice el usuario y, al desplegar, cómo se conecta con domain, rules y stories.
+              Diccionario de intenciones (nlu.yml): elige una intención para ver ejemplos de lo que dice el usuario.
             </p>
             <p className="faq-toolbar-meta">
               {catalogoCargando && <span>Cargando catálogo desde Rasa… </span>}
@@ -679,6 +1278,7 @@ const Admin = () => {
               intenciones · {catalogoRasa.responses.length} respuestas en dominio · {catalogoRasa.rules.length}{' '}
               reglas · {catalogoRasa.stories.length} historias
             </p>
+            {catalogoAviso && <p className="faq-catalogo-ok">{catalogoAviso}</p>}
             {catalogoError && <p className="faq-catalogo-aviso">{catalogoError}</p>}
           </div>
           <div className="faq-toolbar-acciones">
@@ -699,6 +1299,16 @@ const Admin = () => {
               aria-label="Reintentar catálogo Rasa"
             >
               Reintentar
+            </button>
+            <button
+              type="button"
+              className="actualizar-boton"
+              onClick={entrenarModeloRasa}
+              disabled={entrenandoRasa || guardandoIntent}
+              title="Entrenar modelo de Rasa con los YAML actuales"
+              aria-label="Entrenar modelo Rasa"
+            >
+              {entrenandoRasa ? 'Entrenando…' : 'Entrenar'}
             </button>
             <button
               type="button"
@@ -734,26 +1344,24 @@ const Admin = () => {
           <div className="faq-rasa-panel" role="tabpanel">
             <details className="faq-rasa-ayuda">
               <summary>
-                Cómo encajan NLU, domain.yml, rules.yml y stories.yml (para una misma intención)
+                Como funcionan NLU, domain.yml, rules.yml y stories.yml en una misma intención
               </summary>
               <div className="faq-rasa-ayuda-body">
                 <p>
-                  <strong>nlu.yml</strong> — Diccionario de intenciones: ejemplos de cómo habla el usuario.
-                  Sirve para que el modelo mapee el texto a un <em>Intent</em>. Aquí también se entrena el
-                  reconocimiento de entidades (fechas, nombres, etc.).
+                  <strong>nlu.yml</strong> — Aquí va como escribe el usuario.
                 </p>
                 <p>
-                  <strong>domain.yml</strong> — Cerebro del bot: declara intenciones, entidades, slots,
-                  respuestas <code>utter_*</code> y acciones personalizadas. Si algo no está aquí, el bot no
-                  puede usarlo.
+                  <strong>domain.yml</strong> — Aquí es obligatorio declarar todos los elementos que
+                  interactúan en la plataforma: las intenciones, las entidades, los slots, los textos de
+                  respuesta (<code>utter_*</code>) y las acciones personalizadas.
                 </p>
                 <p>
-                  <strong>stories.yml</strong> — Guiones de diálogo: ejemplo de secuencias intención →
-                  acción para que el modelo generalice conversaciones abiertas.
+                  <strong>stories.yml</strong> — Se utiliza para entrenar el manejo de conversaciones más
+                  largas y variables.
                 </p>
                 <p>
-                  <strong>rules.yml</strong> — Leyes fijas: si el intent coincide, la acción es siempre la
-                  misma (sin depender del historial). Útil para saludos, despedidas, etc.
+                  <strong>rules.yml</strong> — Sirve para configurar condiciones donde un intent dispara
+                  siempre la misma acción, sin importar lo que haya pasado antes en el historial del chat.
                 </p>
               </div>
             </details>
@@ -840,8 +1448,7 @@ const Admin = () => {
                         <section className="faq-nlu-seccion-ejemplos">
                           <h4 className="faq-nlu-titulo-seccion">nlu.yml — ejemplos</h4>
                           <p className="faq-nlu-hint">
-                            Frases que enseñan al bot a reconocer esta intención (muestra parcial; el archivo
-                            tiene más).
+                            Frases que enseñan al bot a reconocer esta intención.
                           </p>
                           <ul className="faq-nlu-ejemplos">
                             {row.samples.map((ej, i) => (
@@ -945,11 +1552,40 @@ const Admin = () => {
               aria-labelledby="faq-panel-titulo"
             >
               <div className="faq-panel-cabecera">
-                <h2 id="faq-panel-titulo">
-                  {intentPanelModo === 'editar'
-                    ? 'Modificar intención'
-                    : 'Nueva intención completa'}
-                </h2>
+                <div className="faq-panel-cabecera-izquierda">
+                  <h2 id="faq-panel-titulo">
+                    {intentPanelModo === 'editar'
+                      ? 'Modificar intención'
+                      : 'Nueva intención completa'}
+                  </h2>
+                  {intentPanelModo === 'crear' && (
+                    <div className="faq-intent-navegacion" aria-label="Navegación de bloques">
+                      <button
+                        type="button"
+                        className="faq-intent-nav-boton"
+                        onClick={irIntentAnterior}
+                        disabled={intentFormIndex === 0 || guardandoIntent}
+                        title="Bloque anterior"
+                        aria-label="Bloque anterior"
+                      >
+                        ←
+                      </button>
+                      <span className="faq-intent-nav-indice">
+                        {intentFormIndex + 1} / {intentForms.length}
+                      </span>
+                      <button
+                        type="button"
+                        className="faq-intent-nav-boton"
+                        onClick={irIntentSiguiente}
+                        disabled={guardandoIntent}
+                        title="Siguiente bloque (crea uno nuevo si estás en el último)"
+                        aria-label="Siguiente bloque"
+                      >
+                        →
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <button
                   type="button"
                   className="faq-panel-cerrar"
@@ -966,9 +1602,7 @@ const Admin = () => {
                     type="text"
                     placeholder="ask_for_ejemplo"
                     value={intentForm.intent}
-                    onChange={(event) =>
-                      setIntentForm((prev) => ({ ...prev, intent: event.target.value.trim() }))
-                    }
+                    onChange={(event) => actualizarIntentFormActual('intent', event.target.value.trim())}
                   />
                 </label>
                 <label>
@@ -977,9 +1611,7 @@ const Admin = () => {
                     rows="6"
                     placeholder={"hola\nbuenas tardes\nquiero saber sobre ..."}
                     value={intentForm.ejemplos}
-                    onChange={(event) =>
-                      setIntentForm((prev) => ({ ...prev, ejemplos: event.target.value }))
-                    }
+                    onChange={(event) => actualizarIntentFormActual('ejemplos', event.target.value)}
                   />
                 </label>
                 <label>
@@ -988,9 +1620,7 @@ const Admin = () => {
                     rows="5"
                     placeholder="Texto que dirá el bot."
                     value={intentForm.respuesta}
-                    onChange={(event) =>
-                      setIntentForm((prev) => ({ ...prev, respuesta: event.target.value }))
-                    }
+                    onChange={(event) => actualizarIntentFormActual('respuesta', event.target.value)}
                   />
                 </label>
                 <label>
@@ -999,9 +1629,7 @@ const Admin = () => {
                     type="text"
                     placeholder="Regla ask_for_ejemplo"
                     value={intentForm.reglaTitulo}
-                    onChange={(event) =>
-                      setIntentForm((prev) => ({ ...prev, reglaTitulo: event.target.value }))
-                    }
+                    onChange={(event) => actualizarIntentFormActual('reglaTitulo', event.target.value)}
                   />
                 </label>
                 <label>
@@ -1010,9 +1638,7 @@ const Admin = () => {
                     type="text"
                     placeholder="Historia ask_for_ejemplo"
                     value={intentForm.historiaTitulo}
-                    onChange={(event) =>
-                      setIntentForm((prev) => ({ ...prev, historiaTitulo: event.target.value }))
-                    }
+                    onChange={(event) => actualizarIntentFormActual('historiaTitulo', event.target.value)}
                   />
                 </label>
                 <label>
@@ -1021,9 +1647,7 @@ const Admin = () => {
                     type="text"
                     placeholder="action_algo_especial"
                     value={intentForm.accionCustom}
-                    onChange={(event) =>
-                      setIntentForm((prev) => ({ ...prev, accionCustom: event.target.value }))
-                    }
+                    onChange={(event) => actualizarIntentFormActual('accionCustom', event.target.value)}
                   />
                 </label>
                 <div className="faq-form-actions">
@@ -1036,7 +1660,7 @@ const Admin = () => {
                       ? 'Guardando…'
                       : intentPanelModo === 'editar'
                         ? 'Guardar cambios en Rasa'
-                        : 'Agregar intención en Rasa'}
+                        : `Guardar ${intentForms.filter((f) => (f.intent || '').trim() || (f.ejemplos || '').trim() || (f.respuesta || '').trim()).length || 1} intención(es)`}
                   </button>
                   <button
                     className="cancelar-faq-boton"

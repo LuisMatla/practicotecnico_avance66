@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generado": "2026-04-09T03:46:53.382Z",
+    "generado": "2026-04-26T05:55:09.903Z",
     "fuentes": [
       "RASA/domain.yml",
       "RASA/data/nlu.yml",
@@ -64,9 +64,7 @@
     "ask_for_objetos_perdidos",
     "ask_for_secretario"
   ],
-  "customActions": [
-    "action_buscar_faq"
-  ],
+  "customActions": [],
   "responses": [
     {
       "utter": "utter_saludo",
@@ -1442,7 +1440,7 @@
     {
       "title": "Buscar FAQ cuando no hay intent claro",
       "intent": "nlu_fallback",
-      "action": "action_buscar_faq"
+      "action": "utter_fallback"
     }
   ],
   "stories": [
